@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="18px" viewBox="0 0 24 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>checked</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Betting-help" transform="translate(-271.000000, -195.000000)" fill="#4A4A4A" fill-rule="nonzero">
+            <g id="row" transform="translate(52.000000, 180.000000)">
+                <g id="checked" transform="translate(219.000000, 15.000000)">
+                    <path d="M8.63452465,17.2691056 C8.14757107,17.2691056 7.66011123,17.0833691 7.28863827,16.7116149 L0.557631325,9.98060792 C-0.185877108,9.23709949 -0.185877108,8.03183733 0.557631325,7.2883289 C1.30113976,6.54482046 2.50640192,6.54482046 3.24991035,7.2883289 L8.63452465,12.6729432 L20.7501459,0.557546954 C21.4936543,-0.185736481 22.6991977,-0.18596148 23.4421999,0.557546954 C24.1859334,1.30105539 24.1859334,2.5065988 23.4421999,3.24982598 L9.98069229,16.7116149 C9.60893808,17.0831441 9.12170324,17.2691056 8.63452465,17.2691056 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

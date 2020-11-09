@@ -1,0 +1,48 @@
+import 'dart:ui';
+
+import 'package:boilerplate_flutter/blocs/blocs.dart';
+import 'package:boilerplate_flutter/services/setting_service.dart';
+import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_test/flutter_test.dart' as test;
+import 'package:mockito/mockito.dart';
+import 'package:test/test.dart';
+
+class MockSettingService extends Mock implements SettingService {}
+
+void main() {
+  LanguageBloc languageBloc;
+  SettingService settingService = MockSettingService();
+
+  final currentLocale = Locale('vi');
+  final supportedLocales = [Locale('vi'), Locale('en')];
+
+  setUp(() {
+    when(settingService.getCurrentLocale()).thenReturn(currentLocale);
+    when(settingService.getSupportedLocales()).thenReturn(supportedLocales);
+
+    languageBloc =
+        LanguageBloc(Key('language_bloc'), settingService: settingService);
+  });
+
+  test.tearDownAll(() {
+    languageBloc.close();
+  });
+
+  group('LanguageInitial', () {
+    test.test('LanguageInitial is set current locale & supported locales', () {
+      final state = LanguageInitial(Locale('vi'), [Locale('vi'), Locale('en')]);
+
+      expect(languageBloc.initialState, state);
+    });
+  });
+
+  group('LanguageLoaded', () {
+    blocTest(
+      'emits [LanguageInitial, LanguageUpdateSuccess] when LanguageUpdated(en) is added',
+      build: () => languageBloc,
+      act: (bloc) => bloc.add(LanguageUpdated(Locale('en'))),
+      expect: [isA<LanguageInitial>(), isA<LanguageUpdateSuccess>()],
+    );
+  });
+}

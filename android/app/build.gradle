@@ -1,0 +1,127 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion 29
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.example.boilerplate"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        // Certificate fingerprints:
+        // Default : 64:32:A2:D6:7B:F4:25:6D:32:DA:CB:71:86:57:5E:E7:90:09:1B:36
+
+        // Debug
+        // SHA1: DF:82:A3:63:BE:31:7B:EE:24:71:4E:94:41:DD:08:99:79:9C:F0:18
+        // SHA256: BD:53:98:85:0E:27:2F:20:FB:E2:4A:78:F2:A1:B3:0A:8B:37:98:F3:24:35:AC:7D:96:54:BE:90:38:98:A8:56
+        debug {
+            storeFile file('debug-keystore.jks')
+            storePassword "1qw23er4%T"
+            keyAlias "debug"
+            keyPassword '0po98iu7^Y'
+        }
+
+        // Release
+        // SHA1: 32:49:48:EE:69:EA:0C:E8:0D:7D:BD:09:0A:5A:8A:3C:A5:62:57:44
+        // SHA256: 8C:3E:B6:12:74:21:32:EE:32:2F:AF:08:3D:83:C8:03:55:81:AB:85:22:A4:8F:62:4A:73:F2:12:2A:35:AD:EF
+        release {
+            storeFile file('release-keystore.jks')
+            storePassword "1qw23er4%T"
+            keyAlias "release"
+            keyPassword '0po98iu7^Y'
+        }
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+        }
+    }
+
+    productFlavors {
+
+        //This buildType will use the "dev" environments
+        dev {
+            flavorDimensions "default"
+            resValue "string", "app_name", "Dev Example"
+            applicationIdSuffix ".dev"
+        }
+
+        qc {
+            flavorDimensions "default"
+            resValue "string", "app_name", "QC Example"
+            applicationIdSuffix ".dev"
+        }
+
+        //This buildType will use the "prod" environments and be signed in release
+        production {
+            flavorDimensions "default"
+            resValue "string", "app_name", "Example"   
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}
