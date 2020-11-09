@@ -10,11 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  common:
-    path: ../common
+  # common:
+  #   path: ../common
   meta: ^1.2.3
-  boilerplate_flutter:
-    path: ../
+  # boilerplate_flutter:
+  #   path: ../
 
 dev_dependencies:
   flutter_test:

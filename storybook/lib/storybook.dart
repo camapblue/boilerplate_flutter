@@ -1,7 +1,7 @@
 library storybook;
 
 import 'package:flutter/material.dart';
-import 'package:boilerplate_flutter/models/models.dart';
+// import 'package:boilerplate_flutter/models/models.dart';
 export 'stateful_story.dart';
 
 /// A Storybook is a widget displaying a collection of [Story] widgets.
@@ -55,9 +55,9 @@ class Storybook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final size = MediaQuery.of(context).size;
-      BuildContextExtension.screenSize =
-          screenSizeFromDevice(screenWidth: size.width);
+      // final size = MediaQuery.of(context).size;
+      // BuildContextExtension.screenSize =
+      //     screenSizeFromDevice(screenWidth: size.width);
     });
 
     return Scaffold(

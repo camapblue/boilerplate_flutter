@@ -11,8 +11,8 @@ void main() {
           theme: ThemeData(),
           home: Storybook(
             [
-              BounceStory(),
-              BounceButtonStory(),
+              // BounceStory(),
+              // BounceButtonStory(),
             ],
           ),
         );

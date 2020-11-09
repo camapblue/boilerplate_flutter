@@ -1,16 +1,16 @@
 {
   "project_info": {
     "project_number": "291220224044",
-    "firebase_url": "https://bb-football-dev.firebaseio.com",
-    "project_id": "bb-football-dev",
-    "storage_bucket": "bb-football-dev.appspot.com"
+    "firebase_url": "https://example.firebaseio.com",
+    "project_id": "example",
+    "storage_bucket": "example.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:291220224044:android:6d0d019712a54a76",
         "android_client_info": {
-          "package_name": "com.studio85neighbors.bbfootball.dev"
+          "package_name": "com.example.boilerplate_flutter.dev"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "291220224044-3pq66dk0oomimn21p4hieh24d6ci7vaq.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.85neighbors.bbfootball.dev"
+                "bundle_id": "com.example.boilerplate_flutter.dev"
               }
             }
           ]
