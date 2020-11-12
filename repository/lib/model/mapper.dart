@@ -1,4 +1,4 @@
-typedef T FromJson<T>(Map<String, dynamic> json);
+typedef FromJson<T> = T Function(Map<String, dynamic> json);
 
 class Mapper<T> {
   final FromJson<T> parse;

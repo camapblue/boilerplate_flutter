@@ -9,8 +9,7 @@ import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:repository/model/model.dart';
 import 'package:repository/repository.dart';
 
-class SessionBloc extends BaseBloc<SessionEvent, SessionState>
-    with AppLoader {
+class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
   final SessionService _sessionService;
   final UserService _userService;
 
@@ -54,7 +53,6 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState>
 
       yield SessionReadyToLogIn();
     } else if (event is SessionGuestModeStarted) {
-      
       await _sessionService.markBeInGuestMode();
 
       yield SessionRunGuestModeSuccess();
@@ -98,7 +96,8 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState>
                 >> TOKEN >> ${Repository().authorization.socialToken}
             ''');
 
-      final loggedInUser = await _sessionService.getLoggedInUser(forceToUpdate: true);
+      final loggedInUser =
+          await _sessionService.getLoggedInUser(forceToUpdate: true);
 
       yield SessionUserLogInSuccess(
         user: loggedInUser,

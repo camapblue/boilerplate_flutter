@@ -12,17 +12,17 @@ class MockSettingService extends Mock implements SettingService {}
 
 void main() {
   LanguageBloc languageBloc;
-  SettingService settingService = MockSettingService();
+  final SettingService settingService = MockSettingService();
 
-  final currentLocale = Locale('vi');
-  final supportedLocales = [Locale('vi'), Locale('en')];
+  const currentLocale = Locale('id');
+  const supportedLocales = [Locale('id'), Locale('en')];
 
   setUp(() {
     when(settingService.getCurrentLocale()).thenReturn(currentLocale);
     when(settingService.getSupportedLocales()).thenReturn(supportedLocales);
 
-    languageBloc =
-        LanguageBloc(Key('language_bloc'), settingService: settingService);
+    languageBloc = LanguageBloc(const Key('language_bloc'),
+        settingService: settingService);
   });
 
   test.tearDownAll(() {
@@ -31,7 +31,8 @@ void main() {
 
   group('LanguageInitial', () {
     test.test('LanguageInitial is set current locale & supported locales', () {
-      final state = LanguageInitial(Locale('vi'), [Locale('vi'), Locale('en')]);
+      final state = LanguageInitial(
+          const Locale('id'), const [Locale('id'), Locale('en')]);
 
       expect(languageBloc.initialState, state);
     });
@@ -39,9 +40,11 @@ void main() {
 
   group('LanguageLoaded', () {
     blocTest(
-      'emits [LanguageInitial, LanguageUpdateSuccess] when LanguageUpdated(en) is added',
+      '''
+        emits [LanguageInitial, LanguageUpdateSuccess] when LanguageUpdated(en) is added
+      ''',
       build: () => languageBloc,
-      act: (bloc) => bloc.add(LanguageUpdated(Locale('en'))),
+      act: (bloc) => bloc.add(const LanguageUpdated(Locale('en'))),
       expect: [isA<LanguageInitial>(), isA<LanguageUpdateSuccess>()],
     );
   });

@@ -27,7 +27,7 @@ class AppAnalytics {
     @required String deviceType,
   }) {
     _fbAnalytics
-      ..logEvent(
+      .logEvent(
         name: 'log_in',
         parameters: {
           'account_type': accountType,

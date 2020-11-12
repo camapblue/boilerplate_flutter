@@ -13,18 +13,17 @@ class MockConnectivity extends Mock implements Connectivity {}
 
 void main() {
   ConnectivityBloc connectivityBloc;
-  final CheckingInternet internetCheckingFunction = (String host,
+  final internetCheckingFunction = (String host,
           {InternetAddressType type}) async =>
       [InternetAddress('127.0.0.1')];
   final Connectivity connectivity = MockConnectivity();
-  final PublishSubject<ConnectivityResult> _connectionUpdated =
-      PublishSubject<ConnectivityResult>();
+  final _connectionUpdated = PublishSubject<ConnectivityResult>();
 
   setUp(() {
     when(connectivity.onConnectivityChanged)
         .thenAnswer((_) => _connectionUpdated.stream);
 
-    connectivityBloc = ConnectivityBloc(Key('connectivity_bloc'),
+    connectivityBloc = ConnectivityBloc(const Key('connectivity_bloc'),
         connectivity: connectivity,
         internetCheckingFunction: internetCheckingFunction);
   });
@@ -44,19 +43,23 @@ void main() {
 
   group('ConnectivityChecked', () {
     blocTest(
-      'emits [ConnectivityInitial, ConnectivityUpdateSuccess] when ConnectivityChecked is added',
+      '''
+        emits [ConnectivityInitial, ConnectivityUpdateSuccess] when ConnectivityChecked is added
+      ''',
       build: () => connectivityBloc,
       act: (bloc) async {
-        bloc.add(ConnectivityChanged(false));
+        bloc.add(const ConnectivityChanged(false));
       },
       expect: [isA<ConnectivityInitial>(), isA<ConnectivityUpdateSuccess>()],
     );
 
     blocTest(
-      'emits [ConnectivityInitial, ConnectivityUpdateSuccess, ConnectivityUpdateSuccess] when ConnectivityChecked is added',
+      '''
+        emits [ConnectivityInitial, ConnectivityUpdateSuccess, ConnectivityUpdateSuccess] when ConnectivityChecked is added
+      ''',
       build: () => connectivityBloc,
       act: (bloc) async {
-        bloc.add(ConnectivityChanged(false));
+        bloc.add(const ConnectivityChanged(false));
         bloc.add(ConnectivityChecked());
       },
       expect: [
@@ -67,10 +70,12 @@ void main() {
     );
 
     blocTest(
-      'emits [ConnectivityInitial, ConnectivityUpdateSuccess] when connection is changed',
+      '''
+        emits [ConnectivityInitial, ConnectivityUpdateSuccess] when connection is changed
+      ''',
       build: () => connectivityBloc,
       act: (bloc) async {
-        await bloc.add(ConnectivityChanged(false));
+        await bloc.add(const ConnectivityChanged(false));
         _connectionUpdated.add(ConnectivityResult.wifi);
       },
       wait: const Duration(milliseconds: 300),

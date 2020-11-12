@@ -4,7 +4,6 @@ import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/models/models.dart';
 import 'package:boilerplate_flutter/modules/app/loading/loading.dart';
 import 'package:boilerplate_flutter/modules/app/lost_connection/lost_connection.dart';
-import 'package:boilerplate_flutter/routes.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';

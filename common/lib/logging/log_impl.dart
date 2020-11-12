@@ -48,32 +48,32 @@ class LogImpl implements Log {
   );
 
   @override
-  void debug(message) {
+  void debug(dynamic message) {
     _logger.d(message);
   }
 
   @override
-  void error(message) {
+  void error(dynamic message) {
     _logger.e(message);
   }
 
   @override
-  void fatal(message) {
+  void fatal(dynamic message) {
     _logger.wtf(message);
   }
 
   @override
-  void info(message) {
+  void info(dynamic message) {
     _logger.i(message);
   }
 
   @override
-  void trace(message) {
+  void trace(dynamic message) {
     _logger.v(message);
   }
 
   @override
-  void warning(message) {
+  void warning(dynamic message) {
     _logger.w(message);
   }
 }

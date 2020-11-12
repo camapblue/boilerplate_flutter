@@ -8,7 +8,8 @@ class SettingRepositoryImpl implements SettingRepository {
   final SettingDao _settingDao;
   final String _supportedLanguages;
 
-  SettingRepositoryImpl({@required SettingDao settingDao, @required String supportedLanguges})
+  SettingRepositoryImpl(
+      {@required SettingDao settingDao, @required String supportedLanguges})
       : _settingDao = settingDao,
         _supportedLanguages = supportedLanguges;
 
@@ -16,7 +17,7 @@ class SettingRepositoryImpl implements SettingRepository {
   Locale getCurrentLocale() {
     final languageCode = _settingDao.getCurrentLocaleLanguageCode();
 
-    return languageCode != null ? Locale(languageCode) : Locale('en');
+    return languageCode != null ? Locale(languageCode) : const Locale('en');
   }
 
   @override

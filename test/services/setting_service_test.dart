@@ -13,12 +13,14 @@ void main() {
 
   setUp(() {
     settingRepository = MockSettingRepository();
-    settingService = SettingServiceImpl(settingRepository: settingRepository);
+    settingService = SettingServiceImpl(
+      settingRepository: settingRepository,
+    );
   });
 
   group('getCurrentLocale()', () {
     test('return instance of Locale in case get from theme repository', () {
-      final locale = Locale('vi');
+      const locale = Locale('id');
 
       when(settingRepository.getCurrentLocale()).thenReturn(locale);
 
@@ -27,7 +29,7 @@ void main() {
 
     test('return list of instance of Locale in case get from theme repository',
         () {
-      final supportedLocales = [const Locale('vi'), const Locale('fr')];
+      final supportedLocales = [const Locale('id'), const Locale('fr')];
 
       when(settingRepository.getSupportedLocales())
           .thenReturn(supportedLocales);

@@ -12,13 +12,15 @@ class MockUserClient extends Mock implements UserClient {}
 class MockUserDao extends Mock implements UserDao {}
 
 void main() {
-  UserClient userClient = MockUserClient();
-  UserDao userDao = MockUserDao();
+  final UserClient userClient = MockUserClient();
+  final UserDao userDao = MockUserDao();
   UserRepository userRepository;
 
   setUp(() {
-    userRepository =
-        UserRepositoryImpl(userClient: userClient, userDao: userDao);
+    userRepository = UserRepositoryImpl(
+        userClient: userClient, 
+        userDao: userDao,
+      );
   });
 
   group('saveUser()', () {
@@ -31,9 +33,9 @@ void main() {
   });
 
   group('logIn()', () {
-    test(
-        'return User instance in case socialId, socialToken & accountType are correct',
-        () async {
+    test('''
+          return User instance in case socialId, socialToken & accountType are correct
+        ''', () async {
       final user = User(userId: '1');
       when(userClient.logIn(
               socialId: anyNamed('socialId'),

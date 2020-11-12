@@ -1,7 +1,6 @@
 import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
-import 'package:boilerplate_flutter/utils/utils.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,39 +16,6 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   AccountType _accountType;
-
-  List<Widget> _buildAppleSignIn({bool loading, bool connetingSocial}) {
-    return <Widget>[
-      const SizedBox(
-        height: 32,
-      ),
-      Center(
-        child: LoginButton.apple(
-          width: 300,
-          context: context,
-          fontSize: 25,
-          isLoading: loading && _accountType == AccountType.apple,
-          loadingText: connetingSocial
-              ? S.of(context).translate(
-                    Strings.Common.connectingSocialAccount,
-                  )
-              : S.of(context).translate(
-                    Strings.Common.signingIn,
-                  ),
-          onPressed: () {
-            _accountType = AccountType.apple;
-
-            EventBus().event<AuthenticationBloc>(
-              Keys.Blocs.authenticationBloc,
-              AuthenticationLoggedIn(
-                type: _accountType,
-              ),
-            );
-          },
-        ),
-      ),
-    ];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +55,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       child: Center(
                         child: Text(
                           kAppSologan,
@@ -100,36 +66,6 @@ class _LogInScreenState extends State<LogInScreen> {
                     Expanded(
                       flex: 3,
                       child: Container(),
-                    ),
-                    Center(
-                      child: LoginButton.facebook(
-                        context: context,
-                        fontSize: 25,
-                        width: 300,
-                        isLoading:
-                            loading && _accountType == AccountType.facebook,
-                        loadingText:
-                            state is AuthenticationConnectSocialInProgress
-                                ? S.of(context).translate(
-                                      Strings.Common.connectingSocialAccount,
-                                    )
-                                : S.of(context).translate(
-                                      Strings.Common.loggingIn,
-                                    ),
-                        onPressed: () {
-                          _accountType = AccountType.facebook;
-
-                          EventBus().event<AuthenticationBloc>(
-                            Keys.Blocs.authenticationBloc,
-                            AuthenticationLoggedIn(
-                              type: _accountType,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 32,
                     ),
                     Center(
                       child: LoginButton.google(
@@ -158,12 +94,6 @@ class _LogInScreenState extends State<LogInScreen> {
                         },
                       ),
                     ),
-                    if (Device.isiOS())
-                      ..._buildAppleSignIn(
-                        loading: loading,
-                        connetingSocial:
-                            state is AuthenticationConnectSocialInProgress,
-                      ),
                     const Expanded(
                       flex: 1,
                       child: SizedBox(),

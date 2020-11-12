@@ -1,5 +1,5 @@
-import 'dart:ui';
 import 'dart:core';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -36,113 +36,87 @@ const Color blackColor = Color(0xff0a0a0a);
 /* ***************** */
 
 /* Fonts */
-const String _primaryFont = 'NeoSansIntel';
-const String _secondaryFont = 'Androgyne';
-const String _thinFont = 'FjallaOne';
-const String _numberFont = 'FjallaOneIcons';
-const String _numberFont2 = 'Avenir';
-const String _numberIconsFont1 = 'BangerIcons';
-const String _numberIconsFont2 = 'FjallaOneIcons';
-const String _numberIconsFont3 = 'BauhausIcons';
-const String _accentFont1 = 'Bauhaus';
-const String _accentFont2 = 'SoupofJustice';
-const String _adsFont = 'NeoSansIntel';
-
-const String defaultFont = 'Bauhaus';
-
-/* ********* */
+const String _primaryFont = 'Roboto';
 
 /* Text Theme */
-const TextTheme primaryTextTheme = TextTheme(
-    bodyText1: TextStyle(
-        fontFamily: _primaryFont,
-        color: whiteColor,
-        fontSize: 15,
-        fontWeight: FontWeight.w400),
-    bodyText2: TextStyle(
-        fontFamily: _primaryFont,
-        color: whiteColor,
-        fontSize: 15,
-        fontWeight: FontWeight.w400,
-        fontStyle: FontStyle.italic),
-    button: TextStyle(
-        fontFamily: _primaryFont,
-        color: whiteColor,
-        fontSize: 16,
-        fontWeight: FontWeight.w400),
-    headline1: TextStyle(
-        fontFamily: _primaryFont,
-        color: whiteColor,
-        fontSize: 16,
-        fontWeight: FontWeight.w700),
-    headline2: TextStyle(
-        fontFamily: _primaryFont,
-        color: whiteColor,
-        fontSize: 16,
-        fontWeight: FontWeight.w700,
-        fontStyle: FontStyle.italic),
-    subtitle1:
-        TextStyle(fontFamily: _secondaryFont, color: whiteColor, fontSize: 16),
-    subtitle2:
-        TextStyle(fontFamily: _secondaryFont, color: greenColor, fontSize: 16));
-
-const TextTheme secondaryTextTheme = TextTheme(
-    bodyText1:
-        TextStyle(fontFamily: _thinFont, color: whiteColor, fontSize: 15),
-    bodyText2:
-        TextStyle(fontFamily: _thinFont, color: greenColor, fontSize: 15));
-
-const TextTheme numberTextTheme = TextTheme(
-    bodyText1:
-        TextStyle(fontFamily: _numberFont, color: whiteColor, fontSize: 15),
-    bodyText2: TextStyle(
-        fontFamily: _numberFont2,
-        color: whiteColor,
-        fontSize: 15,
-        fontStyle: FontStyle.normal),
-    headline1: TextStyle(
-        fontFamily: _numberIconsFont1, color: whiteColor, fontSize: 15),
-    headline2: TextStyle(
-        fontFamily: _numberIconsFont2, color: whiteColor, fontSize: 15),
-    headline3: TextStyle(
-        fontFamily: _numberIconsFont3, color: whiteColor, fontSize: 15));
-
-const TextTheme accentTextTheme = TextTheme(
+const TextTheme appPrimaryTextTheme = TextTheme(
   bodyText1: TextStyle(
-      fontFamily: _accentFont1,
-      color: whiteColor,
-      fontSize: 15,
-      fontWeight: FontWeight.w400),
-  subtitle1: TextStyle(
-      fontFamily: _accentFont2, color: whiteColor, fontSize: 15, height: 1.1),
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+  ),
+  bodyText2: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 15,
+    fontWeight: FontWeight.w300,
+  ),
+  button: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  ),
   headline1: TextStyle(
-      fontFamily: _accentFont1,
-      color: whiteColor,
-      fontSize: 15,
-      fontWeight: FontWeight.w700),
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  ),
+  headline2: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+  ),
+  subtitle1: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 15,
+    fontStyle: FontStyle.italic,
+  ),
+  subtitle2: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    fontStyle: FontStyle.italic,
+  ),
+  caption: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 15,
+    fontWeight: FontWeight.w200,
+  ),
 );
 
-const TextTheme adsTextTheme = TextTheme(
-    bodyText1: TextStyle(
-        fontFamily: _adsFont,
-        color: whiteColor,
-        fontSize: 15,
-        fontWeight: FontWeight.w400),
-    bodyText2: TextStyle(
-        fontFamily: _adsFont,
-        color: greenColor,
-        fontSize: 15,
-        fontWeight: FontWeight.w400),
-    headline1: TextStyle(
-        fontFamily: _adsFont,
-        color: whiteColor,
-        fontSize: 15,
-        fontWeight: FontWeight.w700),
-    headline2: TextStyle(
-        fontFamily: _adsFont,
-        color: greenColor,
-        fontSize: 15,
-        fontWeight: FontWeight.w700));
+const TextTheme appSecondaryTextTheme = TextTheme(
+  bodyText1:
+      TextStyle(fontFamily: _primaryFont, color: whiteColor, fontSize: 15),
+  bodyText2:
+      TextStyle(fontFamily: _primaryFont, color: greenColor, fontSize: 15),
+);
+
+const TextTheme appAccentTextTheme = TextTheme(
+  bodyText1: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+  ),
+  subtitle1: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 15,
+    height: 1.1,
+  ),
+  headline1: TextStyle(
+    fontFamily: _primaryFont,
+    color: whiteColor,
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+  ),
+);
 
 /* ********** */
-

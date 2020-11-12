@@ -8,4 +8,8 @@ class Configs {
   }
 
   Configs._internal();
+
+  bool get isProd => environment == 'prod';
+
+  String get environment => DotEnv().env['ENVIRONMENT'];
 }

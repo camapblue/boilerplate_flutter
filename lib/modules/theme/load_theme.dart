@@ -6,17 +6,17 @@ ThemeData loadTheme() {
     primaryColor: redColor,
     primaryColorLight: redColorLight,
     accentColor: greenColor,
-    tabBarTheme: TabBarTheme(
-        labelColor: redColor,
-        unselectedLabelColor: grayColor,
-        ),
+    tabBarTheme: const TabBarTheme(
+      labelColor: redColor,
+      unselectedLabelColor: grayColor,
+    ),
     backgroundColor: lightColor,
-    primaryTextTheme: primaryTextTheme,
-    textTheme: secondaryTextTheme,
-    accentTextTheme: accentTextTheme,
+    primaryTextTheme: appPrimaryTextTheme,
+    textTheme: appSecondaryTextTheme,
+    accentTextTheme: appAccentTextTheme,
     iconTheme: const IconThemeData(
       color: lightColor,
     ),
-    appBarTheme: const AppBarTheme(textTheme: numberTextTheme),
+    appBarTheme: const AppBarTheme(textTheme: appSecondaryTextTheme),
   );
 }

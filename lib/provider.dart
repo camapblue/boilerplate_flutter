@@ -12,8 +12,10 @@ class Provider {
   Provider._internal();
 
   // Service
-  UserService get userService =>
-      UserServiceImpl(userRepository: Repository().userRepository, socialNetworkConnect: Provider().socialNetworkConnect,);
+  UserService get userService => UserServiceImpl(
+        userRepository: Repository().userRepository,
+        socialNetworkConnect: Provider().socialNetworkConnect,
+      );
 
   SocialNetworkConnect get socialNetworkConnect => SocialNetworkConnectImpl();
 

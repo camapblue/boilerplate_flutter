@@ -10,11 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # common:
-  #   path: ../common
+  common:
+    path: ../common
   meta: ^1.2.3
-  # boilerplate_flutter:
-  #   path: ../
+  boilerplate_flutter:
+    path: ../
 
 dev_dependencies:
   flutter_test:
@@ -25,12 +25,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/images/app_icon.png
+    - packages/boilerplate_flutter/i18n/en.json
+    - packages/boilerplate_flutter/i18n/vi.json
 
-  # To add assets to your package, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
-  #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
   #

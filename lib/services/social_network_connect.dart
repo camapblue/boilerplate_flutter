@@ -7,7 +7,5 @@ abstract class SocialNetworkConnect {
 
   Future<SocialProfile> getUserProfile({SocialAccount socialAccount});
 
-  Future<List<String>> getSocialFriendIds({SocialAccount socialAccount});
-
   Future<void> signOut({@required AccountType type});
 }
