@@ -4,13 +4,13 @@ import '../storybook.dart';
 
 class BounceStory extends Story {
   @override
-  List<WidgetMap> storyContent(BuildContext context) {
+  List<WidgetMap> storyContent() {
     return [
       WidgetMap(
         title: 'Common | Bounce',
-        widget: Scaffold(
-          backgroundColor: Colors.grey,
-          body: Column(
+        builder: (context) => Container(
+          color: Colors.grey,
+          child: Column(
             children: <Widget>[
               Expanded(
                 child: Container(),

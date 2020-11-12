@@ -7,13 +7,13 @@ import '../storybook.dart';
 
 class BounceButtonStory extends Story {
   @override
-  List<WidgetMap> storyContent(BuildContext context) {
+  List<WidgetMap> storyContent() {
     return [
       WidgetMap(
         title: 'Common | Bounce Button',
-        widget: Scaffold(
-          backgroundColor: Colors.grey,
-          body: Column(
+        builder: (context) => Container(
+          color: Colors.grey,
+          child: Column(
             children: <Widget>[
               Expanded(
                 child: Container(),
@@ -39,7 +39,7 @@ class BounceButtonStory extends Story {
                 width: double.infinity,
                 height: 96,
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: BounceButton(
                     title: 'Touch Here',
                     borderRadius: BorderRadius.circular(16),
@@ -57,7 +57,7 @@ class BounceButtonStory extends Story {
                 width: double.infinity,
                 height: 96,
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: BounceButton(
                     title: 'Touch Here',
                     color: redColor,

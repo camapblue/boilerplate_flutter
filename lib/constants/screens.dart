@@ -6,8 +6,7 @@ enum Screen {
 class Screens {
   static String splash = '/';
   static String landing = '/landing';
-  static String registrationFlow = '/registrationFlow';
-  static String welcome = '/welcome';
+  static String logIn = '/logIn';
   static String guestMode = '/guestMode';
   static String dashboard = '/dashboard';
   static String inAppBrowser = '/inAppBrowser';

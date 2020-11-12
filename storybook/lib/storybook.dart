@@ -61,11 +61,12 @@ class Storybook extends StatelessWidget {
     });
 
     return Scaffold(
-        appBar: AppBar(title: Text(_kStoryBookTitle)),
-        body: ListView.builder(
-          itemBuilder: (BuildContext context, int index) => stories[index],
-          itemCount: stories.length,
-        ));
+      appBar: AppBar(title: Text(_kStoryBookTitle)),
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) => stories[index],
+        itemCount: stories.length,
+      ),
+    );
   }
 }
 
@@ -82,42 +83,65 @@ class Storybook extends StatelessWidget {
 /// to a route.
 ///
 
+typedef StoryBuilder = Widget Function(BuildContext context);
+
 class WidgetMap {
   final String title;
-  final Widget widget;
-  const WidgetMap({this.title, this.widget});
+  final StoryBuilder builder;
+  const WidgetMap({this.title, this.builder});
+}
+
+class StoryScreen extends StatelessWidget {
+  final StoryBuilder builder;
+  final String title;
+  final AppBar appBar;
+  
+  StoryScreen(this.title, this.appBar, this.builder);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: appBar ??
+          AppBar(
+            title: Text(title),
+          ),
+      body: builder(context),
+    );
+  }
 }
 
 abstract class Story extends StatelessWidget {
   const Story({Key key}) : super(key: key);
 
-  List<WidgetMap> storyContent(BuildContext context);
+  List<WidgetMap> storyContent();
 
   String get title => runtimeType.toString();
 
   AppBar get appBar => null;
 
-  Widget _widgetTileLauncher(Widget w, String title, BuildContext context) =>
+  Widget _widgetTileLauncher(
+          StoryBuilder builder, String title, BuildContext context) =>
       ListTile(
-          leading: const Icon(Icons.launch),
-          title: Text(title),
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute<Null>(builder: (BuildContext context) {
-              return Scaffold(
-                  appBar: appBar ?? AppBar(
-                    title: Text(title),
-                  ),
-                  body: w);
-            }));
-          });
+        leading: const Icon(Icons.launch),
+        title: Text(title),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<Null>(
+              builder: (_) {
+                return StoryScreen(title, appBar, builder);
+              },
+            ),
+          );
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
-    final List<WidgetMap> _storyContent = storyContent(context);
+    final List<WidgetMap> _storyContent = storyContent();
     if (_storyContent.length == 1) {
       return _widgetTileLauncher(
-          _storyContent[0].widget, _storyContent[0].title ?? title, context);
+          _storyContent[0].builder, _storyContent[0].title ?? title, context);
     } else {
       return ExpansionTile(
         leading: const Icon(Icons.fullscreen),
@@ -125,7 +149,7 @@ abstract class Story extends StatelessWidget {
         title: Text(title),
         children: _storyContent
             .map((WidgetMap w) =>
-                _widgetTileLauncher(w.widget, w.title ?? title, context))
+                _widgetTileLauncher(w.builder, w.title ?? title, context))
             .toList(),
       );
     }

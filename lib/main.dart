@@ -124,7 +124,7 @@ class _MyAppState extends State<MyApp> {
               ],
               supportedLocales: languageState.supportedLocales,
               locale: languageState.locale,
-              title: 'BB Football',
+              title: 'Boilerplate',
               theme: loadTheme(),
               routes: Routes.allRoutes(context),
               initialRoute: '/');

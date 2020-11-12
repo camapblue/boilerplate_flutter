@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 );
               } else if (state is SessionReadyToLogIn) {
                 await Navigator.of(context).pushReplacementFadeTransition(
-                  routeName: Screens.registrationFlow,
+                  routeName: Screens.logIn,
                 );
               } else if (state is SessionRunGuestModeSuccess) {
                 await Navigator.of(context).pushReplacementFadeTransition(
