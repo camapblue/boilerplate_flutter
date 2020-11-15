@@ -29,7 +29,6 @@ flutter:
   assets:
     - packages/boilerplate_flutter/i18n/en.json
     - packages/boilerplate_flutter/i18n/vi.json
-    - assets/icons/bell.svg
 
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages

@@ -50,6 +50,7 @@ dependencies:
   audioplayers: ^0.15.1
   package_info: ^0.4.1
   google_sign_in: ^4.1.4
+  loadmore: ^1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -76,9 +77,12 @@ flutter:
   #  - images/a_dot_ham.jpeg
   assets:     
     - assets/
+    - assets/icons/
+    - assets/images/
+    - assets/sounds/
     - lib/i18n/
     - .env
-
+    - test_data/
   
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

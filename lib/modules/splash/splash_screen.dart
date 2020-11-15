@@ -52,9 +52,9 @@ class _SplashScreenState extends State<SplashScreen> {
               await Future.delayed(const Duration(milliseconds: 1500));
 
               if (state is SessionFirstTimeLaunchSuccess) {
-                await Navigator.of(context).pushReplacementFadeTransition(
-                  routeName: Screens.landing,
-                );
+                // await Navigator.of(context).pushReplacementFadeTransition(
+                //   routeName: Screens.landing,
+                // );
               } else if (state is SessionReadyToLogIn) {
                 await Navigator.of(context).pushReplacementFadeTransition(
                   routeName: Screens.logIn,

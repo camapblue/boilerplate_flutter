@@ -31,6 +31,7 @@ void main() {
             [
               BounceStory(), // Common
               BounceButtonStory(),
+              LoadListStory()
             ],
           ),
         );

@@ -1,0 +1,44 @@
+[
+  {
+    "userId": "5c978053f4069e51777a6a54",
+    "name": "Rachel Cheng",
+    "occupation": "Doctor",
+    "birthday": 666464400,
+    "gender": "female"
+  },
+  {
+    "userId": "5deef2814655d2c924d247a1",
+    "name": "David Beckham",
+    "occupation": "Football Player",
+    "birthday": 666464400,
+    "gender": "male"
+  },
+  {
+    "userId": "5e78164b842c8a29dd22b312",
+    "name": "Scarlet Johansson",
+    "occupation": "Actress",
+    "birthday": 666464400,
+    "gender": "female"
+  },
+  {
+    "userId": "5e78168eaf0c9d2a4ba90080",
+    "name": "Joe Biden",
+    "occupation": "President",
+    "birthday": 666464400,
+    "gender": "male"
+  },
+  {
+    "userId": "5d5669d79a29600031cfd947",
+    "name": "Jennifer Lawrence",
+    "occupation": "Actress",
+    "birthday": 666464400,
+    "gender": "female"
+  },
+  {
+    "userId": "5e78168eaf0c9d2a4ba90080",
+    "name": "Andy Murray",
+    "occupation": "Tennis Player",
+    "birthday": 666464400,
+    "gender": "male"
+  }
+]

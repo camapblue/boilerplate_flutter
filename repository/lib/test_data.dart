@@ -35,4 +35,10 @@ class TestData<T extends Entity> {
 
     return testData.getItem('test_data/user.json');
   }
+
+  static Future<List<User>> getListUser() async {
+    final testData = TestData<User>(mapper: Mapper<User>(parse: User.fromJson));
+
+    return testData.getListItems('test_data/list_user.json');
+  }
 }

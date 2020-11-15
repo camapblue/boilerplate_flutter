@@ -13,6 +13,7 @@ export 'exception/exception.dart';
 export 'exception/error_codes.dart';
 export 'enum/enum.dart';
 export 'model/model.dart';
+export 'test_data.dart';
 
 class Repository {
   static final Repository _singleton = Repository._internal();
