@@ -54,12 +54,6 @@ class Storybook extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // final size = MediaQuery.of(context).size;
-      // BuildContextExtension.screenSize =
-      //     screenSizeFromDevice(screenWidth: size.width);
-    });
-
     return Scaffold(
       appBar: AppBar(title: Text(_kStoryBookTitle)),
       body: ListView.builder(

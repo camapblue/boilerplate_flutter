@@ -5,25 +5,21 @@ import 'package:flutter/material.dart';
 import 'load_list_theme.dart';
 
 class EmptyList extends StatelessWidget {
+  final String emptyMessage;
+  final Color color;
+
   EmptyList({
     Key key,
     @required this.emptyMessage,
-    @required this.doReload,
     this.color = whiteColor,
   }) : super(key: key);
-
-  final Function doReload;
-  final String emptyMessage;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Expanded(
-            child: Container(),
-          ),
           Container(
             height: 64,
             child: Center(
@@ -44,10 +40,6 @@ class EmptyList extends StatelessWidget {
                   .loadListEmptyMessageTextStyle
                   .copyWith(color: color),
             ),
-          ),
-          Button.reload(context: context, onPressed: doReload),
-          Expanded(
-            child: Container(),
           ),
         ],
       ),

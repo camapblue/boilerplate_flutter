@@ -12,34 +12,35 @@ class ErrorList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      height: 196,
+      alignment: Alignment.center,
       child: Column(
         children: <Widget>[
-          Expanded(
-            child: Container(),
-          ),
+          const Spacer(),
           Container(
-            height: 64,
+            height: 32,
             child: Center(
               child: AppIcon(
                 icon: AppIcons.error,
-                width: 92,
-                height: 92,
+                width: 32,
+                height: 32,
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(top: 32, bottom: 32),
-            child: Text(
-              errorMessage,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).loadListErrorMessageTextStyle,
+          Expanded(
+            child: Center(
+              child: Text(
+                errorMessage,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).loadListErrorMessageTextStyle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
           Button.reload(context: context, onPressed: doReload),
-          Expanded(
-            child: Container(),
-          ),
+          const Spacer(),
         ],
       ),
     );

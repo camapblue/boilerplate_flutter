@@ -3,6 +3,7 @@ import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/models/models.dart';
 import 'package:boilerplate_flutter/modules/route_transition/route_transition.dart';
+import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'package:common/common.dart';
 import 'package:common/widget/loading_text.dart';
 import 'package:flutter/material.dart';
@@ -84,8 +85,10 @@ class _SplashScreenState extends State<SplashScreen> {
             children: <Widget>[
               Align(
                 alignment: Alignment.center,
-                child: Image(
-                  image: AssetImage(AppImagesAsset.logoSologan),
+                child: AppImage(
+                  image: AppImagesAsset.logoSologan,
+                  width: 214,
+                  height: 240,
                 ),
               ),
               Column(
@@ -107,8 +110,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   SizedBox(
                     height: 80,
                     child: Center(
-                      child: Image(
-                        image: AssetImage(AppImagesAsset.copyright),
+                      child: AppImage(
+                        image: AppImagesAsset.copyright,
+                        width: 154,
+                        height: 12,
                       ),
                     ),
                   )

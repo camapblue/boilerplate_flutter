@@ -1,20 +1,21 @@
-import 'package:boilerplate_flutter/blocs/blocs.dart';
-import 'package:boilerplate_flutter/models/models.dart';
-import 'package:boilerplate_flutter/theme/theme_constants.dart';
-import 'package:boilerplate_flutter/widgets/load_list/load_more_delegate.dart';
-import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'package:common/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loadmore/loadmore.dart';
 import 'package:repository/model/model.dart';
+import 'package:boilerplate_flutter/blocs/blocs.dart';
+import 'package:boilerplate_flutter/models/models.dart';
+import 'package:boilerplate_flutter/theme/theme_constants.dart';
+import 'package:boilerplate_flutter/widgets/load_list/load_more_delegate.dart';
 
+import 'empty_list.dart';
+import 'error_list.dart';
 import 'keep_alive_list_item.dart';
 
 typedef ItemSeparatorBuilder = Widget Function(int index);
 
 typedef ListRender<T extends Entity> = Widget Function(List<T> items);
-typedef ItemBuilder<T extends Entity> = Widget Function(T item);
+typedef ItemBuilder<T extends Entity> = Widget Function(T item, int index);
 typedef ItemPlaceholderBuilder<T extends Entity> = Widget Function(T item);
 
 typedef GroupHeaderBuilder = Widget Function(String headerTitle,
@@ -151,10 +152,12 @@ class LoadList<T extends Entity> extends StatefulWidget {
     this.slideUpAnimation = false,
     this.startingSlideUpIndex = 3,
     this.needLoadMore = true,
+    this.needPullToRefresh = true,
     this.autoStart = true,
     this.supportFlatGroup = false,
     this.automaticKeepAlives = false,
     this.params,
+    this.itemFilter,
   })  : assert(
             listRender != null ||
                 itemBuilder != null ||
@@ -184,10 +187,12 @@ class LoadList<T extends Entity> extends StatefulWidget {
   final bool slideUpAnimation;
   final int startingSlideUpIndex;
   final bool needLoadMore;
+  final bool needPullToRefresh;
   final bool autoStart;
   final bool supportFlatGroup;
   final bool automaticKeepAlives;
   final Map<String, dynamic> params;
+  final bool Function(T) itemFilter;
 
   @override
   State<StatefulWidget> createState() {
@@ -204,6 +209,20 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
   double _previousScrollPosition = 0.0;
   bool _isScrollDown = true;
 
+  List<T> getItems(LoadListState state) {
+    if (state is LoadListLoadPageSuccess) {
+      var items = state.items;
+
+      if (widget.itemFilter != null) {
+        items = items.where((element) => widget.itemFilter(element)).toList();
+      }
+
+      return items;
+    }
+
+    return [];
+  }
+
   @override
   void initState() {
     super.initState();
@@ -219,9 +238,9 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
       if (loadListBloc != null) {
         final state = loadListBloc.state;
         if (state is LoadListLoadPageSuccess && widget.onDataIsReady != null) {
-          widget.onDataIsReady(state.items, _isRefresh);
+          widget.onDataIsReady(getItems(state), _isRefresh);
         } else if (state is LoadListInitial && widget.autoStart) {
-          loadListBloc.start();
+          loadListBloc.start(params: widget.params);
         }
       }
     });
@@ -325,11 +344,11 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
             itemBuilder: (_, index) => widget.itemPlaceholderBuilder != null
                 ? ListItemLayout(
                     placeholder: widget.itemPlaceholderBuilder(items[index]),
-                    child: widget.itemBuilder(items[index]),
+                    child: widget.itemBuilder(items[index], index),
                   )
                 : KeepAliveListItem(
                     automaticKeepAlive: widget.automaticKeepAlives,
-                    child: widget.itemBuilder(items[index]),
+                    child: widget.itemBuilder(items[index], index),
                   ),
           );
         } else {
@@ -341,11 +360,11 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
             itemBuilder: (_, index) => widget.itemPlaceholderBuilder != null
                 ? ListItemLayout(
                     placeholder: widget.itemPlaceholderBuilder(items[index]),
-                    child: widget.itemBuilder(items[index]),
+                    child: widget.itemBuilder(items[index], index),
                   )
                 : KeepAliveListItem(
                     automaticKeepAlive: widget.automaticKeepAlives,
-                    child: widget.itemBuilder(items[index]),
+                    child: widget.itemBuilder(items[index], index),
                   ),
           );
         }
@@ -357,12 +376,13 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoadListBloc<T>, LoadListState>(
+      bloc: EventBus().blocFromKey<LoadListBloc<T>>(widget.blocKey),
       listenWhen: (previous, current) =>
           current is LoadListLoadPageSuccess ||
           current is LoadListRemoveItemSuccess,
       listener: (context, state) {
         if (state is LoadListLoadPageSuccess && widget.onDataIsReady != null) {
-          widget.onDataIsReady(state.items, _isRefresh);
+          widget.onDataIsReady(getItems(state), _isRefresh);
           _isRefresh = false;
         } else if (state is LoadListRemoveItemSuccess &&
             widget.onItemRemoved != null) {
@@ -371,7 +391,7 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
       },
       buildWhen: (previous, current) => current is! LoadListRemoveItemSuccess,
       builder: (context, state) {
-        if (state is LoadListStartInProgress || state is LoadListInitial) {
+        if (state is LoadListStartInProgress) {
           return widget.loadingWidget ??
               Center(
                 child: CircularProgressIndicator(
@@ -380,60 +400,61 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
                 ),
               );
         }
+
         if (state is LoadListRunFailure) {
-          return ErrorList(
-            errorMessage: state.errorMessage,
-            doReload: _reload,
-          );
+          return ErrorList(errorMessage: state.errorMessage, doReload: _reload);
         }
 
         if (state is LoadListLoadPageSuccess) {
-          final listView = _buildLoadList(state.items);
+          final items = getItems(state);
 
-          return state.items.isEmpty
+          final listView = _buildLoadList(items);
+
+          return items.isEmpty
               ? widget.emptyWidget ??
                   EmptyList(
                     emptyMessage: widget.emptyMessage,
-                    doReload: _reload,
                     color: widget.loadingIndicatorColor,
                   )
               : widget.listRender != null
-                  ? widget.listRender(state.items)
-                  : RefreshIndicator(
-                      key: _refreshIndicatorKey,
-                      onRefresh: _refresh,
-                      child: widget.needLoadMore
-                          ? LoadMore(
-                              delegate: _loadMoreDelegate,
-                              isFinish: state.isFinish,
-                              onLoadMore: () async {
-                                //ignore: close_sinks
-                                final loadListBloc = EventBus()
-                                    .blocFromKey<LoadListBloc<T>>(
-                                        widget.blocKey);
-                                if (loadListBloc == null) {
-                                  return false;
-                                }
-                                final nextItems = await loadListBloc.loadMore(
-                                    params: widget.params);
-                                if (nextItems.isEmpty) {
-                                  return false;
-                                }
-                                EventBus().event<LoadListBloc>(
-                                  widget.blocKey,
-                                  LoadListNextPage<T>(nextItems: nextItems),
-                                );
-                                await Future.delayed(
-                                    const Duration(seconds: 1));
-                                return true;
-                              },
-                              child: listView,
-                            )
-                          : listView,
-                    );
+                  ? widget.listRender(items)
+                  : widget.needPullToRefresh
+                      ? RefreshIndicator(
+                          key: _refreshIndicatorKey,
+                          onRefresh: _refresh,
+                          child: widget.needLoadMore
+                              ? LoadMore(
+                                  delegate: _loadMoreDelegate,
+                                  isFinish: state.isFinish,
+                                  onLoadMore: () async {
+                                    //ignore: close_sinks
+                                    final loadListBloc = EventBus()
+                                        .blocFromKey<LoadListBloc<T>>(
+                                            widget.blocKey);
+                                    if (loadListBloc == null) {
+                                      return false;
+                                    }
+                                    final nextItems = await loadListBloc
+                                        .loadMore(params: widget.params);
+                                    if (nextItems.isEmpty) {
+                                      return false;
+                                    }
+                                    EventBus().event<LoadListBloc>(
+                                      widget.blocKey,
+                                      LoadListNextPage<T>(nextItems: nextItems),
+                                    );
+                                    await Future.delayed(
+                                        const Duration(seconds: 1));
+                                    return true;
+                                  },
+                                  child: listView,
+                                )
+                              : listView,
+                        )
+                      : listView;
         }
 
-        return Container();
+        return const SizedBox();
       },
     );
   }

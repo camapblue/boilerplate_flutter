@@ -48,7 +48,7 @@ class SpanLabel extends StatelessWidget {
     this.boldStyle,
     this.italicStyle,
     this.boldItalicStyle,
-  })  : assert(text != null, '$runtimeType text can not be null'),
+  })  : assert(text != null, 'text can not be null'),
         super(key: key);
 
   List<AppTextSpan> _allTextSpans(BuildContext context) {

@@ -17,11 +17,11 @@ class BasePopupDrawer extends StatelessWidget {
     @required this.child,
   })  : assert(
           context != null,
-          '$runtimeType context can not null!',
+          'context can not null!',
         ),
         assert(
           child != null,
-          '$runtimeType child can not null!',
+          'child can not null!',
         ),
         super(key: key);
 

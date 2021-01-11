@@ -24,7 +24,7 @@ import 'blocs/blocs.dart';
 Future<void> main() async {
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
-  WidgetsFlutterBinding.ensureInitialized();
+  final widgetBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
@@ -33,6 +33,9 @@ Future<void> main() async {
   await Repository().initialize(); // initialize all required resources
   Provider().isPhysicalDevice = await Device.isPhysicalDevice();
   Provider().packageInfo = await PackageInfo.fromPlatform();
+  AppCaching().devicePixelRatio = widgetBinding.window.devicePixelRatio;
+  await AppCaching().preloadBeforeAppStart();
+  
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(MyApp());
