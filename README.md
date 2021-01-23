@@ -13,7 +13,7 @@ This project is a mobile app of Boilerplate that building by Flutter.
 - Always think about & follow up **SOLID principal** for every solutions
 - Naming is **VERY VERY IMPORTANT**, it's not coding, it's solution
 
-## Achitecture
+## Architecture
 
 Apply Clean Architecture + BloC pattern 
 
@@ -132,6 +132,7 @@ and repository class:
 
 ## Code Structure
 Here is list all of key folders or files in code structure:
+```
 .
 |-- assets                              *store all assets that are font, icon, image, video or animation*
 |   |-- animations                      *support .flr file to play vector animation*
@@ -187,6 +188,7 @@ Here is list all of key folders or files in code structure:
 |-- run-tests.sh                        *shell script to run unit test & show coverage*                        
 |-- run.sh                              *shell script to run app with environment support*
 |-- storybook.sh                        *shell script to run storybook*
+```
 
 ## Storybook
 It's used for view all common widgets (only widgets that are not based on bloc to render). It **MUST** cover all widgets that in common package and in widgets folder.
