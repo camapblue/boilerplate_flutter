@@ -1,6 +1,5 @@
+import 'package:boilerplate_flutter/global/global.dart';
 import 'package:flutter/foundation.dart';
-
-import 'package:boilerplate_flutter/provider.dart';
 
 import 'blocs.dart';
 

@@ -25,4 +25,7 @@ class Provider {
 
   SessionService get sessionService =>
       SessionServiceImpl(userRepository: Repository().userRepository);
+
+  SettingService get settingService =>
+      SettingServiceImpl(settingRepository: Repository().settingRepository);
 }
