@@ -22,7 +22,7 @@ class AppIcon extends StatelessWidget {
       icon.toAssetName(),
       width: width,
       height: height,
-      color: color ?? Theme.of(context).iconTheme.color,
+      color: color,
     );
   }
 }
