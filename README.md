@@ -16,7 +16,7 @@ This project is a mobile app of Boilerplate that building by Flutter.
 ## Architecture
 
 Apply Clean Architecture + BloC pattern 
-
+```
 |---------------  Layers  --------------|
 | Presentations | Business Logic | Data |
 |:-------------------------------------:|
@@ -28,7 +28,7 @@ Apply Clean Architecture + BloC pattern
 |:-------------------------------------------------------------:|
 |:----  Extension Entity   ----|----    Basic Entity   --------:|
 |:-------------------------------------------------------------:|
-
+```
 ### Module
 - This is the major view layer of mobile app and is categorized by module (feature or epic). 
 - View (widget) is rendered based on the bloc state if needed. 
