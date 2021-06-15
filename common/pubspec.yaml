@@ -10,11 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  logger: ^0.8.3
+
+  logger: ^1.0.0
   flutter_dotenv: ^2.1.0
   sprintf: ^4.0.2
   meta: ^1.2.3
-  intl: ^0.16.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

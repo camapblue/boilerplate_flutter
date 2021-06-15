@@ -19,7 +19,7 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
     @required UserService userService,
   })  : _sessionService = sessionService,
         _userService = userService,
-        super(key);
+        super(key, initialState: SessionInitial());
 
   factory SessionBloc.instance() {
     return EventBus().newBloc<SessionBloc>(Keys.Blocs.sessionBloc);
@@ -40,9 +40,6 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
       )
     ];
   }
-
-  @override
-  SessionState get initialState => SessionInitial();
 
   @override
   Stream<SessionState> mapEventToState(SessionEvent event) async* {

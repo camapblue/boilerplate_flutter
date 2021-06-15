@@ -1,5 +1,6 @@
-import 'package:audioplayers/audio_cache.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:pedantic/pedantic.dart';
 
 class Sounds {
   static final Sounds _singleton = Sounds._internal();
@@ -10,10 +11,11 @@ class Sounds {
 
   Sounds._internal();
 
-  final AudioCache player = AudioCache();
+  final AudioPlayer player = AudioPlayer();
 
   Future<void> play({AppSounds sound}) async {
-    await player.play(sound.toAssetPath());
+    await player.setAsset(sound.toAssetPath());
+    unawaited(player.play());
   }
 
   static Future<void> bell() async {

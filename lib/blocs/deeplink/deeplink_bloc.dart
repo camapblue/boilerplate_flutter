@@ -9,14 +9,11 @@ import 'package:boilerplate_flutter/blocs/base/base_bloc.dart';
 import 'deeplink.dart';
 
 class DeeplinkBloc extends BaseBloc<DeeplinkEvent, DeeplinkState> {
-  DeeplinkBloc(Key key) : super(key);
+  DeeplinkBloc(Key key) : super(key, initialState: DeeplinkInitial());
 
   factory DeeplinkBloc.instance() {
     return EventBus().newBloc<DeeplinkBloc>(Keys.Blocs.deeplinkBloc);
   }
-
-  @override
-  DeeplinkState get initialState => DeeplinkInitial();
 
   @override
   Stream<DeeplinkState> mapEventToState(DeeplinkEvent event) async* {

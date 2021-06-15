@@ -22,15 +22,12 @@ class AuthenticationBloc
       {UserService userService, SocialNetworkConnect socialNetworkConnect})
       : _userService = userService,
         _socialNetworkConnect = socialNetworkConnect,
-        super(key);
+        super(key, initialState: AuthenticationInitial());
 
   factory AuthenticationBloc.instance() {
     return EventBus()
         .newBloc<AuthenticationBloc>(Keys.Blocs.authenticationBloc);
   }
-
-  @override
-  AuthenticationState get initialState => AuthenticationInitial();
 
   @override
   Stream<AuthenticationState> mapEventToState(

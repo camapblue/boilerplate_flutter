@@ -9,14 +9,11 @@ import 'messaging.dart';
 class MessagingBloc extends BaseBloc<MessagingEvent, MessagingState> {
   MessagingBloc(
     Key key
-  ) : super(key);
+  ) : super(key, initialState: MessagingInitial());
 
   factory MessagingBloc.instance() {
     return EventBus().newBloc<MessagingBloc>(Keys.Blocs.messagingBloc);
   }
-
-  @override
-  MessagingState get initialState => MessagingInitial();
 
   @override
   Stream<MessagingState> mapEventToState(MessagingEvent event) async* {

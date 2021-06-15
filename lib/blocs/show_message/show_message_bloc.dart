@@ -8,14 +8,11 @@ import 'package:boilerplate_flutter/constants/constants.dart';
 import 'show_message.dart';
 
 class ShowMessageBloc extends BaseBloc<ShowMessageEvent, ShowMessageState> {
-  ShowMessageBloc(Key key) : super(key);
+  ShowMessageBloc(Key key) : super(key, initialState: ShowMessageInitial());
 
   factory ShowMessageBloc.instance() {
     return EventBus().newBloc<ShowMessageBloc>(Keys.Blocs.showMessageBloc);
   }
-
-  @override
-  ShowMessageState get initialState => ShowMessageInitial();
 
   @override
   Stream<ShowMessageState> mapEventToState(ShowMessageEvent event) async* {

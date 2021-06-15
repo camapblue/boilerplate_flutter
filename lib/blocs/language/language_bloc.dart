@@ -11,15 +11,15 @@ import 'language.dart';
 class LanguageBloc extends BaseBloc<LanguageEvent, LanguageState> {
   final SettingService settingService;
 
-  LanguageBloc(Key key, {@required this.settingService}) : super(key);
+  LanguageBloc(Key key, {@required this.settingService}) 
+    : super(key, initialState: LanguageInitial(
+      settingService.getCurrentLocale(),
+      settingService.getSupportedLocales(),
+    ));
 
   factory LanguageBloc.instance() {
     return EventBus().newBloc<LanguageBloc>(Keys.Blocs.languageBloc);
   }
-
-  @override
-  LanguageState get initialState => LanguageInitial(
-      settingService.getCurrentLocale(), settingService.getSupportedLocales());
 
   @override
   Stream<LanguageState> mapEventToState(LanguageEvent event) async* {

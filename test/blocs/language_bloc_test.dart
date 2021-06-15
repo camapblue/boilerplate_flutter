@@ -34,7 +34,7 @@ void main() {
       final state = LanguageInitial(
           const Locale('id'), const [Locale('id'), Locale('en')]);
 
-      expect(languageBloc.initialState, state);
+      expect(languageBloc.state, state);
     });
   });
 
@@ -45,7 +45,7 @@ void main() {
       ''',
       build: () => languageBloc,
       act: (bloc) => bloc.add(const LanguageUpdated(Locale('en'))),
-      expect: [isA<LanguageInitial>(), isA<LanguageUpdateSuccess>()],
+      expect: () => [isA<LanguageInitial>(), isA<LanguageUpdateSuccess>()],
     );
   });
 }

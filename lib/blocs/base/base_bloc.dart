@@ -17,7 +17,8 @@ abstract class BaseBloc<E extends Object, S extends Equatable>
   final Key key;
   final Key closeWithBlocKey;
 
-  BaseBloc(this.key, {this.closeWithBlocKey}) : super() {
+  BaseBloc(this.key, {@required S initialState, this.closeWithBlocKey})
+      : super(initialState) {
     otherBlocsSubscription();
   }
 

@@ -11,14 +11,11 @@ import 'loader.dart';
 
 class LoaderBloc extends BaseBloc<LoaderEvent, LoaderState> {
   LoaderBloc(Key key)
-      : super(key);
+      : super(key, initialState: LoaderInitial());
 
   factory LoaderBloc.instance() {
     return EventBus().newBloc<LoaderBloc>(Keys.Blocs.loaderBloc);
   }
-
-  @override
-  LoaderState get initialState => LoaderInitial();
 
   @override
   Stream<LoaderState> mapEventToState(LoaderEvent event) async* {

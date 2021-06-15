@@ -70,14 +70,14 @@ class JumpingDotsProgressIndicator extends StatefulWidget {
 
 class _JumpingDotsProgressIndicatorState
     extends State<JumpingDotsProgressIndicator> with TickerProviderStateMixin {
-  List<AnimationController> controllers = List<AnimationController>();
-  List<Animation<double>> animations = List<Animation<double>>();
-  final _widgets = List<Widget>();
+  List<AnimationController> controllers = <AnimationController>[];
+  List<Animation<double>> animations = <Animation<double>>[];
+  final _widgets = <Widget>[];
 
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < widget.numberOfDots; i++) {
+    for (var i = 0; i < widget.numberOfDots; i++) {
       _addAnimationControllers();
       _buildAnimations(i);
       _addListOfDots(i);
@@ -139,7 +139,7 @@ class _JumpingDotsProgressIndicatorState
 
   @override
   void dispose() {
-    for (int i = 0; i < widget.numberOfDots; i++) {
+    for (var i = 0; i < widget.numberOfDots; i++) {
       controllers[i].dispose();
     }
     super.dispose();

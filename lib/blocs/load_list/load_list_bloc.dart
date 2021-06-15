@@ -18,27 +18,37 @@ class LoadListBloc<T extends Entity>
   LoadListBloc(Key key,
       {@required LoadListService<T> loadListService, Key closeWithBlocKey})
       : _loadListService = loadListService,
-        super(key, closeWithBlocKey: closeWithBlocKey);
-
-  @override
-  LoadListState get initialState => LoadListInitial();
+        super(
+          key,
+          initialState: LoadListInitial(),
+          closeWithBlocKey: closeWithBlocKey,
+        );
 
   @override
   Stream<LoadListState> mapEventToState(LoadListEvent event) async* {
     if (event is LoadListRemovedItem) {
       yield LoadListRemoveItemSuccess(event.removedItem);
+    } else if (event is LoadListAddedItem) {
+      final LoadListLoadPageSuccess current = state;
+      final items = List<T>.from(current.items)..add(event.addedItem);
+      yield LoadListLoadPageSuccess<T>(items,
+          nextPage: current.nextPage, isFinish: current.isFinish);
+    } else if (event is LoadListReloaded && state is LoadListLoadPageSuccess) {
+      final LoadListLoadPageSuccess current = state;
+      yield LoadListLoadPageSuccess<T>(event.items,
+          nextPage: current.nextPage, isFinish: current.isFinish);
     } else {
       yield* _mapLoadListLoadedPageToState(event);
-    }
+    } 
   }
 
   Stream<LoadListState> _mapLoadListLoadedPageToState(
       LoadListEvent event) async* {
     var items = <T>[];
     if (event is LoadListStarted) {
-      yield LoadListStartInProgress();
+      yield LoadListStartInProgress(isSilent: false);
     } else if (event is LoadListRefreshed) {
-      yield LoadListStartInProgress();
+      yield LoadListStartInProgress(isSilent: event.isSilent);
       await _loadListService.shouldRefreshItems(params: event.params);
 
       EventBus().cleanUp(parentKey: key);
@@ -63,17 +73,17 @@ class LoadListBloc<T extends Entity>
 
       if (GroupList.isListGroup(items.runtimeType.toString())) {
         if (items.isEmpty) {
-          yield LoadListLoadPageSuccess(allItems,
+          yield LoadListLoadPageSuccess<T>(allItems,
               isFinish: true, nextPage: nextPage);
         } else {
           //ignore: avoid_as
           final groups = allItems as List<Group>..append(items as List<Group>);
-          yield LoadListLoadPageSuccess(groups,
+          yield LoadListLoadPageSuccess<Group>(groups,
               isFinish: false, nextPage: groups.totalItem());
         }
       } else {
         allItems = allItems + items;
-        yield LoadListLoadPageSuccess(allItems,
+        yield LoadListLoadPageSuccess<T>(allItems,
             isFinish: items.isEmpty, nextPage: allItems.length);
       }
     } catch (e) {

@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
-import 'package:flutter/material.dart';
+
 import 'load_list_theme.dart';
 
 class ErrorList extends StatelessWidget {
@@ -23,8 +24,8 @@ class ErrorList extends StatelessWidget {
             child: Center(
               child: AppIcon(
                 icon: AppIcons.error,
-                width: 32,
-                height: 32,
+                width: 92,
+                height: 92,
               ),
             ),
           ),

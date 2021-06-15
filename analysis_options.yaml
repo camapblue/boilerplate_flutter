@@ -27,7 +27,6 @@ linter:
     - void_checks
     - annotate_overrides
     - prefer_single_quotes
-    - avoid_as
     - avoid_empty_else
     - avoid_print
     - avoid_field_initializers_in_const_classes
@@ -88,7 +87,6 @@ linter:
     - recursive_getters
     - slash_for_doc_comments
     - sort_child_properties_last
-    - sort_pub_dependencies
     - sort_unnamed_constructors_first
     - test_types_in_equals
     - type_annotate_public_apis

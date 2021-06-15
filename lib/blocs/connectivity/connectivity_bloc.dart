@@ -27,7 +27,7 @@ class ConnectivityBloc extends BaseBloc<ConnectivityEvent, ConnectivityState> {
         _internetCheckingHost = internetCheckingHost ?? 'google.com',
         _internetCheckingFunction =
             internetCheckingFunction ?? InternetAddress.lookup,
-        super(key) {
+        super(key, initialState: ConnectivityInitial()) {
     subscription = _connectivity.onConnectivityChanged
         .listen((ConnectivityResult result) async {
       final isConnected = await _checkConnection();
@@ -53,9 +53,6 @@ class ConnectivityBloc extends BaseBloc<ConnectivityEvent, ConnectivityState> {
 
     return hasConnection;
   }
-
-  @override
-  ConnectivityState get initialState => ConnectivityInitial();
 
   @override
   Stream<ConnectivityState> mapEventToState(ConnectivityEvent event) async* {

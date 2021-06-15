@@ -27,7 +27,7 @@ void main() {
 
   group('AuthenticationInitial', () {
     test.test('AuthenticationInitial is set from beginning', () {
-      expect(authenticationBloc.initialState,
+      expect(authenticationBloc.state,
           const TypeMatcher<AuthenticationInitial>());
     });
   });
@@ -52,7 +52,7 @@ void main() {
 
         bloc.add(const AuthenticationLoggedIn(type: AccountType.facebook));
       },
-      expect: [
+      expect: () => [
         isA<AuthenticationInitial>(),
         isA<AuthenticationLogInInProgress>(),
         isA<AuthenticationLogInSuccess>()
@@ -70,7 +70,7 @@ void main() {
 
         bloc.add(const AuthenticationLoggedIn(type: AccountType.facebook));
       },
-      expect: [
+      expect: () => [
         isA<AuthenticationInitial>(),
         isA<AuthenticationLogInInProgress>(),
         isA<AuthenticationLogInFailure>()

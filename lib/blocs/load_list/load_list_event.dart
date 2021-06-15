@@ -17,11 +17,27 @@ class LoadListNextPage<T extends Entity> extends LoadListEvent {
 }
 
 class LoadListRefreshed extends LoadListEvent {
-  const LoadListRefreshed({Map<String, dynamic> params}) : super(params);
+  final bool isSilent;
+  const LoadListRefreshed({Map<String, dynamic> params, this.isSilent = false})
+      : super(params);
 }
 
 class LoadListRemovedItem<T extends Object> extends LoadListEvent {
   final T removedItem;
+  final bool shouldUpdateList;
 
-  const LoadListRemovedItem(this.removedItem) : super();
+  const LoadListRemovedItem(this.removedItem, {this.shouldUpdateList = false})
+      : super();
+}
+
+class LoadListAddedItem<T extends Object> extends LoadListEvent {
+  final T addedItem;
+
+  const LoadListAddedItem(this.addedItem) : super();
+}
+
+class LoadListReloaded<T extends Entity> extends LoadListEvent {
+  final List<T> items;
+
+  const LoadListReloaded({this.items}) : super();
 }

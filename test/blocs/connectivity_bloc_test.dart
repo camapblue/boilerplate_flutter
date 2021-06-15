@@ -35,9 +35,8 @@ void main() {
 
   group('ConnectivityInitial', () {
     test.test('ConnectivityInitial is set state isConnected = true', () {
-      expect(connectivityBloc.initialState,
-          const TypeMatcher<ConnectivityInitial>());
-      expect(connectivityBloc.initialState.isConnected, true);
+      expect(connectivityBloc.state, const TypeMatcher<ConnectivityInitial>());
+      expect(connectivityBloc.state.isConnected, true);
     });
   });
 
@@ -50,7 +49,8 @@ void main() {
       act: (bloc) async {
         bloc.add(const ConnectivityChanged(false));
       },
-      expect: [isA<ConnectivityInitial>(), isA<ConnectivityUpdateSuccess>()],
+      expect: () =>
+          [isA<ConnectivityInitial>(), isA<ConnectivityUpdateSuccess>()],
     );
 
     blocTest(
@@ -62,7 +62,7 @@ void main() {
         bloc.add(const ConnectivityChanged(false));
         bloc.add(ConnectivityChecked());
       },
-      expect: [
+      expect: () => [
         isA<ConnectivityInitial>(),
         isA<ConnectivityUpdateSuccess>(),
         isA<ConnectivityUpdateSuccess>()
@@ -79,7 +79,7 @@ void main() {
         _connectionUpdated.add(ConnectivityResult.wifi);
       },
       wait: const Duration(milliseconds: 300),
-      expect: [
+      expect: () => [
         isA<ConnectivityInitial>(),
         isA<ConnectivityUpdateSuccess>(),
         isA<ConnectivityUpdateSuccess>()

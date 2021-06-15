@@ -13,6 +13,8 @@ const _topColor = Color(0xFFA4E82C);
 const _bottomColor = Color(0xFF378019);
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen();
+  
   @override
   State<SplashScreen> createState() {
     return _SplashScreenState();
@@ -53,9 +55,9 @@ class _SplashScreenState extends State<SplashScreen> {
               await Future.delayed(const Duration(milliseconds: 1500));
 
               if (state is SessionFirstTimeLaunchSuccess) {
-                // await Navigator.of(context).pushReplacementFadeTransition(
-                //   routeName: Screens.landing,
-                // );
+                await Navigator.of(context).pushReplacementFadeTransition(
+                  routeName: Screens.landing,
+                );
               } else if (state is SessionReadyToLogIn) {
                 await Navigator.of(context).pushReplacementFadeTransition(
                   routeName: Screens.logIn,

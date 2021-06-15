@@ -33,8 +33,6 @@ class Messaging {
       subscribedTopics.map(firebaseMessaging.unsubscribeFromTopic).toList(),
     );
     subscribedTopics.clear();
-
-    await firebaseMessaging.deleteInstanceID();
   }
 
   void start({List<String> topics = const <String>[]}) {
@@ -61,32 +59,18 @@ class Messaging {
       }
     });
 
-    firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        log.info('Message onReceive >> $message');
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        log.info('Message onLaunch >> $message');
+    FirebaseMessaging.onMessage.listen((event) {
+      log.info('Message onReceive >> ${event.data}');
+    });
 
-        final deeplinkURL = message['data']['deeplink'];
-        EventBus().openDeeplink(deeplinkURL);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        log.info('Message onResume >> $message');
-
-        final deeplinkURL = message['data']['deeplink'];
-        EventBus().openDeeplink(deeplinkURL);
-      },
-    );
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      final deeplinkURL = event.data['data']['deeplink'];
+      EventBus().openDeeplink(deeplinkURL);
+    });
   }
 
   void _iOSRequestPermission() {
-    firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(sound: true, badge: true, alert: true));
-
-    firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      log.info('Settings registered: $settings');
-    });
+    firebaseMessaging.requestPermission(
+        sound: true, badge: true, alert: true);
   }
 }

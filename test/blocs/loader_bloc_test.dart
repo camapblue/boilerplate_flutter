@@ -17,7 +17,7 @@ void main() {
 
   group('LoaderInitial', () {
     test.test('LoaderInitial is set from beginning', () {
-      expect(loaderBloc.initialState, const TypeMatcher<LoaderInitial>());
+      expect(loaderBloc.state, const TypeMatcher<LoaderInitial>());
     });
   });
 
@@ -26,7 +26,7 @@ void main() {
       'emits [LoaderInitial, LoaderRunSuccess] when LoaderRun is added',
       build: () => loaderBloc,
       act: (bloc) => bloc.add(LoaderRun('Loading')),
-      expect: [isA<LoaderInitial>(), isA<LoaderRunSuccess>()],
+      expect: () => [isA<LoaderInitial>(), isA<LoaderRunSuccess>()],
     );
   });
 
@@ -40,7 +40,7 @@ void main() {
         await bloc.add(LoaderRun('Loading'));
         bloc.add(LoaderStopped());
       },
-      expect: [
+      expect: () => [
         isA<LoaderInitial>(),
         isA<LoaderRunSuccess>(),
         isA<LoaderStopSuccess>()

@@ -10,14 +10,11 @@ import 'package:boilerplate_flutter/constants/constants.dart';
 import 'launching.dart';
 
 class LaunchingBloc extends BaseBloc<LaunchingEvent, LaunchingState> {
-  LaunchingBloc(Key key) : super(key);
+  LaunchingBloc(Key key) : super(key, initialState: LaunchingInitial());
 
   factory LaunchingBloc.instance() {
     return EventBus().newBloc<LaunchingBloc>(Keys.Blocs.launchingBloc);
   }
-
-  @override
-  LaunchingState get initialState => LaunchingInitial();
 
   @override
   Stream<LaunchingState> mapEventToState(LaunchingEvent event) async* {

@@ -18,25 +18,30 @@ import 'package:repository/repository.dart';
 
 import 'modules/app/app_showing/app_showing.dart';
 
-import 'blocs/base/simple_bloc_delegate.dart';
+import 'blocs/base/simple_bloc_observer.dart';
 import 'blocs/blocs.dart';
 
 Future<void> main() async {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+  Bloc.observer = SimpleBlocObserver();
 
   final widgetBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-
-  await DotEnv().load('.env'); // load configs based on environment
-  await Repository().initialize(); // initialize all required resources
   Provider().isPhysicalDevice = await Device.isPhysicalDevice();
   Provider().packageInfo = await PackageInfo.fromPlatform();
-  AppCaching().devicePixelRatio = widgetBinding.window.devicePixelRatio;
-  await AppCaching().preloadBeforeAppStart();
+
+  await Future.wait([
+    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true),
+    DotEnv().load('.env'),
+    Repository().initialize(),
+    AppCaching().preloadBeforeAppStart(),
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  ]);
   
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  AppCaching().devicePixelRatio = widgetBinding.window.devicePixelRatio;
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  );
 
   runApp(MyApp());
 }
@@ -51,7 +56,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey();
   final Messaging _messaging =
-      Messaging(firebaseMessaging: FirebaseMessaging());
+      Messaging(firebaseMessaging: FirebaseMessaging.instance);
 
   @override
   void initState() {
@@ -79,7 +84,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<MessagingBloc>(create: (_) => MessagingBloc.instance()),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
-          condition: (previousState, state) {
+          buildWhen: (previousState, state) {
         return state is LanguageInitial || state is LanguageUpdateSuccess;
       }, builder: (_, languageState) {
         return MaterialApp(
@@ -88,7 +93,7 @@ class _MyAppState extends State<MyApp> {
               builder: (context, widget) => MultiBlocListener(
                     listeners: [
                       BlocListener<DeeplinkBloc, DeeplinkState>(
-                        condition: (previous, current) =>
+                        listenWhen: (previous, current) =>
                             current is DeeplinkOpenSuccess,
                         listener: (_, state) {
                           if (state is DeeplinkOpenSuccess) {
@@ -108,7 +113,7 @@ class _MyAppState extends State<MyApp> {
                         },
                       ),
                       BlocListener<SessionBloc, SessionState>(
-                        condition: (previous, current) =>
+                        listenWhen: (previous, current) =>
                             current is SessionUserReadyToSetUpMessasing,
                         listener: (_, state) async {
                           await Future.delayed(const Duration(seconds: 1));

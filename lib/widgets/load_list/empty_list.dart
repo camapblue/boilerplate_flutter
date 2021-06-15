@@ -1,17 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/theme/theme_constants.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
-import 'package:flutter/material.dart';
+
 import 'load_list_theme.dart';
 
 class EmptyList extends StatelessWidget {
   final String emptyMessage;
   final Color color;
+  final Function onReload;
 
   EmptyList({
     Key key,
     @required this.emptyMessage,
     this.color = whiteColor,
+    this.onReload,
   }) : super(key: key);
 
   @override
@@ -41,6 +44,11 @@ class EmptyList extends StatelessWidget {
                   .copyWith(color: color),
             ),
           ),
+          if (onReload != null)
+            SizedBox(
+              width: 100,
+              child: Button.reload(context: context, onPressed: onReload),
+            )
         ],
       ),
     );

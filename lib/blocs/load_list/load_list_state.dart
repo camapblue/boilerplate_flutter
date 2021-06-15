@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:repository/model/model.dart';
 
 abstract class LoadListState extends Equatable {
@@ -8,7 +9,10 @@ abstract class LoadListState extends Equatable {
 
 class LoadListInitial extends LoadListState {}
 
-class LoadListStartInProgress extends LoadListState {}
+class LoadListStartInProgress extends LoadListState {
+  final bool isSilent;
+  LoadListStartInProgress({@required this.isSilent});
+}
 
 class LoadListLoadPageSuccess<T extends Entity> extends LoadListState {
   final List<T> items;

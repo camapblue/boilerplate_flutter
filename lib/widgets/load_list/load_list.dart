@@ -20,11 +20,13 @@ typedef ItemPlaceholderBuilder<T extends Entity> = Widget Function(T item);
 
 typedef GroupHeaderBuilder = Widget Function(String headerTitle,
     {Map<String, dynamic> extraData});
-typedef GroupItemBuilder<I extends Entity> = Widget Function(I item);
-typedef GroupItemPlaceholderBuilder<I extends Entity> = Widget Function(I item);
+typedef GroupItemBuilder<I extends Entity> = Widget Function(I item, int index);
+typedef GroupItemPlaceholderBuilder<I extends Entity> = Widget Function(
+    I item, int index);
 typedef OnItemRemoved<T extends Object> = void Function(T removedItem);
 typedef OnDataIsReady<T extends Entity> = void Function(
     List<T> data, bool isRefreshed);
+typedef CompareFunction<T extends Object> = int Function(T a, T b);
 
 class LoadListGroupHeader extends StatelessWidget {
   final List<Group> groups;
@@ -81,7 +83,7 @@ class _ListItemLayout extends State<ListItemLayout>
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (_animation != null) {
         await Future.delayed(const Duration(milliseconds: 350));
-        _animation.forward();
+        await _animation.forward();
       }
     });
 
@@ -148,7 +150,7 @@ class LoadList<T extends Entity> extends StatefulWidget {
     this.loadingIndicatorColor = whiteColor,
     this.onDataIsReady,
     this.onShouldRefresh,
-    this.padding = const EdgeInsets.all(8),
+    this.padding = EdgeInsets.zero,
     this.slideUpAnimation = false,
     this.startingSlideUpIndex = 3,
     this.needLoadMore = true,
@@ -158,6 +160,8 @@ class LoadList<T extends Entity> extends StatefulWidget {
     this.automaticKeepAlives = false,
     this.params,
     this.itemFilter,
+    this.sort,
+    this.needReloadWhenEmpty = true,
   })  : assert(
             listRender != null ||
                 itemBuilder != null ||
@@ -193,6 +197,8 @@ class LoadList<T extends Entity> extends StatefulWidget {
   final bool automaticKeepAlives;
   final Map<String, dynamic> params;
   final bool Function(T) itemFilter;
+  final CompareFunction<T> sort;
+  final bool needReloadWhenEmpty;
 
   @override
   State<StatefulWidget> createState() {
@@ -211,10 +217,14 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
 
   List<T> getItems(LoadListState state) {
     if (state is LoadListLoadPageSuccess) {
-      var items = state.items;
+      List<T> items = state.items;
 
       if (widget.itemFilter != null) {
         items = items.where((element) => widget.itemFilter(element)).toList();
+      }
+
+      if (widget.sort != null) {
+        items.sort(widget.sort);
       }
 
       return items;
@@ -298,13 +308,14 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
               final item = groups.groupItem(index: index);
               return widget.groupItemPlaceholderBuilder != null
                   ? ListItemLayout(
-                      placeholder: widget.groupItemPlaceholderBuilder(item),
+                      placeholder:
+                          widget.groupItemPlaceholderBuilder(item, index),
                       slideUpAnimation: widget.slideUpAnimation &&
                           _isScrollDown &&
                           index >= widget.startingSlideUpIndex,
-                      child: widget.groupItemBuilder(item),
+                      child: widget.groupItemBuilder(item, index),
                     )
-                  : widget.groupItemBuilder(item);
+                  : widget.groupItemBuilder(item, index);
             },
           );
         } else {
@@ -323,13 +334,14 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
               final item = groups.groupItem(index: index);
               return widget.groupItemPlaceholderBuilder != null
                   ? ListItemLayout(
-                      placeholder: widget.groupItemPlaceholderBuilder(item),
+                      placeholder:
+                          widget.groupItemPlaceholderBuilder(item, index),
                       slideUpAnimation: widget.slideUpAnimation &&
                           _isScrollDown &&
                           index >= widget.startingSlideUpIndex,
-                      child: widget.groupItemBuilder(item),
+                      child: widget.groupItemBuilder(item, index),
                     )
-                  : widget.groupItemBuilder(item);
+                  : widget.groupItemBuilder(item, index);
             },
           );
         }
@@ -389,7 +401,17 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
           widget.onItemRemoved(state.removedItem);
         }
       },
-      buildWhen: (previous, current) => current is! LoadListRemoveItemSuccess,
+      buildWhen: (previous, current) {
+        if (current is LoadListRemoveItemSuccess) {
+          return false;
+        }
+
+        if (current is LoadListStartInProgress) {
+          return !current.isSilent;
+        }
+
+        return true;
+      },
       builder: (context, state) {
         if (state is LoadListStartInProgress) {
           return widget.loadingWidget ??
@@ -415,6 +437,7 @@ class _LoadListState<T extends Entity> extends State<LoadList<T>> {
                   EmptyList(
                     emptyMessage: widget.emptyMessage,
                     color: widget.loadingIndicatorColor,
+                    onReload: widget.needReloadWhenEmpty ? _reload : null,
                   )
               : widget.listRender != null
                   ? widget.listRender(items)

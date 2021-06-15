@@ -1,6 +1,6 @@
-import 'package:boilerplate_flutter/theme/theme_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
+import 'package:boilerplate_flutter/theme/theme_constants.dart';
 
 class ListViewLoadMoreDelegate extends LoadMoreDelegate {
   @override

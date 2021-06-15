@@ -8,6 +8,8 @@ import 'package:repository/enum/enum.dart';
 import 'package:repository/repository.dart';
 
 class LogInScreen extends StatefulWidget {
+  const LogInScreen();
+  
   @override
   State<LogInScreen> createState() {
     return _LogInScreenState();
