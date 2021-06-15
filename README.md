@@ -16,7 +16,7 @@ This project is a mobile app of Boilerplate that building by Flutter.
 ## Architecture
 
 Apply Clean Architecture + BloC pattern 
-
+```
 |---------------  Layers  --------------|
 | Presentations | Business Logic | Data |
 |:-------------------------------------:|
@@ -28,7 +28,7 @@ Apply Clean Architecture + BloC pattern
 |:-------------------------------------------------------------:|
 |:----  Extension Entity   ----|----    Basic Entity   --------:|
 |:-------------------------------------------------------------:|
-
+```
 ### Module
 - This is the major view layer of mobile app and is categorized by module (feature or epic). 
 - View (widget) is rendered based on the bloc state if needed. 
@@ -232,3 +232,10 @@ For the next run with qc environement, it can be run normally with Flutter comma
   6. trace: *for tracking in order to identify bugs, do not keep it when bug is resolved*
 - The logging level for each environment will be set in .env files
 - The Log class is a singleton and be able to get from singleton instance of Common class
+
+## Donations
+
+Please give me a coffee if it's helpful for you. Thanks ^_^
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/lequangdaoitm/10)
+
