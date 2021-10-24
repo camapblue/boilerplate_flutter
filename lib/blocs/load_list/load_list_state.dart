@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:repository/model/model.dart';
 
 abstract class LoadListState extends Equatable {
+  final Map<String, dynamic> params;
+
+  LoadListState([this.params]);
+
   @override
   List<Object> get props => null;
 }
@@ -11,16 +13,17 @@ class LoadListInitial extends LoadListState {}
 
 class LoadListStartInProgress extends LoadListState {
   final bool isSilent;
-  LoadListStartInProgress({@required this.isSilent});
+  LoadListStartInProgress({this.isSilent = false});
 }
 
-class LoadListLoadPageSuccess<T extends Entity> extends LoadListState {
+class LoadListLoadPageSuccess<T extends Object> extends LoadListState {
   final List<T> items;
   final int nextPage;
   final bool isFinish;
 
   LoadListLoadPageSuccess(this.items,
-      {this.nextPage = 0, this.isFinish = false});
+      {this.nextPage = 0, this.isFinish = false, Map<String, dynamic> params})
+      : super(params);
 
   @override
   List<Object> get props => [items, isFinish, nextPage];

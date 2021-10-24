@@ -11,8 +11,8 @@ class AppRouter {
   void navigateTo(Deeplink deeplink) {
     switch (deeplink.screen) {
       case Screen.example:
-        navigator
-            .push(MaterialPageRoute(builder: (context) => LandingScreen()));
+        navigator.push(
+            MaterialPageRoute(builder: (context) => const LandingScreen()));
         break;
       default:
         break;

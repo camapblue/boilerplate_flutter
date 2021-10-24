@@ -16,6 +16,19 @@ class AppIcon extends StatelessWidget {
   final double height;
   final Color color;
 
+  factory AppIcon.closeCircle({
+    double width = 20,
+    double height = 20,
+    Color color = const Color.fromRGBO(60, 60, 67, 0.6),
+  }) {
+    return AppIcon(
+      icon: AppIcons.closeCircle,
+      width: width,
+      height: height,
+      color: color,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(

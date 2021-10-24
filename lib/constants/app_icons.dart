@@ -13,6 +13,7 @@ enum AppIcons {
   arrowLeft,
   arrowRight,
   search,
+  closeCircle,
 }
 
 const _AppIconsAsset = {
@@ -30,6 +31,7 @@ const _AppIconsAsset = {
   AppIcons.arrowLeft: 'assets/icons/arrow_left.svg',
   AppIcons.arrowRight: 'assets/icons/arrow_right.svg',
   AppIcons.search: 'assets/icons/search.svg',
+  AppIcons.closeCircle: 'assets/icons/close_circle.svg',
 };
 
 extension AppIconsExtension on AppIcons {

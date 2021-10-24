@@ -1,8 +1,8 @@
+import 'package:common/common.dart';
 import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:boilerplate_flutter/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:boilerplate_flutter/services/services.dart';
-import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 
 import 'package:boilerplate_flutter/blocs/base/base_bloc.dart';
@@ -20,26 +20,52 @@ class LoadListBloc<T extends Entity>
       : _loadListService = loadListService,
         super(
           key,
-          initialState: LoadListInitial(),
           closeWithBlocKey: closeWithBlocKey,
+          initialState: LoadListInitial(),
         );
 
   @override
   Stream<LoadListState> mapEventToState(LoadListEvent event) async* {
     if (event is LoadListRemovedItem) {
-      yield LoadListRemoveItemSuccess(event.removedItem);
+      if (event.shouldUpdateList && state is LoadListLoadPageSuccess) {
+        final LoadListLoadPageSuccess current = state;
+        final items = List<T>.from(current.items)..remove(event.removedItem);
+        yield LoadListLoadPageSuccess<T>(
+          items,
+          nextPage: current.nextPage,
+          isFinish: current.isFinish,
+          params: state.params,
+        );
+      } else {
+        yield LoadListRemoveItemSuccess(event.removedItem);
+      }
     } else if (event is LoadListAddedItem) {
       final LoadListLoadPageSuccess current = state;
       final items = List<T>.from(current.items)..add(event.addedItem);
-      yield LoadListLoadPageSuccess<T>(items,
-          nextPage: current.nextPage, isFinish: current.isFinish);
+      yield LoadListLoadPageSuccess<T>(
+        items,
+        nextPage: current.nextPage,
+        isFinish: current.isFinish,
+        params: state.params,
+      );
     } else if (event is LoadListReloaded && state is LoadListLoadPageSuccess) {
-      final LoadListLoadPageSuccess current = state;
-      yield LoadListLoadPageSuccess<T>(event.items,
-          nextPage: current.nextPage, isFinish: current.isFinish);
+      if (event.items == null) {
+        add(LoadListRefreshed(params: {
+          ...state.params,
+          'clearCache': true,
+        }));
+      } else {
+        final LoadListLoadPageSuccess current = state;
+        yield LoadListLoadPageSuccess<T>(
+          event.items,
+          nextPage: current.nextPage,
+          isFinish: current.isFinish,
+          params: state.params,
+        );
+      }
     } else {
       yield* _mapLoadListLoadedPageToState(event);
-    } 
+    }
   }
 
   Stream<LoadListState> _mapLoadListLoadedPageToState(
@@ -50,8 +76,6 @@ class LoadListBloc<T extends Entity>
     } else if (event is LoadListRefreshed) {
       yield LoadListStartInProgress(isSilent: event.isSilent);
       await _loadListService.shouldRefreshItems(params: event.params);
-
-      EventBus().cleanUp(parentKey: key);
     } else if (event is LoadListNextPage) {
       items = event.nextItems;
     }
@@ -65,26 +89,39 @@ class LoadListBloc<T extends Entity>
         allItems = List<T>.from(previous.items);
         nextPage = previous.nextPage;
       } else {
-        final params = event.params ?? {};
+        final params = event.params != null
+            ? Map<String, dynamic>.from(event.params)
+            : <String, dynamic>{};
         params['index'] = 0;
-
         items = await _loadListService.loadItems(params: params);
       }
 
       if (GroupList.isListGroup(items.runtimeType.toString())) {
         if (items.isEmpty) {
-          yield LoadListLoadPageSuccess<T>(allItems,
-              isFinish: true, nextPage: nextPage);
+          yield LoadListLoadPageSuccess<T>(
+            allItems,
+            isFinish: true,
+            nextPage: nextPage,
+            params: event.params,
+          );
         } else {
           //ignore: avoid_as
           final groups = allItems as List<Group>..append(items as List<Group>);
-          yield LoadListLoadPageSuccess<Group>(groups,
-              isFinish: false, nextPage: groups.totalItem());
+          yield LoadListLoadPageSuccess<Group>(
+            groups,
+            isFinish: false,
+            nextPage: groups.totalItem(),
+            params: event.params,
+          );
         }
       } else {
         allItems = allItems + items;
-        yield LoadListLoadPageSuccess<T>(allItems,
-            isFinish: items.isEmpty, nextPage: allItems.length);
+        yield LoadListLoadPageSuccess<T>(
+          allItems,
+          isFinish: items.isEmpty,
+          nextPage: allItems.length,
+          params: event.params,
+        );
       }
     } catch (e) {
       log.error('Load List Error >> $e');
@@ -92,12 +129,11 @@ class LoadListBloc<T extends Entity>
     }
   }
 
-  void start({Map<String, dynamic> params}) {
+  void start({Map<String, dynamic> params, bool shouldReload = false}) {
     if (state is LoadListInitial) {
-      addLater(
-        LoadListStarted(params: params),
-        after: const Duration(seconds: 1),
-      );
+      add(LoadListStarted(params: params));
+    } else if (shouldReload) {
+      add(const LoadListReloaded());
     } else if (_loadListService.shouldReloadData(params: params)) {
       add(LoadListRefreshed(params: params));
     }
@@ -113,5 +149,13 @@ class LoadListBloc<T extends Entity>
       return items;
     }
     return <T>[];
+  }
+
+  List<T> getCurrentItems() {
+    if (state is LoadListLoadPageSuccess) {
+      return (state as LoadListLoadPageSuccess).items;
+    }
+
+    return null;
   }
 }

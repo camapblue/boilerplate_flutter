@@ -5,7 +5,6 @@ ThemeData loadTheme() {
   return ThemeData(
     primaryColor: redColor,
     primaryColorLight: redColorLight,
-    accentColor: greenColor,
     tabBarTheme: const TabBarTheme(
       labelColor: redColor,
       unselectedLabelColor: grayColor,
@@ -13,10 +12,9 @@ ThemeData loadTheme() {
     backgroundColor: lightColor,
     primaryTextTheme: appPrimaryTextTheme,
     textTheme: appSecondaryTextTheme,
-    accentTextTheme: appAccentTextTheme,
     iconTheme: const IconThemeData(
       color: lightColor,
     ),
-    appBarTheme: const AppBarTheme(textTheme: appSecondaryTextTheme),
+    appBarTheme: AppBarTheme(toolbarTextStyle: appSecondaryTextTheme.bodyText1),
   );
 }
