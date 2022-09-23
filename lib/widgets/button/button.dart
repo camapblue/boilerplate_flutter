@@ -1,7 +1,7 @@
 import 'package:boilerplate_flutter/constants/constants.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 
-import 'package:common/widget.dart';
 import 'package:boilerplate_flutter/constants/strings.dart';
 import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:boilerplate_flutter/global/global.dart';
@@ -12,21 +12,21 @@ export 'login_button.dart';
 class Button extends BounceButton {
   Button(
     BounceButtonTheme buttonTheme, {
-    Function onPressed,
-    double width,
-    double height,
-    @required BounceButtonDecoration decoration,
-    @required ButtonThemeStyle style,
-    @required String title,
-    EdgeInsets padding,
+    void Function()? onPressed,
+    double? width,
+    double? height,
+    required BounceButtonDecoration decoration,
+    required ButtonThemeStyle style,
+    required String title,
+    EdgeInsets? padding,
     bool isLoading = false,
-    String loadingText,
-    TextStyle loadingTextStyle,
-    Widget suffixIcon,
-    Widget icon,
-    double iconMargin,
+    String loadingText = '',
+    TextStyle? loadingTextStyle,
+    Widget? suffixIcon,
+    Widget? icon,
+    double iconMargin = 16.0,
     bool usingPointerDetector = false,
-    Key key,
+    Key? key,
   }) : super(
           onPressed: onPressed,
           width: width,
@@ -36,13 +36,11 @@ class Button extends BounceButton {
           color: style == ButtonThemeStyle.normal
               ? buttonTheme.color
               : buttonTheme.lightColor,
-          disabledColor: onPressed == null ? buttonTheme.disabledColor : null,
+          disabledColor: buttonTheme.disabledColor,
           normalTextStyle: buttonTheme.normalTextStyle
               .copyWith(fontSize: decoration.fontSize),
-          disabledTextStyle: onPressed == null
-              ? buttonTheme.disabledTextStyle
-                  .copyWith(fontSize: decoration.fontSize)
-              : null,
+          disabledTextStyle: buttonTheme.disabledTextStyle
+              .copyWith(fontSize: decoration.fontSize),
           border: decoration.border,
           borderRadius: decoration.borderRadius,
           isLoading: isLoading,
@@ -56,15 +54,15 @@ class Button extends BounceButton {
         );
 
   factory Button.green({
-    @required BuildContext context,
-    Function onPressed,
-    double width,
-    double height,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
+    double? height,
     ButtonThemeStyle style = ButtonThemeStyle.normal,
     ButtonSize size = ButtonSize.medium,
-    @required String title,
+    required String title,
     bool isLoading = false,
-    Widget suffixIcon,
+    Widget? suffixIcon,
   }) {
     return Button(Theme.of(context).greenButtonTheme,
         onPressed: onPressed,
@@ -78,14 +76,14 @@ class Button extends BounceButton {
   }
 
   factory Button.red({
-    @required BuildContext context,
-    @required Function onPressed,
-    double width,
-    double height,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
+    double? height,
     ButtonThemeStyle style = ButtonThemeStyle.normal,
     ButtonSize size = ButtonSize.medium,
-    @required String title,
-    Widget suffixIcon,
+    required String title,
+    Widget? suffixIcon,
   }) {
     return Button(
       Theme.of(context).redButtonTheme,
@@ -100,15 +98,15 @@ class Button extends BounceButton {
   }
 
   factory Button.blue({
-    @required BuildContext context,
-    @required Function onPressed,
-    double width,
-    double height,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
+    double? height,
     ButtonThemeStyle style = ButtonThemeStyle.normal,
     ButtonSize size = ButtonSize.medium,
-    @required String title,
+    required String title,
     bool isLoading = false,
-    Widget suffixIcon,
+    Widget? suffixIcon,
   }) {
     return Button(
       Theme.of(context).blueButtonTheme,
@@ -125,15 +123,15 @@ class Button extends BounceButton {
   }
 
   factory Button.yellow({
-    @required BuildContext context,
-    @required Function onPressed,
-    double width,
-    double height,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
+    double? height,
     ButtonThemeStyle style = ButtonThemeStyle.normal,
     ButtonSize size = ButtonSize.medium,
-    @required String title,
+    required String title,
     bool isLoading = false,
-    Widget suffixIcon,
+    Widget? suffixIcon,
   }) {
     return Button(Theme.of(context).yellowButtonTheme,
         onPressed: onPressed,
@@ -147,15 +145,15 @@ class Button extends BounceButton {
   }
 
   factory Button.noBorder({
-    @required BounceButtonTheme buttonTheme,
-    @required Function onPressed,
-    double width,
-    double height,
+    required BounceButtonTheme buttonTheme,
+    void Function()? onPressed,
+    double? width,
+    double? height,
     ButtonThemeStyle style = ButtonThemeStyle.normal,
     ButtonSize size = ButtonSize.medium,
-    @required String title,
+    required String title,
     bool isLoading = false,
-    Key key,
+    Key? key,
     bool usingPointerDetector = false,
   }) {
     return Button(
@@ -174,10 +172,10 @@ class Button extends BounceButton {
   }
 
   factory Button.cancel({
-    @required BuildContext context,
-    @required Function onPressed,
-    String title,
-    double width,
+    required BuildContext context,
+    void Function()? onPressed,
+    String? title,
+    double? width,
     ButtonThemeStyle style = ButtonThemeStyle.light,
     ButtonSize size = ButtonSize.medium,
     bool isLoading = false,
@@ -194,9 +192,9 @@ class Button extends BounceButton {
   }
 
   factory Button.close({
-    @required BuildContext context,
-    @required Function onPressed,
-    double width,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
     ButtonThemeStyle style = ButtonThemeStyle.light,
     ButtonSize size = ButtonSize.medium,
     bool isLoading = false,
@@ -213,9 +211,9 @@ class Button extends BounceButton {
   }
 
   factory Button.save({
-    @required BuildContext context,
-    @required Function onPressed,
-    double width,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
     ButtonThemeStyle style = ButtonThemeStyle.light,
     ButtonSize size = ButtonSize.medium,
     bool isLoading = false,
@@ -234,9 +232,9 @@ class Button extends BounceButton {
   }
 
   factory Button.accept({
-    @required BuildContext context,
-    @required Function onPressed,
-    double width,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
     ButtonThemeStyle style = ButtonThemeStyle.normal,
     ButtonSize size = ButtonSize.medium,
     bool isLoading = false,
@@ -253,9 +251,9 @@ class Button extends BounceButton {
   }
 
   factory Button.reload({
-    @required BuildContext context,
-    @required Function onPressed,
-    double width,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
     ButtonThemeStyle style = ButtonThemeStyle.normal,
     ButtonSize size = ButtonSize.medium,
     bool isLoading = false,
@@ -272,10 +270,10 @@ class Button extends BounceButton {
   }
 
   factory Button.ok({
-    @required BuildContext context,
-    @required Function onPressed,
-    String title,
-    double width,
+    required BuildContext context,
+    void Function()? onPressed,
+    String? title,
+    double? width,
     ButtonThemeStyle style = ButtonThemeStyle.normal,
     ButtonSize size = ButtonSize.medium,
     bool isLoading = false,

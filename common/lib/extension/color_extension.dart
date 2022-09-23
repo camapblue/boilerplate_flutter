@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-
 extension ColorExtension on Color {
   static Color randomColor() {
     return Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0)
@@ -18,7 +16,7 @@ extension ColorExtension on Color {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
-  static Color average({@required Color from, @required Color to}) {
+  static Color? average({required Color from, required Color to}) {
     return Color.lerp(from, to, 0.5);
   }
 

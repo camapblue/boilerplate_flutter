@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+part of 'deeplink_bloc.dart';
 
 abstract class DeeplinkEvent {
   const DeeplinkEvent();
@@ -7,5 +7,5 @@ abstract class DeeplinkEvent {
 class DeeplinkOpened extends DeeplinkEvent {
   final String deeplinkURL;
 
-  const DeeplinkOpened({@required this.deeplinkURL});
+  const DeeplinkOpened({required this.deeplinkURL});
 }

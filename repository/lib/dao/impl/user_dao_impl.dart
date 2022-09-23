@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:repository/dao/base_dao.dart';
 import 'package:repository/dao/user_dao.dart';
-import 'package:repository/model/mapper.dart';
 import 'package:repository/model/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,8 +8,8 @@ const _CurrentAuthorizationKey = 'key_current_authorization';
 const _RegisteredDeviceTokenKey = 'key_registered_device_token';
 
 class UserDaoImpl extends BaseDao<User> implements UserDao {
-  UserDaoImpl({@required SharedPreferences preferences})
-      : super(mapper: Mapper<User>(parse: User.fromJson), prefs: preferences);
+  UserDaoImpl({required SharedPreferences preferences})
+      : super(mapper: Mapper<User>(parser: User.fromJson), prefs: preferences);
 
   @override
   Future<void> saveUser(User user) {
@@ -24,15 +22,15 @@ class UserDaoImpl extends BaseDao<User> implements UserDao {
   }
 
   @override
-  User loadUser() {
+  User? loadUser() {
     return getItem(_CurrentUserKey);
   }
 
   @override
-  Authorization loadAuthorization() {
+  Authorization? loadAuthorization() {
     final authorization = getEntity<Authorization>(_CurrentAuthorizationKey,
         mapper:
-            Mapper<Authorization>(parse: Authorization.fromJson));
+            Mapper<Authorization>(parser: Authorization.fromJson));
     if (authorization == null) {
       return null;
     }
@@ -41,12 +39,12 @@ class UserDaoImpl extends BaseDao<User> implements UserDao {
   }
 
   @override
-  String getRegisteredDeviceToken() {
+  String? getRegisteredDeviceToken() {
     return getString(_RegisteredDeviceTokenKey);
   }
 
   @override
-  Future<void> saveRegisteredDeviceToken({String deviceToken}) {
+  Future<void> saveRegisteredDeviceToken({required String deviceToken}) {
     return saveString(deviceToken, _RegisteredDeviceTokenKey);
   }
 

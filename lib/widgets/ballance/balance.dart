@@ -12,12 +12,12 @@ final balanceFormatter = NumberFormat.currency(
 
 class Balance extends StatelessWidget {
   final double value;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final bool crossLine;
   final bool showNegativeInZero;
 
   const Balance({
-    @required this.value,
+    required this.value,
     this.textStyle,
     this.crossLine = false,
     this.showNegativeInZero = false,

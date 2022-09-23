@@ -3,14 +3,14 @@ import 'package:boilerplate_flutter/widgets/widgets.dart';
 
 class InputValidatorRule {
   final String errorMessage;
-  final bool Function(String input) validator;
+  final bool Function(String? input) validator;
 
   InputValidatorRule({
-    @required this.errorMessage,
-    @required this.validator,
+    required this.errorMessage,
+    required this.validator,
   });
 
-  factory InputValidatorRule.require({@required String errorMessage}) {
+  factory InputValidatorRule.require({required String errorMessage}) {
     return InputValidatorRule(
       errorMessage: errorMessage,
       validator: (input) => input != null && input.isNotEmpty,
@@ -33,17 +33,17 @@ class ValidatorInput extends StatefulWidget {
   final String placeholder;
   final String initialValue;
   final TextInputType keyboardType;
-  final void Function(String value) onFieldSubmitted;
-  final void Function(String value) onValid;
-  final TextStyle titleStyle;
-  final TextStyle titleBoldStyle;
-  final TextStyle hintStyle;
-  final TextStyle textStyle;
-  final TextStyle errorTextStyle;
-  final InputBorder enabledBorder;
-  final InputBorder focusedBorder;
+  final void Function(String? value)? onFieldSubmitted;
+  final void Function(String? value) onValid;
+  final TextStyle? titleStyle;
+  final TextStyle? titleBoldStyle;
+  final TextStyle? hintStyle;
+  final TextStyle? textStyle;
+  final TextStyle? errorTextStyle;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
   final List<InputValidatorRule> validatorRules;
-  final void Function(TextEditingController) onTextController;
+  final void Function(TextEditingController)? onTextController;
   final bool showEmptySpaceForErrorMessage;
   final bool autocorrect;
   final bool enabled;
@@ -61,7 +61,7 @@ class ValidatorInput extends StatefulWidget {
     this.focusedBorder,
     this.keyboardType = TextInputType.text,
     this.validatorRules = const [],
-    @required this.onValid,
+    required this.onValid,
     this.onFieldSubmitted,
     this.onTextController,
     this.showEmptySpaceForErrorMessage = true,
@@ -74,7 +74,7 @@ class ValidatorInput extends StatefulWidget {
 }
 
 class _ValidatorInputState extends State<ValidatorInput> {
-  TextEditingController _controller;
+  late TextEditingController _controller;
   var _errorMessage = '';
   var _touched = false;
   final _focusNode = FocusNode();
@@ -85,7 +85,7 @@ class _ValidatorInputState extends State<ValidatorInput> {
     _focusNode.addListener(_onChangeFocus);
 
     if (widget.onTextController != null) {
-      widget.onTextController(_controller);
+      widget.onTextController!(_controller);
     }
 
     super.initState();
@@ -126,7 +126,7 @@ class _ValidatorInputState extends State<ValidatorInput> {
 
     if (submit) {
       if (widget.onFieldSubmitted != null) {
-        widget.onFieldSubmitted(validData);
+        widget.onFieldSubmitted!(validData);
       }
     }
   }

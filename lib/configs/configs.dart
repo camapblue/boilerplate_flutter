@@ -1,15 +1,28 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:common/common.dart';
 
 class Configs {
   static final Configs _singleton = Configs._internal();
 
   factory Configs() {
+    if (_singleton._configs == null) {
+      try {
+        _singleton._configs = {};
+        const String.fromEnvironment('env').split('|').forEach((comp) {
+          if (comp.isNotEmpty) {
+            final vars = comp.split('=');
+            _singleton._configs[vars[0]] = vars[1];
+          }
+        });
+      } catch (e) {
+        log.error('Error >> $e');
+        _singleton._configs = {};
+      }
+    }
     return _singleton;
   }
 
   Configs._internal();
+  dynamic _configs;
 
-  bool get isProd => environment == 'prod';
-
-  String get environment => DotEnv().env['ENVIRONMENT'];
+  String get logLevel => _configs['ENVIRONMENT'] ?? 'development';
 }

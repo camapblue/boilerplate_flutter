@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 extension DateTimeExtension on DateTime {
@@ -22,7 +21,7 @@ extension DateTimeExtension on DateTime {
     return formatter.format(this);
   }
 
-  int calculateAge({DateTime now}) {
+  int calculateAge({DateTime? now}) {
     final currentDate = now ?? DateTime.now();
     var age = currentDate.year - year;
     final month1 = currentDate.month;
@@ -58,7 +57,7 @@ extension DateTimeExtension on DateTime {
     return toFormatString(format: format);
   }
 
-  String timeInStringToNow({DateTime now}) {
+  String timeInStringToNow({DateTime? now}) {
     if (isToday()) {
       return 'Today';
     } else if (isTomorrow()) {
@@ -82,7 +81,7 @@ extension DateTimeExtension on DateTime {
     return diff == 0 && now.day == day;
   }
 
-  bool isTheSameUTCDay({@required DateTime utcDate}) {
+  bool isTheSameUTCDay({DateTime? utcDate}) {
     final target = utcDate ?? DateTime.now().toUtc();
     final diff = target.difference(toUtc()).inDays;
     return diff == 0;

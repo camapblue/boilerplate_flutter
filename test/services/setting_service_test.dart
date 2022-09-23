@@ -8,11 +8,10 @@ import 'package:test/test.dart';
 class MockSettingRepository extends Mock implements SettingRepository {}
 
 void main() {
-  SettingService settingService;
-  SettingRepository settingRepository;
+  late SettingService settingService;
+  final SettingRepository settingRepository = MockSettingRepository();
 
   setUp(() {
-    settingRepository = MockSettingRepository();
     settingService = SettingServiceImpl(
       settingRepository: settingRepository,
     );

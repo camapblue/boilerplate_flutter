@@ -4,7 +4,7 @@ import 'package:boilerplate_flutter/constants/constants.dart';
 
 class CircleNumber extends StatelessWidget {
   const CircleNumber({
-    Key key,
+    Key? key,
     this.color = darkColor,
     this.border,
     this.number = 0,
@@ -16,8 +16,8 @@ class CircleNumber extends StatelessWidget {
   final double height;
   final num number;
   final Color color;
-  final TextStyle numberStyle;
-  final BoxBorder border;
+  final TextStyle? numberStyle;
+  final BoxBorder? border;
   final int max;
   final bool autoResize;
 
@@ -36,7 +36,7 @@ class CircleNumber extends StatelessWidget {
               .copyWith(fontSize: 9, color: AppColors.pink);
     }
     if (numberStyle != null) {
-      return numberStyle.copyWith(fontSize: numberStyle.fontSize * 0.8);
+      return numberStyle!.copyWith(fontSize: numberStyle!.fontSize ?? 9 * 0.8);
     }
 
     return Theme.of(context)

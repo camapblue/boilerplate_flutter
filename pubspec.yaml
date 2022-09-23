@@ -15,7 +15,7 @@ version: 1.0.0+1
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.17.5 <3.0.0"
 
 dependencies:
   flutter:
@@ -28,39 +28,39 @@ dependencies:
   common:
     path: ./common
 
-  cupertino_icons: ^0.1.2
-  rxdart: ^0.26.0
-  equatable: ^1.2.5
-  flutter_bloc: ^7.0.1
+  cupertino_icons: ^1.0.5
+  rxdart: ^0.27.5
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.1
   flutter_localizations:
     sdk: flutter
   flutter_cupertino_localizations: ^1.0.1
   firebase_core: ^1.2.0
-  firebase_analytics: ^8.1.0
-  firebase_messaging: ^10.0.0
+  firebase_analytics: ^9.3.5
+  firebase_messaging: ^13.0.2
   firebase_crashlytics: ^2.0.4
-  firebase_auth: ^1.2.0
+  firebase_auth: ^3.9.0
   progress_indicators: ^1.0.0
-  sprintf: ^4.0.2
-  flutter_svg: ^0.22.0
+  sprintf: ^6.0.2
+  flutter_svg: ^1.1.5
   url_launcher: ^6.0.4
   connectivity: ^3.0.6
-  flutter_dotenv: ^2.1.0
-  flutter_udid: ^1.0.1
+  flutter_udid: ^2.0.0
   device_info: ^2.0.2
-  just_audio: ^0.7.5
+  just_audio: ^0.9.29
   package_info: ^2.0.2
-  google_sign_in: ^4.1.4
-  loadmore: ^1.0.4
+  google_sign_in: ^5.4.1
+  loadmore: ^2.0.1
   app_review: ^2.1.1+1
-  scrollable_positioned_list: ^0.1.8
-  shimmer: ^1.1.2
+  scrollable_positioned_list: ^0.3.4
+  shimmer: ^2.0.0
+  qlevar_router: ^1.6.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   test: ^1.16.8
-  bloc_test: ^8.0.1
+  bloc_test: ^9.1.0
   pedantic: ^1.9.0 # Analysis
   mockito: ^5.0.15 # Testing
 

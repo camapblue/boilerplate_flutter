@@ -1,4 +1,5 @@
 import 'package:boilerplate_flutter/models/models.dart';
+import 'package:common/core/core.dart';
 import 'package:repository/repository.dart';
 
 extension ListUser on List<User> {
@@ -10,18 +11,14 @@ extension ListUser on List<User> {
     sort((a, b) => a.compareByOccupation(b));
 
     final groups = <Group<User>>[];
-    var currentGroup = Group<User>(
-      groupBy: first.occupation
-    );
+    var currentGroup = Group<User>(groupBy: first.job);
 
     for (final user in this) {
-      if (user.occupation.compareTo(currentGroup.groupBy) == 0) {
+      if (user.job.compareTo(currentGroup.groupBy) == 0) {
         currentGroup.add(user);
       } else {
         groups.add(currentGroup);
-        currentGroup = Group<User>(
-            groupBy: user.occupation)
-          ..add(user);
+        currentGroup = Group<User>(groupBy: user.job)..add(user);
       }
     }
     groups.add(currentGroup);

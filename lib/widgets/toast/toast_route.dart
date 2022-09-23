@@ -1,45 +1,45 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 import 'toast.dart';
 
 class ToastRoute<T> extends OverlayRoute<T> {
-  final ThemeData theme;
+  final ThemeData? theme;
   Future<T> get completed => _transitionCompleter.future;
   final Completer<T> _transitionCompleter = Completer<T>();
 
   Toast toast;
-  Builder _builder;
-  Alignment _initialAlignment;
-  Alignment _endAlignment;
+  late Builder _builder;
+  Alignment? _initialAlignment;
+  Alignment? _endAlignment;
 
-  bool _wasDismissedBySwipe = false;      // not support yet
+  bool _wasDismissedBySwipe = false; // not support yet
 
-  T _result;
+  T? _result;
 
   @protected
   AnimationController get animationController => _animationController;
-  AnimationController _animationController;
 
-  Animation<Alignment> _animation;
+  late AnimationController _animationController;
 
-  Timer _timer;
-  bool isShowing;
+  late Animation<Alignment> _animation;
 
-  Function _onFinished;
+  Timer? _timer;
+  bool isShowing = false;
+
+  void Function()? _onFinished;
 
   bool get opaque => false;
   String dismissibleKey = '';
 
   Duration animationDuration = const Duration(milliseconds: 350);
 
-  ToastRoute(
-      {@required this.theme,
-      @required this.toast,
-      RouteSettings settings})
-      : super(settings: settings) {
+  ToastRoute({
+    this.theme,
+    required this.toast,
+    RouteSettings? settings,
+  }) : super(settings: settings) {
     _builder = Builder(builder: (BuildContext innerContext) {
       return Container(
         child: toast,
@@ -65,9 +65,9 @@ class ToastRoute<T> extends OverlayRoute<T> {
         break;
       case AnimationStatus.dismissed:
         isShowing = false;
-        navigator.pop();
+        navigator?.pop();
         if (_onFinished != null) {
-          _onFinished();
+          _onFinished!();
         }
         break;
     }
@@ -79,19 +79,14 @@ class ToastRoute<T> extends OverlayRoute<T> {
       _animationController.status == AnimationStatus.dismissed;
 
   AnimationController createAnimationController() {
-    assert(
-        animationDuration != null &&
-            animationDuration >= Duration.zero,
-        'Can not reuse a $runtimeType if duration = 0');
     return AnimationController(
       duration: animationDuration,
       debugLabel: debugLabel,
-      vsync: navigator,
+      vsync: navigator as TickerProvider,
     );
   }
 
   Animation<Alignment> createAnimation() {
-    assert(animationController != null, 'Can not reuse a $runtimeType');
     return AlignmentTween(begin: _initialAlignment, end: _endAlignment).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -104,19 +99,12 @@ class ToastRoute<T> extends OverlayRoute<T> {
   @override
   void install() {
     _animationController = createAnimationController();
-    assert(_animationController != null,
-        '$runtimeType.createAnimationController() returned null.');
     _animation = createAnimation();
-    assert(_animation != null, '$runtimeType.createAnimation() returned null.');
     super.install();
   }
 
   @override
   TickerFuture didPush() {
-    assert(
-        _animationController != null,
-        '$runtimeType.didPush called before calling install() or '
-        'after calling dispose().');
     _animation.addStatusListener(_handleStatusChanged);
     _configureTimer();
     super.didPush();
@@ -124,13 +112,7 @@ class ToastRoute<T> extends OverlayRoute<T> {
   }
 
   @override
-  bool didPop(T result) {
-    assert(_animationController != null,
-    '$runtimeType.didPop called before calling install() '
-        'or after calling dispose().');
-    assert(!_transitionCompleter.isCompleted,
-    'Cannot reuse a $runtimeType after disposing it.');
-
+  bool didPop(T? result) {
     _result = result;
     _cancelTimer();
 
@@ -148,27 +130,21 @@ class ToastRoute<T> extends OverlayRoute<T> {
   }
 
   void _configureTimer() {
-    if (toast.duration != null) {
-      if (_timer != null && _timer.isActive) {
-        _timer.cancel();
-      }
-      _timer = Timer(Duration(seconds: toast.duration), () {
-        if (isCurrent) {
-          _animationController.reverse();
-        } else if (isActive) {
-          navigator.removeRoute(this);
-        }
-      });
-    } else {
-      if (_timer != null) {
-        _timer.cancel();
-      }
+    if (_timer != null && _timer!.isActive) {
+      _timer!.cancel();
     }
+    _timer = Timer(Duration(seconds: toast.duration), () {
+      if (isCurrent) {
+        _animationController.reverse();
+      } else if (isActive) {
+        navigator?.removeRoute(this);
+      }
+    });
   }
 
   void _cancelTimer() {
-    if (_timer != null && _timer.isActive) {
-      _timer.cancel();
+    if (_timer != null && _timer!.isActive) {
+      _timer!.cancel();
     }
   }
 
@@ -176,12 +152,11 @@ class ToastRoute<T> extends OverlayRoute<T> {
   Iterable<OverlayEntry> createOverlayEntries() {
     final overlays = <OverlayEntry>[];
 
-    final alignTransition = AlignTransition(
-      alignment: _animation,
-      child: _builder
-    );
+    final alignTransition =
+        AlignTransition(alignment: _animation, child: _builder);
 
-    overlays.add(OverlayEntry(
+    overlays.add(
+      OverlayEntry(
         builder: (BuildContext context) {
           final Widget annotatedChild = Semantics(
             focused: false,
@@ -191,13 +166,15 @@ class ToastRoute<T> extends OverlayRoute<T> {
           );
           return theme != null
               ? Theme(
-                  data: theme,
+                  data: theme!,
                   child: annotatedChild,
                 )
               : annotatedChild;
         },
         maintainState: false,
-        opaque: opaque));
+        opaque: opaque,
+      ),
+    );
 
     return overlays;
   }
@@ -213,19 +190,18 @@ class ToastRoute<T> extends OverlayRoute<T> {
   @override
   void dispose() {
     assert(!_transitionCompleter.isCompleted,
-      'Cannot dispose a $runtimeType twice.');
-    _animationController?.dispose();
+        'Cannot dispose a $runtimeType twice.');
+    _animationController.dispose();
     _transitionCompleter.complete(_result);
     super.dispose();
   }
 }
 
-ToastRoute showToast<U>(
-    {@required BuildContext context, @required Toast toast}) {
-  assert(toast != null, 'showToast <==> Toast is null');
-
+ToastRoute<U> showToast<U>(
+    {required BuildContext context, required Toast toast}) {
   return ToastRoute<U>(
-      toast: toast,
-      theme: Theme.of(context),
-      settings: const RouteSettings(name: ToastRouteName));
+    toast: toast,
+    theme: Theme.of(context),
+    settings: const RouteSettings(name: ToastRouteName),
+  );
 }

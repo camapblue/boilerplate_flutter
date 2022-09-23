@@ -1,17 +1,15 @@
-import 'package:equatable/equatable.dart';
-import 'package:repository/model/model.dart';
+part of 'session_bloc.dart';
 
 abstract class SessionState extends Equatable {
-  final User loggedInUser;
+  final User? loggedInUser;
   final DateTime lastUpdatedTime;
 
   SessionState({
     this.loggedInUser,
-    this.lastUpdatedTime,
-  });
+  }): lastUpdatedTime = DateTime.now();
 
   @override
-  List<Object> get props => [loggedInUser, lastUpdatedTime];
+  List<Object> get props => [lastUpdatedTime];
 }
 
 class SessionInitial extends SessionState {
@@ -34,17 +32,16 @@ class SessionUserLogInSuccess extends SessionState {
   final bool justSignUp;
 
   SessionUserLogInSuccess({
-    User user,
+    required User user,
     this.justSignUp = false,
   }) : super(
           loggedInUser: user,
-          lastUpdatedTime: DateTime.now(),
         );
 }
 
 class SessionUserReadyToSetUpMessasing extends SessionState {
   SessionUserReadyToSetUpMessasing({
-    User user,
+    required User user,
   }) : super(
           loggedInUser: user,
         );

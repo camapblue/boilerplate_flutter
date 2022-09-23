@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 abstract class SettingService {
-
   // Language
   Locale getCurrentLocale();
 

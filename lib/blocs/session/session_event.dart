@@ -1,4 +1,4 @@
-import 'package:repository/model/model.dart';
+part of 'session_bloc.dart';
 
 abstract class SessionEvent {
   const SessionEvent();

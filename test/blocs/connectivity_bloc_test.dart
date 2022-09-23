@@ -12,9 +12,9 @@ import 'package:test/test.dart';
 class MockConnectivity extends Mock implements Connectivity {}
 
 void main() {
-  ConnectivityBloc connectivityBloc;
+  late ConnectivityBloc connectivityBloc;
   final internetCheckingFunction = (String host,
-          {InternetAddressType type}) async =>
+          {InternetAddressType? type}) async =>
       [InternetAddress('127.0.0.1')];
   final Connectivity connectivity = MockConnectivity();
   final _connectionUpdated = PublishSubject<ConnectivityResult>();
@@ -46,8 +46,8 @@ void main() {
         emits [ConnectivityInitial, ConnectivityUpdateSuccess] when ConnectivityChecked is added
       ''',
       build: () => connectivityBloc,
-      act: (bloc) async {
-        bloc.add(const ConnectivityChanged(false));
+      act: (ConnectivityBloc? bloc) async {
+        bloc?.add(const ConnectivityChanged(false));
       },
       expect: () =>
           [isA<ConnectivityInitial>(), isA<ConnectivityUpdateSuccess>()],
@@ -58,9 +58,9 @@ void main() {
         emits [ConnectivityInitial, ConnectivityUpdateSuccess, ConnectivityUpdateSuccess] when ConnectivityChecked is added
       ''',
       build: () => connectivityBloc,
-      act: (bloc) async {
-        bloc.add(const ConnectivityChanged(false));
-        bloc.add(ConnectivityChecked());
+      act: (ConnectivityBloc? bloc) async {
+        bloc?.add(const ConnectivityChanged(false));
+        bloc?.add(ConnectivityChecked());
       },
       expect: () => [
         isA<ConnectivityInitial>(),
@@ -74,8 +74,8 @@ void main() {
         emits [ConnectivityInitial, ConnectivityUpdateSuccess] when connection is changed
       ''',
       build: () => connectivityBloc,
-      act: (bloc) async {
-        await bloc.add(const ConnectivityChanged(false));
+      act: (ConnectivityBloc? bloc) {
+        bloc?.add(const ConnectivityChanged(false));
         _connectionUpdated.add(ConnectivityResult.wifi);
       },
       wait: const Duration(milliseconds: 300),

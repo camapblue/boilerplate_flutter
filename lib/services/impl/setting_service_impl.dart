@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:flutter/foundation.dart';
 import 'package:repository/repository.dart';
 
 import '../setting_service.dart';
@@ -8,7 +6,7 @@ import '../setting_service.dart';
 class SettingServiceImpl implements SettingService {
   final SettingRepository _settingRepository;
 
-  SettingServiceImpl({@required SettingRepository settingRepository})
+  SettingServiceImpl({required SettingRepository settingRepository})
       : _settingRepository = settingRepository;
 
   @override

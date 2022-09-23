@@ -1,3 +1,5 @@
+part of 'messaging_bloc.dart';
+
 abstract class MessagingEvent {
   const MessagingEvent();
 }

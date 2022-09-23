@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:boilerplate_flutter/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'toast_route.dart';
 
 extension ToastTheme on ThemeData {
   TextStyle get toastMessageTextStyle =>
-      primaryTextTheme.bodyText1.copyWith(color: darkColor);
+      primaryTextTheme.bodyText1!.copyWith(color: darkColor);
 }
 
 typedef ToastStatusCallBack = void Function();
@@ -19,37 +18,37 @@ const String ToastRouteName = '/ToastRoute';
 class Toast<T extends Object> extends StatefulWidget {
   final String message;
   final bool success;
-  final Function onFinished;
+  final void Function()? onFinished;
 
-  Toast(this.message, {Key key, this.success = true, this.onFinished})
+  Toast(this.message, {Key? key, this.success = true, this.onFinished})
       : super(key: key);
 
   int duration = 4;
 
-  ToastRoute<T> _toastRoute;
+  ToastRoute<T>? _toastRoute;
 
-  Future<T> show(BuildContext context) async {
+  Future<T?> show(BuildContext context) async {
     await Sounds.alert();
 
     _toastRoute = showToast<T>(context: context, toast: this);
 
-    return Navigator.of(context, rootNavigator: false).push(_toastRoute);
+    return Navigator.of(context, rootNavigator: false).push(_toastRoute!);
   }
 
-  Future<T> showWithNavigator(NavigatorState navigator) async {
+  Future<T?> showWithNavigator(NavigatorState navigator) async {
     await Sounds.alert();
 
     _toastRoute = showToast<T>(context: navigator.context, toast: this);
 
-    return navigator.push(_toastRoute);
+    return navigator.push(_toastRoute!);
   }
 
-  Future<T> dismiss([T result]) async {
+  Future<T?> dismiss([T? result]) async {
     if (_toastRoute == null) {
       return null;
     }
 
-    return null;
+    return result;
   }
 
   @override
@@ -62,8 +61,8 @@ class _ToastState<K extends Object> extends State<Toast>
     with TickerProviderStateMixin {
   final Widget _emptyWidget = const SizedBox(width: 0.0, height: 0.0);
 
-  FocusScopeNode _focusScopeNode;
-  FocusAttachment _focusAttachment;
+  late FocusScopeNode _focusScopeNode;
+  late FocusAttachment _focusAttachment;
 
   GlobalKey backgroundBoxKey = GlobalKey();
 

@@ -18,22 +18,20 @@ class AppCaching {
   double devicePixelRatio = 1.0;
 
   Future<Uint8List> loadImage(String url) {
-    ImageStreamListener listener;
-
     final completer = Completer<Uint8List>();
     final imageStream = AssetImage(url)
         .resolve(ImageConfiguration(devicePixelRatio: devicePixelRatio));
-
+    late ImageStreamListener listener;
     listener = ImageStreamListener(
       (ImageInfo imageInfo, bool synchronousCall) {
         imageInfo.image
             .toByteData(format: ImageByteFormat.png)
-            .then((ByteData byteData) {
+            .then((ByteData? byteData) {
           imageStream.removeListener(listener);
-          completer.complete(byteData.buffer.asUint8List());
+          completer.complete(byteData?.buffer.asUint8List());
         });
       },
-      onError: (dynamic exception, StackTrace stackTrace) {
+      onError: (dynamic exception, StackTrace? stackTrace) {
         imageStream.removeListener(listener);
         completer.completeError(exception);
       },
@@ -55,5 +53,5 @@ class AppCaching {
     }));
   }
 
-  Uint8List cacheImageData(String path) => _cache[path];
+  Uint8List? cacheImageData(String path) => _cache[path];
 }

@@ -15,7 +15,7 @@ class AppTextSpan {
 
     do {
       var found = false;
-      dynamic textSpan;
+      late AppTextSpan textSpan;
       var beginIndex = -1;
       var endIndex = -1;
       for (var i = 0; i < textSpans.length; i++) {

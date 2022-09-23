@@ -1,7 +1,7 @@
 class AnimatedController {
   final Duration duration;
-  Function runAnimation;
-  Function onAnimationFinished;
+  void Function()? runAnimation;
+  void Function()? onAnimationFinished;
 
   AnimatedController({
     this.duration = const Duration(milliseconds: 250),
@@ -9,12 +9,12 @@ class AnimatedController {
 
   void run() {
     if (runAnimation != null) {
-      runAnimation();
+      runAnimation!();
     }
   }
 
   //ignore: use_setters_to_change_properties
-  void addListeners({Function onFinished}) {
+  void addListeners({required void Function() onFinished}) {
     onAnimationFinished = onFinished;
   }
 

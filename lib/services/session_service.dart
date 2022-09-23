@@ -5,9 +5,9 @@ abstract class SessionService {
 
   Future<void> markDoneFirstTimeLaunching();
 
-  Future<User> getLoggedInUser({bool forceToUpdate});
+  Future<User?> getLoggedInUser({bool forceToUpdate});
 
-  Authorization getLoggedInAuthorization();
+  Authorization? getLoggedInAuthorization();
 
   Future<bool> isInGuestMode();
 

@@ -2,22 +2,26 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
-import 'package:repository/model/model.dart';
 
 import 'package:repository/client/client.dart' as bb;
 import 'package:repository/repository.dart';
 import 'package:test/test.dart';
 
+import '../mock/mock_request.dart';
+
 class MockHttpClient extends Mock implements Client {}
 
 class TestBaseClient extends bb.BaseClient {
-  TestBaseClient(String host, {Client client, Authorization authorization})
-      : super(host, client: client, authorization: authorization);
+  TestBaseClient(
+    String host, {
+    required Client client,
+    Authorization? authorization,
+  }) : super(host, client: client, authorization: authorization);
 }
 
 void main() {
   final Client client = MockHttpClient();
-  TestBaseClient testBaseClient;
+  late final TestBaseClient testBaseClient;
   const _host = 'http://test.com';
 
   setUp(() {
@@ -31,8 +35,8 @@ void main() {
           '{ \"result\": true, \"user\": { \"userId\": \"test_user_id\" } }';
       final bytes = utf8.encode(responseJson);
 
-      when(client.send(any))
-          .thenAnswer((_) async => StreamedResponse(Stream.value(bytes), 200));
+      when(client.send(MockRequest())
+          .then((_) async => StreamedResponse(Stream.value(bytes), 200)),);
 
       final json = await testBaseClient.get(path);
       expect(json['result'], true);
@@ -43,7 +47,7 @@ void main() {
       const responseJson = 'Bad request';
       final bytes = utf8.encode(responseJson);
 
-      when(client.send(any))
+      when(client.send(MockRequest()))
           .thenAnswer((_) async => StreamedResponse(Stream.value(bytes), 400));
 
       expect(testBaseClient.get(path),
@@ -55,7 +59,7 @@ void main() {
       const responseJson = 'Unauthorised exception';
       final bytes = utf8.encode(responseJson);
 
-      when(client.send(any))
+      when(client.send(MockRequest()))
           .thenAnswer((_) async => StreamedResponse(Stream.value(bytes), 401));
 
       expect(testBaseClient.get(path),
@@ -68,7 +72,7 @@ void main() {
           '{ \"result\": false, \"msg\": \"error message\", \"code\": 9 }';
       final bytes = utf8.encode(responseJson);
 
-      when(client.send(any))
+      when(client.send(MockRequest()))
           .thenAnswer((_) async => StreamedResponse(Stream.value(bytes), 200));
 
       expect(

@@ -2,10 +2,9 @@ import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
+import 'package:common/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:repository/enum/enum.dart';
-import 'package:repository/repository.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen();
@@ -17,15 +16,13 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  AccountType _accountType;
-
   @override
   Widget build(BuildContext context) {
     return Container(
       child: BlocListener<SessionBloc, SessionState>(
         listener: (_, state) {
           if (state is SessionRunGuestModeSuccess) {
-            Navigator.pushReplacementNamed(context, Screens.guestMode);
+            Navigator.pushReplacementNamed(context, Screens.landing);
           }
         },
         child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
@@ -65,41 +62,7 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 3,
-                      child: Container(),
-                    ),
-                    Center(
-                      child: LoginButton.google(
-                        width: 300,
-                        context: context,
-                        fontSize: 25,
-                        isLoading:
-                            loading && _accountType == AccountType.google,
-                        loadingText:
-                            state is AuthenticationConnectSocialInProgress
-                                ? S.of(context).translate(
-                                      Strings.Common.connectingSocialAccount,
-                                    )
-                                : S.of(context).translate(
-                                      Strings.Common.loggingIn,
-                                    ),
-                        onPressed: () {
-                          _accountType = AccountType.google;
-
-                          EventBus().event<AuthenticationBloc>(
-                            Keys.Blocs.authenticationBloc,
-                            AuthenticationLoggedIn(
-                              type: _accountType,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    const Expanded(
-                      flex: 1,
-                      child: SizedBox(),
-                    ),
+                    const Spacer(),
                     Center(
                       child: Row(
                         children: <Widget>[

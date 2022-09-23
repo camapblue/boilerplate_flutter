@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:repository/model/model.dart';
 
 abstract class UserDao {
@@ -6,13 +5,13 @@ abstract class UserDao {
 
   Future<void> saveAuthorization(Authorization authorization);
 
-  User loadUser();
+  User? loadUser();
 
-  Authorization loadAuthorization();
+  Authorization? loadAuthorization();
 
-  Future<void> saveRegisteredDeviceToken({@required String deviceToken});
+  Future<void> saveRegisteredDeviceToken({required String deviceToken});
 
-  String getRegisteredDeviceToken();
+  String? getRegisteredDeviceToken();
 
   Future<void> clearAuthentication();
 }

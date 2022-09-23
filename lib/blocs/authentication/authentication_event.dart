@@ -1,14 +1,9 @@
-import 'package:flutter/foundation.dart';
-import 'package:repository/enum/account_type.dart';
+part of 'authentication_bloc.dart';
 
 abstract class AuthenticationEvent {
   const AuthenticationEvent();
 }
 
 class AuthenticationLoggedIn extends AuthenticationEvent {
-  final AccountType type;
-
-  const AuthenticationLoggedIn({@required this.type});
+  const AuthenticationLoggedIn();
 }
-
-class AuthenticationBackLogInEvent extends AuthenticationEvent {}

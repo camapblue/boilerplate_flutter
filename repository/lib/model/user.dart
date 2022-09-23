@@ -6,8 +6,8 @@ class User extends Entity {
   final String userId;
 
   final String name;
-  final String occupation;
-  final DateTime birthday;
+  final String? occupation;
+  final DateTime? birthday;
   final Gender gender;
 
   //ignore: prefer_constructors_over_static_methods
@@ -22,22 +22,33 @@ class User extends Entity {
   }
 
   User({
-    this.userId,
-    this.name,
+    required this.userId,
+    required this.name,
     this.occupation,
     this.birthday,
-    this.gender,
+    required this.gender,
   });
+
+  factory User.test() {
+    return User(userId: 'user_id', name: 'name', gender: Gender.female);
+  }
 
   @override
   List<Object> get props => [userId];
 
   @override
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() { 
+    final json = <String, dynamic>{
         'userId': userId,
-        'occupation': occupation,
-        'birthday': birthday.secondsSinceEpoc,
         'name': name,
         'gender': gender.toValue(),
       };
+    if (birthday != null) {
+      json['birthday'] = birthday!.secondsSinceEpoc;
+    }
+    if (occupation != null) {
+      json['birthday'] = birthday!.secondsSinceEpoc;
+    }
+    return json;
+  }
 }

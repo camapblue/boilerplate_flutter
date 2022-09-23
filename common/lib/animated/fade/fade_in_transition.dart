@@ -6,9 +6,9 @@ class FadeInTransition extends StatefulWidget {
   final AnimatedController controller;
 
   FadeInTransition({
-    Key key,
-    @required this.child,
-    @required this.controller,
+    Key? key,
+    required this.child,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -17,8 +17,8 @@ class FadeInTransition extends StatefulWidget {
 
 class _FadedInTransitionState extends State<FadeInTransition>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
   final Tween<double> _tween = Tween<double>(begin: 0.0, end: 1.0);
 
   @override
@@ -59,11 +59,9 @@ class _FadedInTransitionState extends State<FadeInTransition>
   }
 
   void _setUpController() {
-    if (widget.controller != null) {
-      widget.controller.runAnimation ??= () {
-        _animationController.forward();
-      };
-    }
+    widget.controller.runAnimation ??= () {
+      _animationController.forward();
+    };
   }
 
   @override

@@ -1,52 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:common/common.dart';
 import 'package:http/http.dart';
-import 'package:repository/model/authorization.dart';
-import 'package:retry/retry.dart';
-import 'package:repository/exception/exception.dart';
 import 'package:repository/repository.dart';
+import 'package:retry/retry.dart';
 
 abstract class BaseClient {
-  Client _client;
-  String _host;
-  Authorization _authorization;
+  final Client _client;
+  final String _host;
+  final Authorization? _authorization;
 
-  BaseClient(String host, {Client client, Authorization authorization}) {
-    _client = client ?? Client();
-    _host = host;
-    _authorization = authorization;
-  }
+  BaseClient(String host, {Client? client, Authorization? authorization})
+      : _client = client ?? Client(),
+        _host = host,
+        _authorization = authorization;
 
   Uri _getParsedUrl(String path) {
     return Uri.parse('$_host$path');
-  }
-
-  Future<bool> _refreshToken() async {
-    try {
-      final authorization = Repository().authorization;
-      final params = {
-        'userId': authorization.userId,
-        'socialId': authorization.socialId,
-        'socialToken': authorization.socialToken
-      };
-      log.info(
-          '''Call API >> POST >> url: ${_getParsedUrl('/user/refreshToken')} >> body: $params''');
-
-      final response = await _client.post(_getParsedUrl('/user/refreshToken'),
-          body: jsonEncode(params));
-      log.info(
-          '''Call API >> POST >> url: ${_getParsedUrl('/user/refreshToken')} >> RESPONSE >> CODE: ${response.statusCode} >> Body: ${response.body}''');
-      if (response.statusCode == 200) {
-        final responseJson = jsonDecode(response.body);
-
-        return responseJson['result'];
-      }
-      return false;
-    } catch (e) {
-      log.error('Refresh Token Error: $e');
-    }
-    return false;
   }
 
   BaseRequest _copyRequest(BaseRequest request) {
@@ -75,17 +44,16 @@ abstract class BaseClient {
     return requestCopy;
   }
 
-  dynamic _call(String method, String path, {Map<String, Object> data}) async {
-    log.info(
-        'Call API >> $method >> url: ${_getParsedUrl(path)} >> body: $data');
+  Future<dynamic> _call(String method, String path,
+      {Map<String, Object>? data}) async {
     dynamic responseJson;
     try {
       var request = Request(method, _getParsedUrl(path));
-
-      final token = (_authorization ?? Repository().authorization)?.socialToken;
+      final token = _authorization ?? Repository().authorization?.accessToken;
       if (token != null) {
         request.headers['Authorization'] = 'Bearer $token';
       }
+
       if (data != null) {
         request.body = jsonEncode(data);
       }
@@ -98,35 +66,16 @@ abstract class BaseClient {
           return _returnResponse(response);
         },
         retryIf: (e) async {
-          log.error('Call API >> url: ${_getParsedUrl(path)} >> Error: $e');
           if (e is UnauthorisedException) {
-            if (_authorization == null) {
-              _authorization = Repository().authorization;
-              if (_authorization == null) {
-                return false;
-              }
-              final token = _authorization.socialToken;
-              if (token != null) {
-                request.headers['Authorization'] = 'Bearer $token';
-              }
-              request = _copyRequest(request);
-              return true;
-            } else {
-              final refreshToken = await _refreshToken();
-              request = _copyRequest(request);
-
-              return refreshToken;
-            }
+            request = _copyRequest(request) as Request;
+            return true;
           }
           return false;
         },
       );
     } on SocketException {
-      log.error('No Internet connection');
       throw FetchDataException('No Internet connection');
     }
-    log.info(
-        '''Call API >> $method >> url: ${_getParsedUrl(path)} >> response: $responseJson''');
     return responseJson;
   }
 
@@ -148,23 +97,23 @@ abstract class BaseClient {
         throw ServerErrorException(response.body.toString());
       default:
         throw FetchDataException(
-            '''Error occured while Communication with Server with StatusCode : ${response.statusCode}''');
+            '''Error occurred while Communication with Server with StatusCode : ${response.statusCode}''');
     }
   }
 
-  dynamic get(String path) async {
-    return await _call('GET', path);
+  Future<dynamic> get(String path) {
+    return _call('GET', path);
   }
 
-  dynamic post(String path, [dynamic data]) async {
-    return await _call('POST', path, data: data);
+  Future<dynamic> post(String path, [dynamic data]) {
+    return _call('POST', path, data: data);
   }
 
-  dynamic put(String path, [dynamic data]) async {
-    return await _call('PUT', path, data: data);
+  Future<dynamic> put(String path, [dynamic data]) {
+    return _call('PUT', path, data: data);
   }
 
-  dynamic delete(String path, [dynamic data]) async {
-    return await _call('DELETE', path, data: data);
+  Future<dynamic> delete(String path, [dynamic data]) {
+    return _call('DELETE', path, data: data);
   }
 }

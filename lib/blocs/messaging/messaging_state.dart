@@ -1,8 +1,8 @@
-import 'package:equatable/equatable.dart';
+part of 'messaging_bloc.dart';
 
 abstract class MessagingState extends Equatable {
   @override
-  List<Object> get props => null;
+  List<Object> get props => [];
 }
 
 class MessagingInitial extends MessagingState {

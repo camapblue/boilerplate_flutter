@@ -1,14 +1,14 @@
-import 'package:equatable/equatable.dart';
+part of 'show_message_bloc.dart';
 
 abstract class ShowMessageState extends Equatable {
-  final String messageKey;
-  final List<dynamic> params;
+  final String? messageKey;
+  final List<dynamic>? params;
   final DateTime showTime;
 
   ShowMessageState([this.messageKey, this.params]) : showTime = DateTime.now();
 
   @override
-  List<Object> get props => [messageKey, params, showTime];
+  List<Object> get props => [showTime];
 }
 
 class ShowMessageInitial extends ShowMessageState {}

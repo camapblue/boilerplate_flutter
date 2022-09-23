@@ -6,9 +6,9 @@ class BounceTransition extends AnimatedWidget {
   final Widget child;
 
   BounceTransition({
-    Key key,
-    @required this.child,
-    @required Animation<double> animation,
+    Key? key,
+    required this.child,
+    required Animation<double> animation,
     this.from = 0.0,
     this.to = 1.0,
   }) : super(key: key, listenable: animation);
@@ -16,7 +16,10 @@ class BounceTransition extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final _animation = Tween<double>(begin: from, end: to).animate(
-      CurvedAnimation(parent: listenable, curve: Curves.easeInOutBack),
+      CurvedAnimation(
+        parent: listenable as Animation<double>,
+        curve: Curves.easeInOutBack,
+      ),
     );
 
     return Transform.scale(

@@ -12,7 +12,7 @@ class MockSettingDao extends Mock implements SettingDao {}
 void main() {
   final SettingDao settingDao = MockSettingDao();
 
-  SettingRepository settingRepository;
+  late final SettingRepository settingRepository;
   const _supportedLanguages = 'vi,en,zh';
 
   setUp(() {

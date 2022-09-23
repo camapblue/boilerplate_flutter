@@ -1,36 +1,23 @@
 import 'package:boilerplate_flutter/services/services.dart';
 import 'package:boilerplate_flutter/utils/utils.dart';
-import 'package:flutter/foundation.dart';
-import 'package:repository/model/user.dart';
 import 'package:repository/repository.dart';
 
 class UserServiceImpl implements UserService {
   final UserRepository _userRepository;
-  final SocialNetworkConnect _socialNetworkConnect;
 
   UserServiceImpl({
-    @required UserRepository userRepository,
-    @required SocialNetworkConnect socialNetworkConnect,
-  })  : _userRepository = userRepository,
-        _socialNetworkConnect = socialNetworkConnect;
+    required UserRepository userRepository,
+  })  : _userRepository = userRepository;
 
   @override
   Future<User> logIn({
-    String socialId,
-    String socialToken,
-    AccountType accountType,
+    required String email,
+    required String password,
   }) async {
-    final user = await _userRepository.logIn(
-      socialId: socialId,
-      socialToken: socialToken,
-      accountType: accountType.toValue(),
-    );
+    final user = User(userId: '', name: '', gender: Gender.male);
 
     final authorization = Authorization(
-      userId: user.userId,
-      socialId: socialId,
-      socialToken: socialToken,
-      accountType: accountType,
+      accessToken: 'access_token'
     );
     Repository().authorization = authorization;
 
@@ -44,10 +31,7 @@ class UserServiceImpl implements UserService {
     final deviceToken = _userRepository.getRegisteredDeviceToken();
     await _userRepository.signOut(deviceToken: deviceToken);
 
-    final authorization = _userRepository.getLoggedInAuthorization();
-    await _socialNetworkConnect.signOut(type: authorization.accountType);
-
-    Repository().authorization = null;
+    Repository().authorization = _userRepository.getLoggedInAuthorization();
 
     // remove all cached data
     await _userRepository.clearAuthentication();
@@ -55,9 +39,9 @@ class UserServiceImpl implements UserService {
 
   @override
   Future<void> registerDeviceIfNeeded({
-    @required String deviceToken,
-    String deviceUdid,
-    int deviceType,
+    required String deviceToken,
+    String? deviceUdid,
+    int? deviceType,
   }) async {
     final registeredDeviceToken = _userRepository.getRegisteredDeviceToken();
 

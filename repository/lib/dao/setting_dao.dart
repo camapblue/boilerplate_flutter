@@ -1,3 +1,3 @@
 abstract class SettingDao {
-  String getCurrentLocaleLanguageCode();
+  String? getCurrentLocaleLanguageCode();
 }

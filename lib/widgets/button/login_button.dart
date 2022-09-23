@@ -1,7 +1,7 @@
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
-import 'package:common/widget.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:boilerplate_flutter/models/models.dart';
@@ -9,20 +9,20 @@ import 'package:boilerplate_flutter/models/models.dart';
 class LoginButton extends BounceButton {
   LoginButton(
     BounceButtonTheme buttonTheme, {
-    Function onPressed,
-    @required BounceButtonDecoration decoration,
-    @required ButtonThemeStyle style,
-    @required Widget icon,
-    double iconMargin,
-    String title,
-    String loadingText,
-    double width,
-    double height,
-    double fontSize,
-    Color color,
-    Color disabledColor,
-    EdgeInsets padding,
-    BorderRadius borderRadius,
+    void Function()? onPressed,
+    required BounceButtonDecoration decoration,
+    required ButtonThemeStyle style,
+    required Widget icon,
+    double iconMargin = 16.0,
+    String? title,
+    String loadingText = '',
+    double? width,
+    double? height,
+    double? fontSize,
+    Color? color,
+    Color? disabledColor,
+    EdgeInsets? padding,
+    BorderRadius? borderRadius,
     bool isLoading = false,
   }) : super(
           onPressed: onPressed,
@@ -37,14 +37,11 @@ class LoginButton extends BounceButton {
               (style == ButtonThemeStyle.normal
                   ? buttonTheme.color
                   : buttonTheme.lightColor),
-          disabledColor: disabledColor ??
-              (onPressed == null ? buttonTheme.disabledColor : null),
+          disabledColor: disabledColor ?? buttonTheme.disabledColor,
           normalTextStyle: buttonTheme.normalTextStyle
               .copyWith(fontSize: fontSize ?? decoration.fontSize),
-          disabledTextStyle: onPressed == null
-              ? buttonTheme.disabledTextStyle
-                  .copyWith(fontSize: fontSize ?? decoration.fontSize)
-              : null,
+          disabledTextStyle: buttonTheme.disabledTextStyle
+                  .copyWith(fontSize: fontSize ?? decoration.fontSize),
           border: Border.all(width: 0, color: Colors.transparent),
           borderRadius: borderRadius ?? decoration.borderRadius,
           isLoading: isLoading,
@@ -54,14 +51,14 @@ class LoginButton extends BounceButton {
         );
 
   factory LoginButton.facebook({
-    @required BuildContext context,
-    Function onPressed,
-    double width,
-    double height,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
+    double? height,
     double fontSize = 28.0,
     double iconPadding = 24.0,
     bool isLoading = false,
-    String loadingText,
+    String? loadingText,
   }) {
     return LoginButton(
       Theme.of(context).blueButtonTheme.copyWith(
@@ -101,14 +98,14 @@ class LoginButton extends BounceButton {
   }
 
   factory LoginButton.google({
-    @required BuildContext context,
-    Function onPressed,
-    double width,
-    double height,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
+    double? height,
     double fontSize = 28.0,
     double iconPadding = 24.0,
     bool isLoading = false,
-    String loadingText,
+    String? loadingText,
   }) {
     return LoginButton(
       Theme.of(context).redButtonTheme.copyWith(
@@ -146,14 +143,14 @@ class LoginButton extends BounceButton {
   }
 
   factory LoginButton.apple({
-    @required BuildContext context,
-    Function onPressed,
-    double width,
-    double height,
+    required BuildContext context,
+    void Function()? onPressed,
+    double? width,
+    double? height,
     double fontSize = 28.0,
     double iconPadding = 24.0,
     bool isLoading = false,
-    String loadingText,
+    String? loadingText,
   }) {
     return LoginButton(
       Theme.of(context).redButtonTheme,

@@ -1,10 +1,10 @@
 
-import 'package:equatable/equatable.dart';
+part of 'connectivity_bloc.dart';
 
 abstract class ConnectivityState extends Equatable {
   final bool isConnected;
 
-  ConnectivityState([ this.isConnected ]);
+  ConnectivityState(this.isConnected);
 
   @override
   List<Object> get props => [isConnected];

@@ -2,10 +2,9 @@ import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/models/models.dart';
-import 'package:boilerplate_flutter/modules/route_transition/route_transition.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'package:common/common.dart';
-import 'package:common/widget/loading_text.dart';
+import 'package:common/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +13,7 @@ const _bottomColor = Color(0xFF378019);
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen();
-  
+
   @override
   State<SplashScreen> createState() {
     return _SplashScreenState();
@@ -55,20 +54,16 @@ class _SplashScreenState extends State<SplashScreen> {
               await Future.delayed(const Duration(milliseconds: 1500));
 
               if (state is SessionFirstTimeLaunchSuccess) {
-                await Navigator.of(context).pushReplacementFadeTransition(
-                  routeName: Screens.landing,
-                );
+                await Navigator.of(context)
+                    .pushReplacementNamed(Screens.landing);
               } else if (state is SessionReadyToLogIn) {
-                await Navigator.of(context).pushReplacementFadeTransition(
-                  routeName: Screens.logIn,
-                );
+                await Navigator.of(context).pushReplacementNamed(Screens.logIn);
               } else if (state is SessionRunGuestModeSuccess) {
-                await Navigator.of(context).pushReplacementFadeTransition(
-                  routeName: Screens.guestMode,
-                );
+                await Navigator.of(context)
+                    .pushReplacementNamed(Screens.landing);
               } else if (state is SessionUserLogInSuccess) {
                 await Navigator.of(context)
-                    .pushReplacementNamed(Screens.dashboard);
+                    .pushReplacementNamed(Screens.landing);
               }
             },
           ),
@@ -105,7 +100,8 @@ class _SplashScreenState extends State<SplashScreen> {
                       child: LoadingText(
                         text: S.of(context).translate(Strings.Common.loading),
                         showAfter: const Duration(milliseconds: 1500),
-                        textStyle: Theme.of(context).primaryTextTheme.bodyText1,
+                        textStyle:
+                            Theme.of(context).primaryTextTheme.bodyText1!,
                       ),
                     ),
                   ),

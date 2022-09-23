@@ -28,8 +28,8 @@ class Repository {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  Authorization authorization;
-  SharedPreferences _sharedPreferences;
+  Authorization? authorization;
+  late SharedPreferences _sharedPreferences;
 
   bool get isAuthorized => authorization != null;
 

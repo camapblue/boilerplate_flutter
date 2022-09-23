@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:boilerplate_flutter/widgets/span_label/mark_text_styles.dart';
@@ -32,14 +30,14 @@ class SpanLabel extends StatelessWidget {
   final TextAlign textAlign;
   final CurrencyStyle currencyStyle;
 
-  final TextStyle defaultStyle;
-  final TextStyle boldStyle;
-  final TextStyle italicStyle;
-  final TextStyle boldItalicStyle;
+  final TextStyle? defaultStyle;
+  final TextStyle? boldStyle;
+  final TextStyle? italicStyle;
+  final TextStyle? boldItalicStyle;
 
   SpanLabel({
-    Key key,
-    @required this.text,
+    Key? key,
+    required this.text,
     this.color = darkColor,
     this.fontSize = 15.0,
     this.textAlign = TextAlign.left,
@@ -48,8 +46,7 @@ class SpanLabel extends StatelessWidget {
     this.boldStyle,
     this.italicStyle,
     this.boldItalicStyle,
-  })  : assert(text != null, 'text can not be null'),
-        super(key: key);
+  }): super(key: key);
 
   List<AppTextSpan> _allTextSpans(BuildContext context) {
     return [

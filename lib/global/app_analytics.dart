@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/foundation.dart';
 
 class AppAnalytics {
   static final AppAnalytics _singleton = AppAnalytics._internal();
@@ -10,11 +9,11 @@ class AppAnalytics {
 
   AppAnalytics._internal();
 
-  final FirebaseAnalytics _fbAnalytics = FirebaseAnalytics();
+  final FirebaseAnalytics _fbAnalytics = FirebaseAnalytics.instance;
 
   void logEvent({
-    @required String name,
-    Map<String, dynamic> parameters,
+    required String name,
+    Map<String, dynamic> parameters = const {},
   }) {
     _fbAnalytics.logEvent(
       name: name,
@@ -23,20 +22,20 @@ class AppAnalytics {
   }
 
   void logLogIn({
-    @required String accountType,
-    @required String deviceType,
+    required String name,
+    required String deviceType,
   }) {
     _fbAnalytics
       .logEvent(
         name: 'log_in',
         parameters: {
-          'account_type': accountType,
+          'name': name,
           'device_type': deviceType,
         },
       );
   }
 
-  void setCurrentScreen(String screenName) {
+  void setCurrentScreen({String? screenName}) {
     if (screenName == null) {
       return;
     }

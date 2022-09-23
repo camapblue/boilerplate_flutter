@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppShowing extends StatefulWidget {
-  const AppShowing({Key key, @required this.app, @required this.navigatorKey})
+  const AppShowing({Key? key, required this.app, required this.navigatorKey,})
       : super(key: key);
 
   final Widget app;
@@ -65,20 +65,20 @@ class _AppShowingState extends State<AppShowing> with WidgetsBindingObserver {
             if (state is ShowWarningMessageSuccess) {
               Toast(
                 S.of(context).translate(
-                      state.messageKey,
+                      state.messageKey ?? '',
                       params: state.params,
                     ),
                 success: state.isSuccess,
-              ).showWithNavigator(widget.navigatorKey.currentState);
+              ).showWithNavigator(widget.navigatorKey.currentState!);
             } else if (state is ShowErrorMessageSuccess) {
               if (BuildContextExtension.navigatorContext != null) {
-                PopupDrawer.of(BuildContextExtension.navigatorContext)
+                PopupDrawer.of(BuildContextExtension.navigatorContext!)
                     .error(
                       title: S
                           .of(context)
                           .translate(Strings.Common.errorPopupTitle),
                       message: S.of(context).translate(
-                            state.messageKey,
+                            state.messageKey ?? '',
                             params: state.params,
                           ),
                     )
@@ -86,11 +86,11 @@ class _AppShowingState extends State<AppShowing> with WidgetsBindingObserver {
               } else {
                 Toast(
                   S.of(context).translate(
-                        state.messageKey,
+                        state.messageKey ?? '',
                         params: state.params,
                       ),
                   success: false,
-                ).showWithNavigator(widget.navigatorKey.currentState);
+                ).showWithNavigator(widget.navigatorKey.currentState!);
               }
             }
           },

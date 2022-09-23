@@ -1,31 +1,45 @@
-import 'package:boilerplate_flutter/services/setting_service.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-
-import 'package:boilerplate_flutter/blocs/base/event_bus.dart';
-import 'package:boilerplate_flutter/blocs/base/base_bloc.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
+import 'package:boilerplate_flutter/global/global.dart';
+import 'package:boilerplate_flutter/services/services.dart';
+import 'package:common/core/core.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'language.dart';
+part 'language_event.dart';
+part 'language_state.dart';
 
 class LanguageBloc extends BaseBloc<LanguageEvent, LanguageState> {
   final SettingService settingService;
 
-  LanguageBloc(Key key, {@required this.settingService}) 
-    : super(key, initialState: LanguageInitial(
-      settingService.getCurrentLocale(),
-      settingService.getSupportedLocales(),
-    ));
-
-  factory LanguageBloc.instance() {
-    return EventBus().newBloc<LanguageBloc>(Keys.Blocs.languageBloc);
+  LanguageBloc(Key key, {required this.settingService})
+      : super(
+          key,
+          initialState: LanguageInitial(
+            settingService.getCurrentLocale(),
+            settingService.getSupportedLocales(),
+          ),
+        ) {
+    on<LanguageUpdated>(_onLanguageUpdated);
   }
 
-  @override
-  Stream<LanguageState> mapEventToState(LanguageEvent event) async* {
-    if (event is LanguageUpdated &&
-        event.newLanguage.languageCode != state.locale.languageCode) {
-      yield LanguageUpdateSuccess(event.newLanguage, state.supportedLocales);
+  factory LanguageBloc.instance() {
+    final key = Keys.Blocs.languageBloc;
+    return EventBus().newBlocWithConstructor<LanguageBloc>(
+      key,
+      () => LanguageBloc(
+        key,
+        settingService: Provider().settingService,
+      ),
+    );
+  }
+
+  void _onLanguageUpdated(LanguageUpdated event, Emitter<LanguageState> emit) {
+    if (event.newLanguage.languageCode == state.locale.languageCode) {
+      return;
     }
+    emit(
+      LanguageUpdateSuccess(event.newLanguage, state.supportedLocales),
+    );
   }
 }

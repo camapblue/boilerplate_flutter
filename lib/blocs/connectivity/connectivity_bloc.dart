@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:common/core/core.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
-import 'package:boilerplate_flutter/blocs/base/base_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'connectivity.dart';
+part 'connectivity_state.dart';
+part 'connectivity_event.dart';
 
 typedef CheckingInternet = Future<List<InternetAddress>> Function(String host,
     {InternetAddressType type});
@@ -17,13 +19,14 @@ class ConnectivityBloc extends BaseBloc<ConnectivityEvent, ConnectivityState> {
   final Connectivity _connectivity;
   final CheckingInternet _internetCheckingFunction;
   final String _internetCheckingHost;
-  StreamSubscription subscription;
+  late StreamSubscription subscription;
 
-  ConnectivityBloc(Key key,
-      {Connectivity connectivity,
-      CheckingInternet internetCheckingFunction,
-      String internetCheckingHost})
-      : _connectivity = connectivity ?? Connectivity(),
+  ConnectivityBloc(
+    Key key, {
+    Connectivity? connectivity,
+    CheckingInternet? internetCheckingFunction,
+    String? internetCheckingHost,
+  })  : _connectivity = connectivity ?? Connectivity(),
         _internetCheckingHost = internetCheckingHost ?? 'google.com',
         _internetCheckingFunction =
             internetCheckingFunction ?? InternetAddress.lookup,
@@ -36,10 +39,17 @@ class ConnectivityBloc extends BaseBloc<ConnectivityEvent, ConnectivityState> {
         add(ConnectivityChanged(isConnected));
       }
     });
+
+    on<ConnectivityChecked>(_onConnectivityChecked);
+    on<ConnectivityChanged>(_onConnectivityChanged);
   }
 
   factory ConnectivityBloc.instance() {
-    return EventBus().newBloc<ConnectivityBloc>(Keys.Blocs.connectivityBloc);
+    final key = Keys.Blocs.connectivityBloc;
+    return EventBus().newBlocWithConstructor<ConnectivityBloc>(
+      key,
+      () => ConnectivityBloc(key),
+    );
   }
 
   Future<bool> _checkConnection() async {
@@ -54,16 +64,17 @@ class ConnectivityBloc extends BaseBloc<ConnectivityEvent, ConnectivityState> {
     return hasConnection;
   }
 
-  @override
-  Stream<ConnectivityState> mapEventToState(ConnectivityEvent event) async* {
-    if (event is ConnectivityChecked) {
-      final isConnected = await _checkConnection();
-      if (isConnected != state.isConnected) {
-        yield ConnectivityUpdateSuccess(isConnected);
-      }
-    } else if (event is ConnectivityChanged) {
-      yield ConnectivityUpdateSuccess(event.isConnected);
+  Future<void> _onConnectivityChecked(
+      ConnectivityChecked event, Emitter<ConnectivityState> emit) async {
+    final isConnected = await _checkConnection();
+    if (isConnected != state.isConnected) {
+      emit(ConnectivityUpdateSuccess(isConnected));
     }
+  }
+
+  Future<void> _onConnectivityChanged(
+      ConnectivityChanged event, Emitter<ConnectivityState> emit) async {
+    emit(ConnectivityUpdateSuccess(event.isConnected));
   }
 
   @override

@@ -16,12 +16,12 @@ class PopupDrawer {
   PopupDrawer.of(this.context);
 
   BasePopupDrawer confirmation({
-    Key key,
-    @required String title,
-    @required String message,
-    String okTitle,
-    String cancelTitle,
-    AppIcon icon,
+    Key? key,
+    required String title,
+    required String message,
+    String? okTitle,
+    String? cancelTitle,
+    AppIcon? icon,
   }) {
     return BasePopupDrawer(
       context: context,
@@ -37,11 +37,11 @@ class PopupDrawer {
   }
 
   BasePopupDrawer error({
-    Key key,
-    Function onYes,
-    @required String title,
-    @required String message,
-    AppIcon icon,
+    Key? key,
+    void Function()? onYes,
+    required String title,
+    required String message,
+    AppIcon? icon,
   }) {
     return BasePopupDrawer(
       context: context,
@@ -52,20 +52,21 @@ class PopupDrawer {
         message: message,
         icon: icon ??
             AppIcon(
-                icon: AppIcons.error,
-                color: Colors.white,
-                width: 64,
-                height: 64),
+              icon: AppIcons.error,
+              color: Colors.white,
+              width: 64,
+              height: 64,
+            ),
       ),
     );
   }
 
   BasePopupDrawer warning({
-    Key key,
-    @required Function onYes,
-    @required String title,
-    @required String message,
-    AppIcon icon,
+    Key? key,
+    required void Function() onYes,
+    required String title,
+    required String message,
+    AppIcon? icon,
   }) {
     return BasePopupDrawer(
       context: context,
@@ -80,12 +81,12 @@ class PopupDrawer {
   }
 
   BasePopupDrawer announcement({
-    Key key,
-    @required Function onYes,
-    @required String title,
-    @required String message,
-    String okButtonTitle,
-    AppIcon icon,
+    Key? key,
+    required void Function() onYes,
+    required String title,
+    required String message,
+    String? okButtonTitle,
+    AppIcon? icon,
   }) {
     return BasePopupDrawer(
       context: context,
@@ -101,8 +102,8 @@ class PopupDrawer {
   }
 
   BasePopupDrawer open({
-    Key key,
-    @required Widget widget,
+    Key? key,
+    required Widget widget,
   }) {
     return BasePopupDrawer(
       context: context,

@@ -3,15 +3,15 @@ import 'package:boilerplate_flutter/global/global.dart';
 
 class AppImage extends StatelessWidget {
   AppImage({
-    Key key,
-    @required this.image,
+    Key? key,
+    required this.image,
     this.width,
     this.height,
   }) : super(key: key);
 
   final String image;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {

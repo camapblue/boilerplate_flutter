@@ -1,29 +1,39 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-
-import 'package:boilerplate_flutter/blocs/base/event_bus.dart';
-import 'package:boilerplate_flutter/blocs/base/base_bloc.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
+import 'package:common/core/core.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'show_message.dart';
+part 'show_message_state.dart';
+part 'show_message_event.dart';
 
 class ShowMessageBloc extends BaseBloc<ShowMessageEvent, ShowMessageState> {
-  ShowMessageBloc(Key key) : super(key, initialState: ShowMessageInitial());
-
-  factory ShowMessageBloc.instance() {
-    return EventBus().newBloc<ShowMessageBloc>(Keys.Blocs.showMessageBloc);
+  ShowMessageBloc(Key key) : super(key, initialState: ShowMessageInitial()) {
+    on<WarningMessageShowed>(_onWarningMessageShowed);
+    on<ErrorMessageShowed>(_onErrorMessageShowed);
   }
 
-  @override
-  Stream<ShowMessageState> mapEventToState(ShowMessageEvent event) async* {
-    if (event is WarningMessageShowed) {
-      yield ShowWarningMessageSuccess(
+  factory ShowMessageBloc.instance() {
+    final key = Keys.Blocs.showMessageBloc;
+    return EventBus().newBlocWithConstructor<ShowMessageBloc>(
+      key,
+      () => ShowMessageBloc(key),
+    );
+  }
+
+  void _onWarningMessageShowed(
+      WarningMessageShowed event, Emitter<ShowMessageState> emit) {
+    emit(
+      ShowWarningMessageSuccess(
         event.messageKey,
         params: event.params,
         isSuccess: event.isSuccess,
-      );
-    } else if (event is ErrorMessageShowed) {
-      yield ShowErrorMessageSuccess(event.messageKey, params: event.params);
-    }
+      ),
+    );
+  }
+
+  void _onErrorMessageShowed(
+      ErrorMessageShowed event, Emitter<ShowMessageState> emit) {
+    emit(ShowErrorMessageSuccess(event.messageKey, params: event.params));
   }
 }

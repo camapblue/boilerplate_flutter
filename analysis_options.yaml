@@ -14,8 +14,6 @@ analyzer:
     - storybook/**
     - environments/**
     - test_data/**
-  enable-experiment:
-    - extension-methods
 
 linter:
   rules:

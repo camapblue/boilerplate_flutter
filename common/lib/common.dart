@@ -12,5 +12,6 @@ export 'extension/iterable_extension.dart';
 export 'extension/num_extension.dart';
 
 export 'logging/log.dart';
+export 'widgets/widgets.dart';
 
 Log get log => LogImpl();

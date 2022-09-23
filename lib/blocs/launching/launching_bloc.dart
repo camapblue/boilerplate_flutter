@@ -1,34 +1,39 @@
-import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:common/common.dart';
+import 'package:common/core/core.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:boilerplate_flutter/blocs/base/event_bus.dart';
-import 'package:boilerplate_flutter/blocs/base/base_bloc.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'launching.dart';
+part 'launching_state.dart';
+part 'launching_event.dart';
 
 class LaunchingBloc extends BaseBloc<LaunchingEvent, LaunchingState> {
-  LaunchingBloc(Key key) : super(key, initialState: LaunchingInitial());
-
-  factory LaunchingBloc.instance() {
-    return EventBus().newBloc<LaunchingBloc>(Keys.Blocs.launchingBloc);
+  LaunchingBloc(Key key) : super(key, initialState: LaunchingInitial()) {
+    on<LaunchingPreloadDataStarted>(_onLaunchingPreloadDataStarted);
   }
 
-  @override
-  Stream<LaunchingState> mapEventToState(LaunchingEvent event) async* {
-    if (event is LaunchingPreloadDataStarted) {
-      try {
-        yield LaunchingPreloadDataInProgress();
+  factory LaunchingBloc.instance() {
+    final key = Keys.Blocs.launchingBloc;
+    return EventBus().newBlocWithConstructor<LaunchingBloc>(
+      key,
+      () => LaunchingBloc(key),
+    );
+  }
+
+  Future<void> _onLaunchingPreloadDataStarted(
+      LaunchingPreloadDataStarted event, Emitter<LaunchingState> emit) async {
+    try {
+        emit(LaunchingPreloadDataInProgress());
 
         // do something
         
-        yield LaunchingPreloadDataSuccess();
+        emit(LaunchingPreloadDataSuccess());
       } catch (e) {
         log.error(e.toString());
-        yield LaunchingPreloadDataFailure(errorMessage: e.toString());
+        emit(LaunchingPreloadDataFailure(errorMessage: e.toString()));
       }
-    }
   }
 }

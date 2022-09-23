@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:boilerplate_flutter/theme/theme_constants.dart';
 
-ThemeData loadTheme() {
+ThemeData loadTheme({dynamic theme}) {
   return ThemeData(
     primaryColor: redColor,
     primaryColorLight: redColorLight,

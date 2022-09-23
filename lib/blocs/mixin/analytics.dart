@@ -4,12 +4,12 @@ import 'package:repository/repository.dart';
 
 mixin Analytics {
   void logLogIn({
-    User loggedInUser,
-    Authorization authorization,
+    required User loggedInUser,
+    Authorization? authorization,
   }) {
     final deviceType = Device.getDeviceType() == 1 ? 'android' : 'ios';
     AppAnalytics().logLogIn(
-      accountType: authorization.accountType.toText(),
+      name: loggedInUser.name,
       deviceType: deviceType,
     );
   }

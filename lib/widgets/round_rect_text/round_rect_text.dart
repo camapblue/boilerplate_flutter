@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:boilerplate_flutter/constants/app_colors.dart';
 import 'package:boilerplate_flutter/theme/theme.dart';
@@ -8,15 +6,15 @@ class RoundRectText extends StatelessWidget {
   final String text;
   final double height;
   final EdgeInsets padding;
-  final TextStyle textStyle;
-  final BorderRadius borderRadius;
+  final TextStyle? textStyle;
+  final BorderRadius? borderRadius;
   final Color backgroundColor;
-  final Gradient gradient;
-  final int maxLines;
+  final Gradient? gradient;
+  final int? maxLines;
 
   const RoundRectText({
-    @required this.text,
-    @required this.height,
+    required this.text,
+    required this.height,
     this.padding = const EdgeInsets.all(4),
     this.textStyle,
     this.borderRadius,
@@ -50,9 +48,9 @@ class RoundRectText extends StatelessWidget {
   }
 
   factory RoundRectText.standard({
-    @required BuildContext context,
-    @required String text,
-    int maxLines,
+    required BuildContext context,
+    required String text,
+    int? maxLines,
   }) {
     final theme = Theme.of(context);
 
@@ -67,11 +65,11 @@ class RoundRectText extends StatelessWidget {
   }
 
   factory RoundRectText.corner({
-    @required BuildContext context,
-    @required String text,
-    Color backgroundColor,
-    Color textColor,
-    int maxLines,
+    required BuildContext context,
+    required String text,
+    Color? backgroundColor,
+    Color? textColor,
+    int? maxLines,
   }) {
     final theme = Theme.of(context);
 
@@ -90,8 +88,8 @@ class RoundRectText extends StatelessWidget {
   }
 
   factory RoundRectText.gradient({
-    @required BuildContext context,
-    @required String text,
+    required BuildContext context,
+    required String text,
     double fontSize = 8,
     double height = 14,
     EdgeInsets padding = const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
@@ -120,8 +118,8 @@ class RoundRectText extends StatelessWidget {
   }
 
   factory RoundRectText.skeleton({
-    @required final BuildContext context,
-    @required final double height,
+    required final BuildContext context,
+    required final double height,
   }) {
     return RoundRectText(
       text: '',

@@ -1,13 +1,19 @@
 import 'package:boilerplate_flutter/blocs/mixin/mixin.dart';
+import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/services/services.dart';
 import 'package:common/common.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:common/core/blocs/blocs.dart';
 
 import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
-import 'package:repository/model/model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:repository/repository.dart';
+
+part 'session_state.dart';
+part 'session_event.dart';
 
 class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
   final SessionService _sessionService;
@@ -15,14 +21,31 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
 
   SessionBloc(
     Key key, {
-    @required SessionService sessionService,
-    @required UserService userService,
+    required SessionService sessionService,
+    required UserService userService,
   })  : _sessionService = sessionService,
         _userService = userService,
-        super(key, initialState: SessionInitial());
+        super(
+          key,
+          initialState: SessionInitial(),
+        ) {
+    on<SessionEvent>(_onSessionLoaded);
+    on<SessionGuestModeStarted>(_onSessionGuestModeStarted);
+    on<SessionUserLoggedIn>(_onSessionUserLoggedIn);
+    on<SessionShouldSetUpMessaging>(_onSessionShouldSetUpMessaging);
+    on<SessionUserSignedOut>(_onSessionUserSignedOut);
+  }
 
   factory SessionBloc.instance() {
-    return EventBus().newBloc<SessionBloc>(Keys.Blocs.sessionBloc);
+    final key = Keys.Blocs.sessionBloc;
+    return EventBus().newBlocWithConstructor<SessionBloc>(
+      key,
+      () => SessionBloc(
+        key,
+        sessionService: Provider().sessionService,
+        userService: Provider().userService,
+      ),
+    );
   }
 
   @override
@@ -41,77 +64,78 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
     ];
   }
 
-  @override
-  Stream<SessionState> mapEventToState(SessionEvent event) async* {
-    if (event is SessionLoaded) {
-      yield* _mapEventSessionLoadedToState(event);
-    } else if (event is SessionGuestModeEnded) {
-      await _sessionService.markExistGuestMode();
-
-      yield SessionReadyToLogIn();
-    } else if (event is SessionGuestModeStarted) {
-      await _sessionService.markBeInGuestMode();
-
-      yield SessionRunGuestModeSuccess();
-    } else if (event is SessionShouldSetUpMessaging &&
-        state is SessionUserLogInSuccess) {
-      yield SessionUserReadyToSetUpMessasing(
-        user: state.loggedInUser,
-      );
-    } else if (event is SessionUserSignedOut) {
-      yield* _mapEventUserSignedOutToState(event);
-    } else if (event is SessionUserLoggedIn) {
-      final authorization = _sessionService.getLoggedInAuthorization();
-      if (authorization != null) {
-        logLogIn(
-          loggedInUser: event.loggedInUser,
-          authorization: authorization,
-        );
-      }
-      try {
-        yield SessionUserLogInSuccess(
-          user: event.loggedInUser,
-          justSignUp: event.justSignUp,
-        );
-      } catch (_) {
-        yield SessionUserLogInSuccess(
-          user: event.loggedInUser,
-          justSignUp: event.justSignUp,
-        );
-      }
-    }
-  }
-
-  Stream<SessionState> _mapEventSessionLoadedToState(
-      SessionLoaded event) async* {
+  Future<void> _onSessionLoaded(
+      SessionEvent event, Emitter<SessionState> emit) async {
     final authorization = _sessionService.getLoggedInAuthorization();
     if (authorization != null) {
       Repository().authorization = authorization;
       log.info('''
               SESSION LOADED 
-                >> User ID >> ${Repository().authorization.userId} 
-                >> TOKEN >> ${Repository().authorization.socialToken}
+                >> User ID >> ${Repository().authorization?.profileToken} 
+                >> TOKEN >> ${Repository().authorization?.accessToken}
             ''');
 
       final loggedInUser =
           await _sessionService.getLoggedInUser(forceToUpdate: true);
 
-      yield SessionUserLogInSuccess(
-        user: loggedInUser,
-      );
+      if (loggedInUser != null) {
+        emit(
+          SessionUserLogInSuccess(
+            user: loggedInUser,
+          ),
+        );
+      }
     } else {
       if (await _sessionService.isFirstTimeLaunching()) {
-        yield SessionFirstTimeLaunchSuccess();
+        emit(SessionFirstTimeLaunchSuccess());
       } else if (await _sessionService.isInGuestMode()) {
-        yield SessionRunGuestModeSuccess();
+        emit(SessionRunGuestModeSuccess());
       } else {
-        yield SessionReadyToLogIn();
+        emit(SessionReadyToLogIn());
       }
     }
   }
 
-  Stream<SessionState> _mapEventUserSignedOutToState(
-      SessionUserSignedOut event) async* {
+  Future<void> _onSessionGuestModeStarted(
+      SessionGuestModeStarted event, Emitter<SessionState> emit) async {
+    await _sessionService.markBeInGuestMode();
+
+    emit(SessionRunGuestModeSuccess());
+  }
+
+  Future<void> _onSessionUserLoggedIn(
+      SessionUserLoggedIn event, Emitter<SessionState> emit) async {
+    final authorization = _sessionService.getLoggedInAuthorization();
+    if (authorization != null) {
+      try {
+        emit(
+          SessionUserLogInSuccess(
+            user: event.loggedInUser,
+            justSignUp: event.justSignUp,
+          ),
+        );
+      } catch (_) {
+        emit(
+          SessionUserLogInSuccess(
+            user: event.loggedInUser,
+            justSignUp: event.justSignUp,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _onSessionShouldSetUpMessaging(
+      SessionShouldSetUpMessaging event, Emitter<SessionState> emit) async {
+    emit(
+      SessionUserReadyToSetUpMessasing(
+        user: state.loggedInUser!,
+      ),
+    );
+  }
+
+  Future<void> _onSessionUserSignedOut(
+      SessionUserSignedOut event, Emitter<SessionState> emit) async {
     showAppLoading(message: Strings.Common.signingOut);
 
     try {
@@ -119,10 +143,10 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
 
       hideAppLoading();
 
-      EventBus().event<MessagingBloc>(
-          Keys.Blocs.messagingBloc, MessagingAllTopicsUnsubscribed());
+      // EventBus().event<MessagingBloc>(
+      //     Keys.Blocs.messagingBloc, MessagingAllTopicsUnsubscribed());
 
-      yield SessionSignOutSuccess();
+      emit(SessionSignOutSuccess());
     } catch (e) {
       hideAppLoading();
       log.error('Sign out error >> $e');

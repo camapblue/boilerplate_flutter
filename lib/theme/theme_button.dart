@@ -16,7 +16,6 @@ double buttonHeightByButtonSize(ButtonSize size) {
     case ButtonSize.small:
       return 32;
   }
-  return 54;
 }
 
 double fontSizeByButtonSize(ButtonSize size) {
@@ -28,7 +27,6 @@ double fontSizeByButtonSize(ButtonSize size) {
     case ButtonSize.small:
       return 16;
   }
-  return 22;
 }
 
 BoxBorder buttonBorderByButtonSize(ButtonSize size,
@@ -44,7 +42,6 @@ BoxBorder buttonBorderByButtonSize(ButtonSize size,
     case ButtonSize.small:
       return Border.all(width: 2, color: color);
   }
-  return Border.all(width: 3, color: color);
 }
 
 BorderRadius buttonBorderRadiusByButtonSize(ButtonSize size) {
@@ -56,7 +53,6 @@ BorderRadius buttonBorderRadiusByButtonSize(ButtonSize size) {
     case ButtonSize.small:
       return BorderRadius.circular(10);
   }
-  return BorderRadius.circular(12);
 }
 
 /* ********** */
@@ -68,19 +64,21 @@ class BounceButtonTheme {
   final TextStyle normalTextStyle;
   final TextStyle disabledTextStyle;
 
-  BounceButtonTheme(
-      {this.color,
-      this.lightColor,
-      this.disabledColor,
-      this.normalTextStyle,
-      this.disabledTextStyle});
+  BounceButtonTheme({
+    required this.color,
+    required this.lightColor,
+    this.disabledColor = Colors.grey,
+    required this.normalTextStyle,
+    required this.disabledTextStyle,
+  });
 
-  BounceButtonTheme copyWith(
-      {Color color,
-      Color lightColor,
-      Color disabledColor,
-      TextStyle normalTextStyle,
-      TextStyle disabledTextStyle}) {
+  BounceButtonTheme copyWith({
+    Color? color,
+    Color? lightColor,
+    Color? disabledColor,
+    TextStyle? normalTextStyle,
+    TextStyle? disabledTextStyle,
+  }) {
     return BounceButtonTheme(
         color: color ?? this.color,
         lightColor: lightColor ?? this.lightColor,
@@ -96,15 +94,20 @@ class BounceButtonDecoration {
   final BoxBorder border;
   final BorderRadius borderRadius;
 
-  BounceButtonDecoration(
-      {this.height, this.fontSize, this.border, this.borderRadius});
+  BounceButtonDecoration({
+    required this.height,
+    required this.fontSize,
+    required this.border,
+    required this.borderRadius,
+  });
 
-  BounceButtonDecoration.size(ButtonSize size,
-      {bool disabled = false,
-      Color borderColor = whiteColor,
-      Color disabledBorderColor = lightGrayColor,
-      double fontSize})
-      : height = buttonHeightByButtonSize(size),
+  BounceButtonDecoration.size(
+    ButtonSize size, {
+    bool disabled = false,
+    Color borderColor = whiteColor,
+    Color disabledBorderColor = lightGrayColor,
+    double? fontSize,
+  })  : height = buttonHeightByButtonSize(size),
         border = buttonBorderByButtonSize(size,
             disabled: disabled,
             borderColor: borderColor,
@@ -115,13 +118,13 @@ class BounceButtonDecoration {
 
 extension BounceButtonThemeData on ThemeData {
   TextTheme get _buttonTextTheme => textTheme;
-  TextStyle get _normalTextStyle => _buttonTextTheme.bodyText1;
+  TextStyle get _normalTextStyle => _buttonTextTheme.bodyText1!;
   TextStyle get _disabledTextStyle =>
-      _buttonTextTheme.bodyText1.copyWith(color: lightGrayColor);
+      _buttonTextTheme.bodyText1!.copyWith(color: lightGrayColor);
 
-  TextStyle get numberTextStyle1 => numberTextTheme.headline1;
-  TextStyle get numberTextStyle2 => numberTextTheme.headline2;
-  TextStyle get numberTextStyle3 => numberTextTheme.headline3;
+  TextStyle get numberTextStyle1 => numberTextTheme.headline1!;
+  TextStyle get numberTextStyle2 => numberTextTheme.headline2!;
+  TextStyle get numberTextStyle3 => numberTextTheme.headline3!;
 
   BounceButtonTheme get greenButtonTheme => BounceButtonTheme(
       color: greenColor,

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart' as test;
 import 'package:test/test.dart';
 
 void main() {
-  LoaderBloc loaderBloc;
+  late LoaderBloc loaderBloc;
 
   setUp(() {
     loaderBloc = LoaderBloc(const Key('loader_bloc'));
@@ -25,7 +25,7 @@ void main() {
     blocTest(
       'emits [LoaderInitial, LoaderRunSuccess] when LoaderRun is added',
       build: () => loaderBloc,
-      act: (bloc) => bloc.add(LoaderRun('Loading')),
+      act: (LoaderBloc? bloc) => bloc?.add(LoaderRun('Loading')),
       expect: () => [isA<LoaderInitial>(), isA<LoaderRunSuccess>()],
     );
   });
@@ -36,9 +36,9 @@ void main() {
         emits [LoaderInitial, LoaderRunSuccess, LoaderStopSuccess] when LoaderStopped is added
       ''',
       build: () => loaderBloc,
-      act: (bloc) async {
-        await bloc.add(LoaderRun('Loading'));
-        bloc.add(LoaderStopped());
+      act: (LoaderBloc? bloc) {
+        bloc?.add(LoaderRun('Loading'));
+        bloc?.add(LoaderStopped());
       },
       expect: () => [
         isA<LoaderInitial>(),

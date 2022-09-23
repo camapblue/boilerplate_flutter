@@ -9,16 +9,15 @@ import 'package:test/test.dart';
 
 class MockUserService extends Mock implements UserService {}
 
-class MockSocialNetworkConnect extends Mock implements SocialNetworkConnect {}
-
 void main() {
-  AuthenticationBloc authenticationBloc;
+  late AuthenticationBloc authenticationBloc;
   final UserService userService = MockUserService();
-  final SocialNetworkConnect socialNetworkConnect = MockSocialNetworkConnect();
 
   setUp(() {
-    authenticationBloc = AuthenticationBloc(const Key('authentication_bloc'),
-        userService: userService, socialNetworkConnect: socialNetworkConnect);
+    authenticationBloc = AuthenticationBloc(
+      const Key('authentication_bloc'),
+      userService: userService,
+    );
   });
 
   test.tearDownAll(() {
@@ -27,8 +26,8 @@ void main() {
 
   group('AuthenticationInitial', () {
     test.test('AuthenticationInitial is set from beginning', () {
-      expect(authenticationBloc.state,
-          const TypeMatcher<AuthenticationInitial>());
+      expect(
+          authenticationBloc.state, const TypeMatcher<AuthenticationInitial>());
     });
   });
 
@@ -38,42 +37,20 @@ void main() {
         emits [AuthenticationInitial, AuthenticationLogInInProgress, AuthenticationLogInSuccess] when AuthenticationLoggedIn is added
       ''',
       build: () => authenticationBloc,
-      act: (bloc) async {
-        when(socialNetworkConnect.logIn(type: AccountType.facebook)).thenAnswer(
-            (_) async => SocialAccount(
-                socialId: 'social_id',
-                token: 'token',
-                type: AccountType.facebook));
+      act: (AuthenticationBloc? bloc) async {
+        when(
+          userService.logIn(
+            email: 'email',
+            password: 'password',
+          ),
+        ).thenAnswer((_) async => User.test());
 
-        when(userService.logIn(
-                socialId: anyNamed('socialId'),
-                socialToken: anyNamed('socialToken')))
-            .thenAnswer((_) async => User(userId: '1'));
-
-        bloc.add(const AuthenticationLoggedIn(type: AccountType.facebook));
+        bloc?.add(const AuthenticationLoggedIn());
       },
       expect: () => [
         isA<AuthenticationInitial>(),
         isA<AuthenticationLogInInProgress>(),
         isA<AuthenticationLogInSuccess>()
-      ],
-    );
-
-    blocTest(
-      '''
-        emits [AuthenticationInitial, AuthenticationLogInInProgress, AuthenticationLogInFailure] when AuthenticationLoggedIn is added
-      ''',
-      build: () => authenticationBloc,
-      act: (bloc) async {
-        when(socialNetworkConnect.logIn(type: AccountType.facebook)).thenAnswer(
-            (_) async => throw Exception());
-
-        bloc.add(const AuthenticationLoggedIn(type: AccountType.facebook));
-      },
-      expect: () => [
-        isA<AuthenticationInitial>(),
-        isA<AuthenticationLogInInProgress>(),
-        isA<AuthenticationLogInFailure>()
       ],
     );
   });

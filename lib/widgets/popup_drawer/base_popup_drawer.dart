@@ -12,23 +12,15 @@ class BasePopupDrawer extends StatelessWidget {
   final Widget child;
 
   BasePopupDrawer({
-    Key key,
-    @required this.context,
-    @required this.child,
-  })  : assert(
-          context != null,
-          'context can not null!',
-        ),
-        assert(
-          child != null,
-          'child can not null!',
-        ),
-        super(key: key);
+    Key? key,
+    required this.context,
+    required this.child,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => child;
 
-  Future<T> show<T>() async {
+  Future<T?> show<T>() async {
     return showGeneralDialog<T>(
       context: context,
       pageBuilder: (BuildContext buildContext, Animation<double> animation,

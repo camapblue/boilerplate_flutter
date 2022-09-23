@@ -13,7 +13,7 @@ class Sounds {
 
   final AudioPlayer player = AudioPlayer();
 
-  Future<void> play({AppSounds sound}) async {
+  Future<void> play({required AppSounds sound}) async {
     await player.setAsset(sound.toAssetPath());
     unawaited(player.play());
   }

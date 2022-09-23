@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:boilerplate_flutter/theme/theme.dart';
 
-import 'package:boilerplate_flutter/widgets/button/button.dart';
-import 'package:boilerplate_flutter/widgets/app_icon/app_icon.dart';
 import 'package:boilerplate_flutter/widgets/popup_drawer/popup_drawer_theme.dart';
 import 'package:common/animated/animated.dart';
 
@@ -22,8 +20,8 @@ const double _BorderRadius = 12.0;
 const ValueKey confirmationPopupKey = ValueKey('confirmation_popup_key');
 
 class ConfirmationHeader extends StatelessWidget {
-  final AppIcon icon;
-  final String title;
+  final AppIcon? icon;
+  final String? title;
 
   ConfirmationHeader({
     this.icon,
@@ -62,7 +60,7 @@ class ConfirmationHeader extends StatelessWidget {
             padding: const EdgeInsets.only(
                 left: _DefaultTitlePadding, right: _DefaultTitlePadding),
             child: Text(
-              title,
+              title ?? '',
               style: Theme.of(context).popupDrawerTitleTextStyle,
               textAlign: TextAlign.center,
             ),
@@ -75,7 +73,7 @@ class ConfirmationHeader extends StatelessWidget {
 
 class ConfirmationContent extends StatelessWidget {
   final String message;
-  ConfirmationContent({this.message});
+  ConfirmationContent({required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -99,17 +97,17 @@ class ConfirmationContent extends StatelessWidget {
 }
 
 class Confirmation extends StatelessWidget {
-  final AppIcon icon;
+  final AppIcon? icon;
   final String title;
   final String message;
-  final String okTitle;
-  final String cancelTitle;
+  final String? okTitle;
+  final String? cancelTitle;
 
   Confirmation({
-    Key key,
+    Key? key,
     this.icon,
-    @required this.title,
-    @required this.message,
+    required this.title,
+    required this.message,
     this.okTitle,
     this.cancelTitle,
   }) : super(key: key);

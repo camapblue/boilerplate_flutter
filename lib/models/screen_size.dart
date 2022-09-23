@@ -4,7 +4,7 @@ enum ScreenSize {
   small
 }
 
-ScreenSize screenSizeFromDevice({double screenWidth}) {
+ScreenSize screenSizeFromDevice({required double screenWidth}) {
   if (screenWidth < 360.0) {
     return ScreenSize.small;
   } else if (screenWidth < 414) {
@@ -20,6 +20,5 @@ extension ScreenSizeExtension on ScreenSize {
       case ScreenSize.medium: return 0.85;
       case ScreenSize.small: return 0.7;
     }
-    return 1.0;
   }
 }

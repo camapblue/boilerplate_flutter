@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'show_message_bloc.dart';
 
 abstract class ShowMessageEvent extends Equatable {
   const ShowMessageEvent();

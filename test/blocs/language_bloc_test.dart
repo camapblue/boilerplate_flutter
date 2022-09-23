@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 class MockSettingService extends Mock implements SettingService {}
 
 void main() {
-  LanguageBloc languageBloc;
+  late LanguageBloc languageBloc;
   final SettingService settingService = MockSettingService();
 
   const currentLocale = Locale('id');
@@ -31,8 +31,7 @@ void main() {
 
   group('LanguageInitial', () {
     test.test('LanguageInitial is set current locale & supported locales', () {
-      final state = LanguageInitial(
-          const Locale('id'), const [Locale('id'), Locale('en')]);
+      const state = LanguageInitial(Locale('id'), [Locale('id'), Locale('en')]);
 
       expect(languageBloc.state, state);
     });
@@ -44,7 +43,8 @@ void main() {
         emits [LanguageInitial, LanguageUpdateSuccess] when LanguageUpdated(en) is added
       ''',
       build: () => languageBloc,
-      act: (bloc) => bloc.add(const LanguageUpdated(Locale('en'))),
+      act: (LanguageBloc? bloc) =>
+          bloc?.add(const LanguageUpdated(Locale('en'))),
       expect: () => [isA<LanguageInitial>(), isA<LanguageUpdateSuccess>()],
     );
   });

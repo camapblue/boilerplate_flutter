@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
-
 enum Gender { male, female }
 
 List<Gender> get allGenders => <Gender>[Gender.male, Gender.female];
 
-Gender genderFromString({@required String gender}) {
+Gender genderFromString({required String gender}) {
   if (gender.toLowerCase() == 'male') {
     return Gender.male;
   }

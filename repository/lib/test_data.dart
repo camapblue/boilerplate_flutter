@@ -6,38 +6,33 @@ import 'package:repository/model/model.dart';
 class TestData<T extends Entity> {
   final Mapper<T> _mapper;
 
-  TestData({Mapper<T> mapper}) : _mapper = mapper;
+  TestData({required Mapper<T> mapper}) : _mapper = mapper;
 
   Future<List<T>> getListItems(String path) async {
     try {
       final data = await rootBundle.loadString(path);
       final dataJson = List<Map<String, dynamic>>.from(json.decode(data));
-      return dataJson.map(_mapper.parse).toList();
+      return _mapper.toList(json: dataJson);
     } catch (e) {
       log.error('Cannot parse json file: $path for error: $e');
       return [];
     }
   }
 
-  Future<T> getItem(String path) async {
+  Future<T?> getItem(String path) async {
     try {
       final data = await rootBundle.loadString(path);
       final dataJson = json.decode(data);
-      return _mapper.parse(dataJson);
+      return _mapper.toObject(json: dataJson);
     } catch (e) {
       log.error('Cannot parse json file: $path for error: $e');
       return null;
     }
   }
 
-  static Future<User> getUser() async {
-    final testData = TestData<User>(mapper: Mapper<User>(parse: User.fromJson));
-
-    return testData.getItem('test_data/user.json');
-  }
-
-  static Future<List<User>> getListUser() async {
-    final testData = TestData<User>(mapper: Mapper<User>(parse: User.fromJson));
+  static Future<List<User>> getListUsers() async {
+    final testData =
+        TestData<User>(mapper: Mapper<User>(parser: User.fromJson));
 
     return testData.getListItems('test_data/list_user.json');
   }

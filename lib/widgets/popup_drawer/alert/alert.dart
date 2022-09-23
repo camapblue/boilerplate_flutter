@@ -2,8 +2,6 @@ import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:boilerplate_flutter/theme/theme.dart';
-import 'package:boilerplate_flutter/widgets/button/button.dart';
-import 'package:boilerplate_flutter/widgets/app_icon/app_icon.dart';
 import 'package:boilerplate_flutter/widgets/popup_drawer/popup_drawer_theme.dart';
 import 'package:common/animated/animated.dart';
 
@@ -34,12 +32,12 @@ enum AlertType { error, warning, announcement }
 
 class AlertHeader extends StatelessWidget {
   final AlertType alertType;
-  final AppIcon icon;
-  final String title;
-  final Color textColor;
+  final AppIcon? icon;
+  final String? title;
+  final Color? textColor;
 
   AlertHeader({
-    this.alertType,
+    required this.alertType,
     this.icon,
     this.title,
     this.textColor,
@@ -54,7 +52,6 @@ class AlertHeader extends StatelessWidget {
       case AlertType.announcement:
         return AlertTheme(Theme.of(context)).alertHeaderColorForAnnouncement;
     }
-    return AlertTheme(Theme.of(context)).alertHeaderColorForError;
   }
 
   @override
@@ -89,7 +86,7 @@ class AlertHeader extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: _DefaultTitlePadding),
               child: Text(
-                title,
+                title ?? '',
                 style: Theme.of(context)
                     .popupDrawerTitleTextStyle
                     .copyWith(color: textColor),
@@ -104,8 +101,8 @@ class AlertHeader extends StatelessWidget {
 }
 
 class AlertContent extends StatelessWidget {
-  final String message;
-  final Color textColor;
+  final String? message;
+  final Color? textColor;
 
   AlertContent({
     this.message,
@@ -122,7 +119,7 @@ class AlertContent extends StatelessWidget {
             top: _DefaultMessagePaddingVertical,
             bottom: _DefaultMessagePaddingVertical),
         child: SpanLabel(
-          text: message,
+          text: message ?? '',
           textAlign: TextAlign.center,
           defaultStyle: Theme.of(context)
               .popupDrawerContentDefaultTextStyle
@@ -140,45 +137,45 @@ class AlertContent extends StatelessWidget {
 }
 
 class Alert extends StatelessWidget {
-  final AppIcon icon;
+  final AppIcon? icon;
   final String title;
   final String message;
-  final String okButtonTitle;
-  final Function onYes;
+  final String? okButtonTitle;
+  final void Function()? onYes;
   final AlertType alertType;
   final Color textColor;
 
-  Alert.error(
-      {Key key,
-      @required this.icon,
-      @required this.title,
-      @required this.message,
-      this.okButtonTitle,
-      this.textColor = Colors.white,
-      this.onYes})
-      : alertType = AlertType.error,
+  Alert.error({
+    Key? key,
+    this.icon,
+    required this.title,
+    required this.message,
+    this.okButtonTitle,
+    this.textColor = Colors.white,
+    this.onYes,
+  })  : alertType = AlertType.error,
         super(key: key);
 
-  Alert.warning(
-      {Key key,
-      @required this.icon,
-      @required this.title,
-      @required this.message,
-      this.okButtonTitle,
-      this.textColor = Colors.black,
-      this.onYes})
-      : alertType = AlertType.warning,
+  Alert.warning({
+    Key? key,
+    this.icon,
+    required this.title,
+    required this.message,
+    this.okButtonTitle,
+    this.textColor = Colors.black,
+    this.onYes,
+  })  : alertType = AlertType.warning,
         super(key: key);
 
-  Alert.announcement(
-      {Key key,
-      @required this.icon,
-      @required this.title,
-      @required this.message,
-      this.okButtonTitle,
-      this.textColor = Colors.white,
-      this.onYes})
-      : alertType = AlertType.announcement,
+  Alert.announcement({
+    Key? key,
+    this.icon,
+    required this.title,
+    required this.message,
+    this.okButtonTitle,
+    this.textColor = Colors.white,
+    this.onYes,
+  })  : alertType = AlertType.announcement,
         super(key: key);
 
   Color _getBackgroundColor(BuildContext context) {
@@ -191,7 +188,6 @@ class Alert extends StatelessWidget {
         return AlertTheme(Theme.of(context))
             .alertBackgroundColorForAnnouncement;
     }
-    return AlertTheme(Theme.of(context)).alertBackgroundColorForError;
   }
 
   @override
@@ -228,7 +224,7 @@ class Alert extends StatelessWidget {
                 size: ButtonSize.medium,
                 onPressed: () {
                   if (onYes != null) {
-                    onYes();
+                    onYes!();
                   }
                   Navigator.of(context).pop();
                 },

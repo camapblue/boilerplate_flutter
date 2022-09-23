@@ -4,17 +4,17 @@ import 'package:flutter_svg/svg.dart';
 
 class AppIcon extends StatelessWidget {
   AppIcon({
-    Key key,
-    @required this.width,
-    @required this.height,
+    Key? key,
+    required this.width,
+    required this.height,
     this.color,
-    @required this.icon,
+    required this.icon,
   }) : super(key: key);
 
   final AppIcons icon;
   final double width;
   final double height;
-  final Color color;
+  final Color? color;
 
   factory AppIcon.closeCircle({
     double width = 20,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
 import 'package:boilerplate_flutter/models/models.dart';
 import 'package:boilerplate_flutter/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class SLocalizationsDelegate extends LocalizationsDelegate<S> {
   @override
   Future<S> load(Locale locale) async {
     final localeName =
-        (locale.countryCode == null || locale.countryCode.isEmpty)
+        (locale.countryCode == null || locale.countryCode!.isEmpty)
             ? locale.languageCode
             : locale.toString();
 
@@ -33,10 +32,10 @@ class S {
 
   Future<bool> load(Locale locale) async {
     final data = await rootBundle.loadString('lib/i18n/$localeName.json');
-    final _result = Map<String, dynamic>.from(json.decode(data));
+    final result = Map<String, dynamic>.from(json.decode(data));
 
     _sentences = {};
-    _result.forEach((String key, dynamic value) {
+    result.forEach((String key, dynamic value) {
       _sentences[key] = value.toString();
     });
 
@@ -45,11 +44,11 @@ class S {
 
   // ignore: prefer_constructors_over_static_methods
   static S of(BuildContext context) {
-    return Localizations.of<S>(context, S) ?? S(null);
+    return Localizations.of<S>(context, S) ?? S('en');
   }
 
-  final String localeName;
-  Map<String, String> _sentences;
+  final String? localeName;
+  Map<String, String> _sentences = {};
 
   String translateText(TranslatedText text) {
     return translate(text.text, suffix: text.suffix, params: text.params);
@@ -58,39 +57,32 @@ class S {
   String translate(
     String key, {
     String suffix = '',
-    List<dynamic> params = const [],
-    bool numberPrefix = false,
-    bool numberSuffix = false,
+    List<dynamic>? params,
+    bool checkNumberParams = false,
   }) {
     if (localeName == null) {
       return '${sprintf(key, params)}$suffix';
     }
-    if (!numberPrefix && !numberSuffix) {
+    if (!checkNumberParams) {
       return _sentences[key] == null
           ? '${sprintf(key, params)}$suffix'
-          : '${sprintf(_sentences[key], params)}$suffix';
+          : '${sprintf(_sentences[key]!, params)}$suffix';
     }
 
-    if (numberPrefix) {
-      final numberString = key.split(' ').first;
-      if (numberString == null || !Validator.isNumeric(numberString)) {
-        return _sentences[key] == null
-            ? sprintf(key, params)
-            : sprintf(_sentences[key], params);
+    final comps = key.split(' ');
+    var keyString = '';
+    final numberParams = <dynamic>[];
+    for (var i = 0; i < comps.length; i++) {
+      final text = comps[i];
+      if (Validator.isNumeric(text)) {
+        numberParams.add(int.parse(text));
+      } else {
+        keyString += keyString.isEmpty ? text : ' $text';
       }
-      final number = num.parse(numberString);
-      final newKey = key.substring(numberString.length + 1);
-      return sprintf('%d ${_sentences[newKey]}', [number]);
     }
 
-    final numberString = key.split(' ').last;
-    if (numberString == null || !Validator.isNumeric(numberString)) {
-      return _sentences[key] == null
-          ? sprintf(key, params)
-          : sprintf(_sentences[key], params);
-    }
-    final number = num.parse(numberString);
-    final newKey = key.substring(0, key.length - (numberString.length + 1));
-    return sprintf('${_sentences[newKey]} %d', [number]);
+    return _sentences[keyString] == null
+        ? '${sprintf(keyString, numberParams)}$suffix'
+        : '${sprintf(_sentences[keyString]!, numberParams)}$suffix';
   }
 }

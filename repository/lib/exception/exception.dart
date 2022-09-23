@@ -1,8 +1,8 @@
 class ApiException implements Exception {
   final String _message;
-  final String _prefix;
+  final String? _prefix;
 
-  ApiException([this._message, this._prefix]);
+  ApiException(this._message, [this._prefix]);
 
   @override
   String toString() {
@@ -13,7 +13,7 @@ class ApiException implements Exception {
 }
 
 class FetchDataException extends ApiException {
-  FetchDataException([String message])
+  FetchDataException(String message)
       : super(message, 'Error During Communication: ');
 }
 
@@ -30,11 +30,11 @@ class ServerErrorException extends ApiException {
 }
 
 class InvalidInputException extends ApiException {
-  InvalidInputException([String message]) : super(message, 'Invalid Input: ');
+  InvalidInputException(String message) : super(message, 'Invalid Input: ');
 }
 
 class InvalidResponseException extends ApiException {
-  InvalidResponseException([String message])
+  InvalidResponseException(String message)
       : super(message, 'Invalid Response: ');
 }
 

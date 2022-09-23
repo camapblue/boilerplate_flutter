@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:boilerplate_flutter/blocs/blocs.dart';
 
 class LostConnection extends StatelessWidget {
-  const LostConnection({Key key}) : super(key: key);
+  const LostConnection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
