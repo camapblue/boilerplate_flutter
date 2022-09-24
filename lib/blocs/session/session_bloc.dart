@@ -29,7 +29,7 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
           key,
           initialState: SessionInitial(),
         ) {
-    on<SessionEvent>(_onSessionLoaded);
+    on<SessionLoaded>(_onSessionLoaded);
     on<SessionGuestModeStarted>(_onSessionGuestModeStarted);
     on<SessionUserLoggedIn>(_onSessionUserLoggedIn);
     on<SessionShouldSetUpMessaging>(_onSessionShouldSetUpMessaging);
@@ -65,7 +65,7 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
   }
 
   Future<void> _onSessionLoaded(
-      SessionEvent event, Emitter<SessionState> emit) async {
+      SessionLoaded event, Emitter<SessionState> emit) async {
     final authorization = _sessionService.getLoggedInAuthorization();
     if (authorization != null) {
       Repository().authorization = authorization;

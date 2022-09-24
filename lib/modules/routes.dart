@@ -5,15 +5,12 @@ import 'package:common/core/core.dart';
 import 'package:qlevar_router/qlevar_router.dart';
 
 import 'landing/landing_screen.dart' deferred as landing;
-import 'splash/splash_screen.dart' deferred as splash;
+import 'splash/splash_screen.dart';
 import 'log_in/log_in_screen.dart' deferred as log_in;
 
 class AppRouter {
   static void initialize() {
-    QR.settings.pagesType = QCustomPage(
-      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          child,
-    );
+    QR.settings.pagesType = const QMaterialPage();
 
     QR.setUrlStrategy();
   }
@@ -23,8 +20,7 @@ class AppRouter {
       QRoute(
         path: Screens.splash,
         name: Screens.splash,
-        builder: () => splash.SplashScreen(),
-        middleware: [DeferredLoader(splash.loadLibrary)],
+        builder: () => const SplashScreen(),
       ),
       QRoute(
         path: Screens.landing,

@@ -57,7 +57,7 @@ class S {
   String translate(
     String key, {
     String suffix = '',
-    List<dynamic>? params,
+    List<dynamic>? params = const [],
     bool checkNumberParams = false,
   }) {
     if (localeName == null) {

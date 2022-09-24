@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 extension BuildContextExtension on BuildContext {
   static ScreenSize screenSize = ScreenSize.big;
-  static BuildContext? navigatorContext;
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   bool hasBloc<T extends Bloc>() {
     try {

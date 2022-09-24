@@ -27,7 +27,10 @@ class Toast<T extends Object> extends StatefulWidget {
 
   ToastRoute<T>? _toastRoute;
 
-  Future<T?> show(BuildContext context) async {
+  Future<T?> show(BuildContext? context) async {
+    if (context == null) {
+      return null;
+    }
     await Sounds.alert();
 
     _toastRoute = showToast<T>(context: context, toast: this);

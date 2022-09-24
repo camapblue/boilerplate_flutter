@@ -1,5 +1,7 @@
 import 'package:boilerplate_flutter/blocs/blocs.dart';
+import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
+import 'package:boilerplate_flutter/modules/app/app_showing/app_showing.dart';
 import 'package:boilerplate_flutter/modules/theme/load_theme.dart';
 import 'package:common/common.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -95,6 +97,7 @@ class _BoilerplateFlutterAppState extends State<BoilerplateFlutterApp> {
                 observers: [
                   AppRouteObserver(),
                 ],
+                initPath: Screens.splash,
               ),
               localizationsDelegates: const [
                 SLocalizationsDelegate(),
@@ -106,6 +109,8 @@ class _BoilerplateFlutterAppState extends State<BoilerplateFlutterApp> {
               theme: loadTheme(),
               debugShowCheckedModeBanner: false,
               restorationScopeId: 'Boilerplate Web App',
+              builder: (context, child) => AppShowing(app: child!),
+              scaffoldMessengerKey: AppRouting().scaffoldMessengerState,
             );
           },
         ),

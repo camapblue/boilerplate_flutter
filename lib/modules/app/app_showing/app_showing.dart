@@ -1,7 +1,6 @@
 import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
-import 'package:boilerplate_flutter/models/models.dart';
 import 'package:boilerplate_flutter/modules/app/loading/loading.dart';
 import 'package:boilerplate_flutter/modules/app/lost_connection/lost_connection.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
@@ -10,11 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppShowing extends StatefulWidget {
-  const AppShowing({Key? key, required this.app, required this.navigatorKey,})
-      : super(key: key);
+  const AppShowing({
+    Key? key,
+    required this.app,
+  }) : super(key: key);
 
   final Widget app;
-  final GlobalKey<NavigatorState> navigatorKey;
 
   @override
   State<StatefulWidget> createState() {
@@ -69,10 +69,10 @@ class _AppShowingState extends State<AppShowing> with WidgetsBindingObserver {
                       params: state.params,
                     ),
                 success: state.isSuccess,
-              ).showWithNavigator(widget.navigatorKey.currentState!);
+              ).show(AppRouting().context);
             } else if (state is ShowErrorMessageSuccess) {
-              if (BuildContextExtension.navigatorContext != null) {
-                PopupDrawer.of(BuildContextExtension.navigatorContext!)
+              if (AppRouting().context != null) {
+                PopupDrawer.of(AppRouting().context!)
                     .error(
                       title: S
                           .of(context)
@@ -83,14 +83,6 @@ class _AppShowingState extends State<AppShowing> with WidgetsBindingObserver {
                           ),
                     )
                     .show();
-              } else {
-                Toast(
-                  S.of(context).translate(
-                        state.messageKey ?? '',
-                        params: state.params,
-                      ),
-                  success: false,
-                ).showWithNavigator(widget.navigatorKey.currentState!);
               }
             }
           },

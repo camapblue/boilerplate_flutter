@@ -27,9 +27,13 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true),
     Repository().initialize(),
     AppCaching().preloadBeforeAppStart(),
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top],
+    ),
   ]);
-  
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   AppCaching().devicePixelRatio = widgetBinding.window.devicePixelRatio;
   SystemChrome.setSystemUIOverlayStyle(
@@ -46,4 +50,3 @@ Future<void> main() async {
     blocObserver: SimpleBlocObserver(),
   );
 }
-

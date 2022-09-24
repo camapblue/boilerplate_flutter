@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "291220224044",
-    "firebase_url": "https://example.firebaseio.com",
-    "project_id": "example",
-    "storage_bucket": "example.appspot.com"
+    "project_number": "914774860771",
+    "project_id": "boilerplate-flutter-app",
+    "storage_bucket": "boilerplate-flutter-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:291220224044:android:6d0d019712a54a76",
+        "mobilesdk_app_id": "1:914774860771:android:85c55405c8e61c730db6d6",
         "android_client_info": {
-          "package_name": "com.example.boilerplate_flutter.dev"
+          "package_name": "com.example.boilerplate_flutter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "291220224044-931d8j0nngc40u1iigi2k96is05d4edf.apps.googleusercontent.com",
+          "client_id": "914774860771-d5cqtm733p53glidgbni37821t3g26gf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.boilerplate_flutter",
+            "certificate_hash": "df82a363be317bee24714e9441dd0899799cf018"
+          }
+        },
+        {
+          "client_id": "914774860771-rf5d03d8g20ec9s1ngt3neatc432c3ot.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBXrQ9ACkBHVUTvqWr7C5JqtWIHs6SWSx8"
+          "current_key": "AIzaSyDLK_p-U0t9xLMe4WxowgPohllRjxOZ_y0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "291220224044-d15tt692ciapbthrou69u22abdhup1hv.apps.googleusercontent.com",
+              "client_id": "914774860771-rf5d03d8g20ec9s1ngt3neatc432c3ot.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "291220224044-3pq66dk0oomimn21p4hieh24d6ci7vaq.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.boilerplate_flutter.dev"
-              }
             }
           ]
         }
