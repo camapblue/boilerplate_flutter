@@ -1,18 +1,20 @@
 import 'dart:ui';
 
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:repository/dao/dao.dart';
 
 import 'package:repository/repository/impl/setting_repository_impl.dart';
 import 'package:repository/repository/setting_repository.dart';
-import 'package:test/test.dart';
 
-class MockSettingDao extends Mock implements SettingDao {}
+import 'setting_repository_test.mocks.dart';
 
+@GenerateMocks([SettingDao])
 void main() {
   final SettingDao settingDao = MockSettingDao();
 
-  late final SettingRepository settingRepository;
+  late SettingRepository settingRepository;
   const _supportedLanguages = 'vi,en,zh';
 
   setUp(() {

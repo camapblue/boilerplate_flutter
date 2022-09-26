@@ -1,14 +1,14 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:repository/client/client.dart';
 import 'package:repository/dao/dao.dart';
 
 import 'package:repository/repository.dart';
-import 'package:test/test.dart';
 
-class MockUserClient extends Mock implements UserClient {}
+import 'user_repository_test.mocks.dart';
 
-class MockUserDao extends Mock implements UserDao {}
-
+@GenerateMocks([UserClient, UserDao])
 void main() {
   final UserClient userClient = MockUserClient();
   final UserDao userDao = MockUserDao();
@@ -16,9 +16,9 @@ void main() {
 
   setUp(() {
     userRepository = UserRepositoryImpl(
-        userClient: userClient, 
-        userDao: userDao,
-      );
+      userClient: userClient,
+      userDao: userDao,
+    );
   });
 
   group('saveUser()', () {
@@ -35,12 +35,13 @@ void main() {
           return User instance in case socialId, socialToken & accountType are correct
         ''', () async {
       final user = User.test();
-      when(userClient.getProfile())
-          .thenAnswer((_) async => user);
 
+      when(userClient.getProfile()).thenAnswer((_) async => user);
+      final loggedInUser = await userRepository.getLatestLoggedInUser();
       expect(
-          userRepository.getLoggedInUser(),
-          user,);
+        loggedInUser,
+        user,
+      );
     });
   });
 }

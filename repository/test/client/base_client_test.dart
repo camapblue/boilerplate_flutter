@@ -1,15 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:repository/client/client.dart' as bb;
 import 'package:repository/repository.dart';
-import 'package:test/test.dart';
 
 import '../mock/mock_request.dart';
-
-class MockHttpClient extends Mock implements Client {}
+import 'base_client_test.mocks.dart';
 
 class TestBaseClient extends bb.BaseClient {
   TestBaseClient(
@@ -19,9 +19,10 @@ class TestBaseClient extends bb.BaseClient {
   }) : super(host, client: client, authorization: authorization);
 }
 
+@GenerateMocks([Client])
 void main() {
-  final Client client = MockHttpClient();
-  late final TestBaseClient testBaseClient;
+  final Client client = MockClient();
+  late TestBaseClient testBaseClient;
   const _host = 'http://test.com';
 
   setUp(() {
