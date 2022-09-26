@@ -28,8 +28,7 @@ class _LogInScreenState extends State<LogInScreen> {
       child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (_, state) {},
         builder: (_, state) {
-          final loading = state is AuthenticationConnectSocialInProgress ||
-              state is AuthenticationLogInInProgress ||
+          final loading = state is AuthenticationLogInInProgress ||
               state is AuthenticationLogInSuccess;
           return AbsorbPointer(
             absorbing: loading,

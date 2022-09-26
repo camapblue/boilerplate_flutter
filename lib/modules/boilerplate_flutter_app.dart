@@ -7,6 +7,7 @@ import 'package:common/common.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:qlevar_router/qlevar_router.dart';
 
 import 'routes.dart';
@@ -101,6 +102,9 @@ class _BoilerplateFlutterAppState extends State<BoilerplateFlutterApp> {
               ),
               localizationsDelegates: const [
                 SLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: languageState.supportedLocales,
               locale: languageState.locale,
