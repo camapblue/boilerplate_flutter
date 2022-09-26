@@ -7,8 +7,6 @@ abstract class AuthenticationState extends Equatable {
 
 class AuthenticationInitial extends AuthenticationState {}
 
-class AuthenticationConnectSocialInProgress extends AuthenticationState {}
-
 class AuthenticationLogInInProgress extends AuthenticationState {}
 
 class AuthenticationLogInSuccess extends AuthenticationState {}

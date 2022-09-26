@@ -1,6 +1,6 @@
+import 'package:boilerplate_flutter/constants/app_constants.dart';
+import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:boilerplate_flutter/constants/app_colors.dart';
-import 'package:boilerplate_flutter/theme/theme.dart';
 
 class RoundRectText extends StatelessWidget {
   final String text;
@@ -13,6 +13,7 @@ class RoundRectText extends StatelessWidget {
   final int? maxLines;
 
   const RoundRectText({
+    super.key,
     required this.text,
     required this.height,
     this.padding = const EdgeInsets.all(4),
@@ -25,8 +26,6 @@ class RoundRectText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Container(
       height: height,
       padding: padding,
@@ -39,7 +38,7 @@ class RoundRectText extends StatelessWidget {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: textStyle ?? theme.primaryRegular,
+          style: textStyle ?? context.bodyMedium,
           maxLines: maxLines,
           overflow: TextOverflow.ellipsis,
         ),
@@ -52,14 +51,12 @@ class RoundRectText extends StatelessWidget {
     required String text,
     int? maxLines,
   }) {
-    final theme = Theme.of(context);
-
     return RoundRectText(
       text: text,
       height: maxLines == null ? 18 : maxLines * 18.0 - 4.0,
-      textStyle: theme.primaryRegular.copyWith(fontSize: 12),
+      textStyle: context.bodyMedium?.copyWith(fontSize: 12),
       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-      backgroundColor: AppColors.pink,
+      backgroundColor: AppColors.neutral,
       maxLines: maxLines,
     );
   }
@@ -71,17 +68,16 @@ class RoundRectText extends StatelessWidget {
     Color? textColor,
     int? maxLines,
   }) {
-    final theme = Theme.of(context);
-
     return RoundRectText(
       text: text,
       height: maxLines == null ? 16 : maxLines * 16.0 - 4.0,
-      textStyle: theme.primaryBold.copyWith(
+      textStyle: context.bodyMedium?.copyWith(
         fontSize: 10.7,
-        color: textColor ?? AppColors.pink,
+        color: textColor ?? AppColors.neutral,
+        fontWeight: FontWeight.bold,
       ),
       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-      backgroundColor: backgroundColor ?? AppColors.pink.withOpacity(0.1),
+      backgroundColor: backgroundColor ?? AppColors.neutral.withOpacity(0.1),
       borderRadius: BorderRadius.circular(3.6),
       maxLines: maxLines,
     );
@@ -93,24 +89,16 @@ class RoundRectText extends StatelessWidget {
     double fontSize = 8,
     double height = 14,
     EdgeInsets padding = const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-    Gradient gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      colors: [
-        AppColors.pink,
-        AppColors.pinkLight,
-      ],
-    ),
+    Gradient gradient = AppConstants.AppBarGradient,
     Color textColor = Colors.white,
   }) {
-    final theme = Theme.of(context);
-
     return RoundRectText(
       text: text,
       height: height,
-      textStyle: theme.primaryBold.copyWith(
-        fontSize: fontSize,
+      textStyle: context.bodyMedium?.copyWith(
+        fontSize: 10.7,
         color: textColor,
+        fontWeight: FontWeight.bold,
       ),
       padding: padding,
       gradient: gradient,

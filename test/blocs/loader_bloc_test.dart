@@ -2,7 +2,7 @@ import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart' as test;
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late LoaderBloc loaderBloc;
@@ -26,7 +26,7 @@ void main() {
       'emits [LoaderInitial, LoaderRunSuccess] when LoaderRun is added',
       build: () => loaderBloc,
       act: (LoaderBloc? bloc) => bloc?.add(LoaderRun('Loading')),
-      expect: () => [isA<LoaderInitial>(), isA<LoaderRunSuccess>()],
+      expect: () => [isA<LoaderRunSuccess>()],
     );
   });
 
@@ -41,7 +41,6 @@ void main() {
         bloc?.add(LoaderStopped());
       },
       expect: () => [
-        isA<LoaderInitial>(),
         isA<LoaderRunSuccess>(),
         isA<LoaderStopSuccess>()
       ],

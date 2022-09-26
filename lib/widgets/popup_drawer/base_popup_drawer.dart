@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 const int _TransitionDuration = 150;
@@ -11,7 +13,7 @@ class BasePopupDrawer extends StatelessWidget {
   final BuildContext context;
   final Widget child;
 
-  BasePopupDrawer({
+  const BasePopupDrawer({
     Key? key,
     required this.context,
     required this.child,

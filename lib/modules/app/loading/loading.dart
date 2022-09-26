@@ -1,6 +1,5 @@
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
-import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,9 +23,9 @@ class Loading extends StatelessWidget {
                   flex: 1,
                   child: SizedBox(),
                 ),
-                const Center(
+                Center(
                   child: CircularProgressIndicator(
-                    backgroundColor: whiteColor,
+                    backgroundColor: context.textColor,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -38,7 +37,7 @@ class Loading extends StatelessWidget {
                         )}...',
                     style:
                         Theme.of(context).primaryTextTheme.bodyText1?.copyWith(
-                              color: whiteColor,
+                              color: AppColors.white,
                             ),
                   ),
                 ),

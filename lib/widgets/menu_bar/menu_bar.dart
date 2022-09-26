@@ -47,7 +47,7 @@ class MenuBar extends StatefulWidget {
   final bool selectedAlignment;
 
   @override
-  _MenuBarState createState() => _MenuBarState();
+  State<MenuBar> createState() => _MenuBarState();
 }
 
 class _MenuBarState extends State<MenuBar> {
@@ -178,12 +178,10 @@ class _MenuBarState extends State<MenuBar> {
                     final itemInRow = widget.totalItem / widget.numberRow;
                     return Expanded(
                       flex: 1,
-                      child: Container(
-                        child: Row(
-                          children: _buildItems(
-                            column: i,
-                            itemInRow: itemInRow.toInt(),
-                          ),
+                      child: Row(
+                        children: _buildItems(
+                          column: i,
+                          itemInRow: itemInRow.toInt(),
                         ),
                       ),
                     );

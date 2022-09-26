@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:pedantic/pedantic.dart';
 
 class Sounds {
   static final Sounds _singleton = Sounds._internal();

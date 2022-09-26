@@ -51,7 +51,7 @@ class PopupDrawer {
         title: title,
         message: message,
         icon: icon ??
-            AppIcon(
+            const AppIcon(
               icon: AppIcons.error,
               color: Colors.white,
               width: 64,

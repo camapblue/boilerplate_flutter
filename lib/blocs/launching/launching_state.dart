@@ -1,7 +1,7 @@
 part of 'launching_bloc.dart';
 
 abstract class LaunchingState extends Equatable {
-  LaunchingState();
+  const LaunchingState();
 
   @override
   List<Object> get props => [];
@@ -16,5 +16,5 @@ class LaunchingPreloadDataSuccess extends LaunchingState {}
 class LaunchingPreloadDataFailure extends LaunchingState {
   final String? errorMessage;
 
-  LaunchingPreloadDataFailure({this.errorMessage});
+  const LaunchingPreloadDataFailure({this.errorMessage});
 }

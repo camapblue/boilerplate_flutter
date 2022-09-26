@@ -222,6 +222,10 @@ For the next run with qc environement, it can be run normally with Flutter comma
 - All Services **MUST** have unit testing for all public methods.
 - All Repositories **MUST** have unit testing for all public methods.
 
+```
+  flutter packages pub run build_runner build --delete-conflicting-outputs
+```
+
 ## Logging
 - Support logging for 6 standard levels of logs, here is lists (order by the priority of log)
   1. fatal: *for any issuse that kill the app or business*

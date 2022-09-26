@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 enum AppIcons {
   error,
   placeholder,
@@ -6,8 +8,6 @@ enum AppIcons {
   checked,
   avatarPlaceholder,
   bell,
-  facebook,
-  googlePlus,
   apple,
   arrowDown,
   arrowLeft,
@@ -24,8 +24,6 @@ const _AppIconsAsset = {
   AppIcons.checked: 'assets/icons/checked.svg',
   AppIcons.avatarPlaceholder: 'assets/icons/avatar_placeholder.svg',
   AppIcons.bell: 'assets/icons/bell.svg',
-  AppIcons.facebook: 'assets/icons/facebook.svg',
-  AppIcons.googlePlus: 'assets/icons/google_plus.svg',
   AppIcons.apple: 'assets/icons/apple.svg',
   AppIcons.arrowDown: 'assets/icons/arrow_down.svg',
   AppIcons.arrowLeft: 'assets/icons/arrow_left.svg',

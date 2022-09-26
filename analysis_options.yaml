@@ -1,4 +1,4 @@
-include: package:pedantic/analysis_options.yaml
+include: package:flutter_lints/flutter.yaml
 
 analyzer:
   strong-mode:
@@ -11,7 +11,6 @@ analyzer:
   exclude:
     # exclude files
     - lib/common/i18n
-    - storybook/**
     - environments/**
     - test_data/**
 

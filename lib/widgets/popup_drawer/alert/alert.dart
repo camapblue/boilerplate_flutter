@@ -1,18 +1,20 @@
+// ignore_for_file: constant_identifier_names
+
+import 'package:boilerplate_flutter/constants/app_colors.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:boilerplate_flutter/widgets/popup_drawer/popup_drawer_theme.dart';
 import 'package:common/animated/animated.dart';
 
 extension AlertTheme on ThemeData {
-  Color get alertHeaderColorForError => redColor;
-  Color get alertHeaderColorForWarning => yellowColor;
-  Color get alertHeaderColorForAnnouncement => blueColor;
+  Color get alertHeaderColorForError => AppColors.negative;
+  Color get alertHeaderColorForWarning => AppColors.warning;
+  Color get alertHeaderColorForAnnouncement => AppColors.neutral;
 
-  Color get alertBackgroundColorForError => redColorLight;
-  Color get alertBackgroundColorForWarning => yellowColorLight;
-  Color get alertBackgroundColorForAnnouncement => blueColorLight;
+  Color get alertBackgroundColorForError => AppColors.negative;
+  Color get alertBackgroundColorForWarning => AppColors.warningLight;
+  Color get alertBackgroundColorForAnnouncement => AppColors.neutralLight;
 }
 
 const double _DefaultWidthFactor = 256.0;
@@ -36,7 +38,8 @@ class AlertHeader extends StatelessWidget {
   final String? title;
   final Color? textColor;
 
-  AlertHeader({
+  const AlertHeader({
+    super.key,
     required this.alertType,
     this.icon,
     this.title,
@@ -104,33 +107,31 @@ class AlertContent extends StatelessWidget {
   final String? message;
   final Color? textColor;
 
-  AlertContent({
+  const AlertContent({super.key, 
     this.message,
     this.textColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.only(
-            left: _DefaultMessagePaddingHorizontal,
-            right: _DefaultMessagePaddingHorizontal,
-            top: _DefaultMessagePaddingVertical,
-            bottom: _DefaultMessagePaddingVertical),
-        child: SpanLabel(
-          text: message ?? '',
-          textAlign: TextAlign.center,
-          defaultStyle: Theme.of(context)
-              .popupDrawerContentDefaultTextStyle
-              .copyWith(color: textColor),
-          boldStyle: Theme.of(context)
-              .popupDrawerContentBoldTextStyle
-              .copyWith(color: textColor),
-          italicStyle: Theme.of(context)
-              .popupDrawerContentItalicTextStyle
-              .copyWith(color: textColor),
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(
+          left: _DefaultMessagePaddingHorizontal,
+          right: _DefaultMessagePaddingHorizontal,
+          top: _DefaultMessagePaddingVertical,
+          bottom: _DefaultMessagePaddingVertical),
+      child: SpanLabel(
+        text: message ?? '',
+        textAlign: TextAlign.center,
+        defaultStyle: Theme.of(context)
+            .popupDrawerContentDefaultTextStyle
+            .copyWith(color: textColor),
+        boldStyle: Theme.of(context)
+            .popupDrawerContentBoldTextStyle
+            .copyWith(color: textColor),
+        italicStyle: Theme.of(context)
+            .popupDrawerContentItalicTextStyle
+            .copyWith(color: textColor),
       ),
     );
   }
@@ -145,7 +146,7 @@ class Alert extends StatelessWidget {
   final AlertType alertType;
   final Color textColor;
 
-  Alert.error({
+  const Alert.error({
     Key? key,
     this.icon,
     required this.title,
@@ -156,7 +157,7 @@ class Alert extends StatelessWidget {
   })  : alertType = AlertType.error,
         super(key: key);
 
-  Alert.warning({
+  const Alert.warning({
     Key? key,
     this.icon,
     required this.title,
@@ -167,7 +168,7 @@ class Alert extends StatelessWidget {
   })  : alertType = AlertType.warning,
         super(key: key);
 
-  Alert.announcement({
+  const Alert.announcement({
     Key? key,
     this.icon,
     required this.title,
@@ -199,29 +200,25 @@ class Alert extends StatelessWidget {
         widthFactor: _DefaultWidthFactor,
         child: AnimatedBounce(
           child: AlertDialog(
-            title: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  AlertHeader(
-                    alertType: alertType,
-                    icon: icon,
-                    title: title,
-                    textColor: textColor,
-                  ),
-                  AlertContent(
-                    message: message,
-                    textColor: textColor,
-                  ),
-                ],
-              ),
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                AlertHeader(
+                  alertType: alertType,
+                  icon: icon,
+                  title: title,
+                  textColor: textColor,
+                ),
+                AlertContent(
+                  message: message,
+                  textColor: textColor,
+                ),
+              ],
             ),
             titlePadding: const EdgeInsets.all(_TitlePaddingAlert),
             content: Container(
               margin: const EdgeInsets.all(_DefaultContentMargin),
-              child: Button.ok(
-                context: context,
-                size: ButtonSize.medium,
+              child: XButton.positive(
                 onPressed: () {
                   if (onYes != null) {
                     onYes!();

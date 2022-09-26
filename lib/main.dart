@@ -4,7 +4,6 @@ import 'package:common/core/core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 
 import 'package:boilerplate_flutter/utils/utils.dart';
 import 'package:boilerplate_flutter/global/global.dart';
@@ -39,14 +38,7 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
+  Bloc.observer = SimpleBlocObserver();
 
-  // ignore: deprecated_member_use
-  BlocOverrides.runZoned(
-    () => runZonedGuarded(() {
-      runApp(const BoilerplateFlutterApp());
-    }, (error, stackTrace) {
-      debugPrint('>>>>> ${error.toString()}');
-    }),
-    blocObserver: SimpleBlocObserver(),
-  );
+  runApp(const BoilerplateFlutterApp());
 }

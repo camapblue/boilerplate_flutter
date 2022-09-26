@@ -55,14 +55,17 @@ dependencies:
   scrollable_positioned_list: ^0.3.4
   shimmer: ^2.0.0
   qlevar_router: ^1.6.2
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  test: ^1.16.8
-  bloc_test: ^9.1.0
-  pedantic: ^1.9.0 # Analysis
-  mockito: ^5.0.15 # Testing
+  
+  flutter_lints: ^2.0.1
+  build_runner_core: ^7.2.3
+  build_runner: ^2.1.11
+  bloc_test: ^9.0.3
+  mockito: ^5.3.0 # Testing
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

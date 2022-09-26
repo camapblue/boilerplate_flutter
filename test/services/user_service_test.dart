@@ -1,10 +1,11 @@
-import 'package:mockito/mockito.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:boilerplate_flutter/services/services.dart';
 import 'package:repository/repository/user_repository.dart';
-import 'package:test/test.dart';
 
-class MockUserRepository extends Mock implements UserRepository {}
+import 'user_service_test.mocks.dart';
 
+@GenerateMocks([UserRepository])
 void main() {
   late UserService userService;
   final UserRepository userRepository = MockUserRepository();

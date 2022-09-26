@@ -12,7 +12,7 @@ const _topColor = Color(0xFFA4E82C);
 const _bottomColor = Color(0xFF378019);
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen();
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() {
@@ -27,9 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final size = MediaQuery.of(context).size;
-      BuildContextExtension.screenSize =
-          screenSizeFromDevice(screenWidth: size.width);
-      log.info('Screen Size >> $size >> ${BuildContextExtension.screenSize}');
+      AppContext.screenSize = screenSizeFromDevice(screenWidth: size.width);
+      log.info('Screen Size >> $size >> ${AppContext.screenSize}');
     });
   }
 

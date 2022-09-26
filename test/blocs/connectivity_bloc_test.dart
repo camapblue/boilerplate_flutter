@@ -5,23 +5,29 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart' as test;
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:test/test.dart';
 
-class MockConnectivity extends Mock implements Connectivity {}
+import 'connectivity_bloc_test.mocks.dart';
 
+typedef InternetCheckingFunc = Future<List<InternetAddress>> Function(String,
+    {InternetAddressType? type});
+
+@GenerateMocks([Connectivity])
 void main() {
   late ConnectivityBloc connectivityBloc;
-  final internetCheckingFunction = (String host,
-          {InternetAddressType? type}) async =>
-      [InternetAddress('127.0.0.1')];
+  InternetCheckingFunc internetCheckingFunction;
   final Connectivity connectivity = MockConnectivity();
-  final _connectionUpdated = PublishSubject<ConnectivityResult>();
+  final connectionUpdated = PublishSubject<ConnectivityResult>();
 
   setUp(() {
+    internetCheckingFunction = (String host,
+            {InternetAddressType? type}) async =>
+        [InternetAddress('127.0.0.1')];
     when(connectivity.onConnectivityChanged)
-        .thenAnswer((_) => _connectionUpdated.stream);
+        .thenAnswer((_) => connectionUpdated.stream);
 
     connectivityBloc = ConnectivityBloc(const Key('connectivity_bloc'),
         connectivity: connectivity,
@@ -29,7 +35,7 @@ void main() {
   });
 
   test.tearDownAll(() {
-    _connectionUpdated.close();
+    connectionUpdated.close();
     connectivityBloc.close();
   });
 
@@ -50,7 +56,7 @@ void main() {
         bloc?.add(const ConnectivityChanged(false));
       },
       expect: () =>
-          [isA<ConnectivityInitial>(), isA<ConnectivityUpdateSuccess>()],
+          [isA<ConnectivityUpdateSuccess>()],
     );
 
     blocTest(
@@ -63,7 +69,6 @@ void main() {
         bloc?.add(ConnectivityChecked());
       },
       expect: () => [
-        isA<ConnectivityInitial>(),
         isA<ConnectivityUpdateSuccess>(),
         isA<ConnectivityUpdateSuccess>()
       ],
@@ -76,11 +81,10 @@ void main() {
       build: () => connectivityBloc,
       act: (ConnectivityBloc? bloc) {
         bloc?.add(const ConnectivityChanged(false));
-        _connectionUpdated.add(ConnectivityResult.wifi);
+        connectionUpdated.add(ConnectivityResult.wifi);
       },
       wait: const Duration(milliseconds: 300),
       expect: () => [
-        isA<ConnectivityInitial>(),
         isA<ConnectivityUpdateSuccess>(),
         isA<ConnectivityUpdateSuccess>()
       ],

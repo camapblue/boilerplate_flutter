@@ -4,7 +4,7 @@ import 'package:boilerplate_flutter/constants/constants.dart';
 
 class Skeleton extends StatelessWidget {
   final Widget child;
-  const Skeleton({required this.child});
+  const Skeleton({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +14,8 @@ class Skeleton extends StatelessWidget {
   factory Skeleton.standard({required Widget child}) {
     return Skeleton(
       child: Shimmer.fromColors(
-        baseColor: AppColors.textGrayLight.withOpacity(0.08),
-        highlightColor: AppColors.textGray.withOpacity(0.2),
+        baseColor: AppColors.dark.withOpacity(0.08),
+        highlightColor: AppColors.dark.withOpacity(0.2),
         period: const Duration(milliseconds: 2000),
         child: child,
       ),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 
 class CircleNumber extends StatelessWidget {
   const CircleNumber({
     Key? key,
-    this.color = darkColor,
+    this.color = Colors.black87,
     this.border,
     this.number = 0,
     this.max = 99,
@@ -28,20 +27,22 @@ class CircleNumber extends StatelessWidget {
     return '$max+';
   }
 
-  TextStyle _fontStyle(BuildContext context) {
+  TextStyle? _fontStyle(BuildContext context) {
     if (max == 0 || number <= max) {
       return numberStyle ??
-          Theme.of(context)
-              .primaryRegular
-              .copyWith(fontSize: 9, color: AppColors.pink);
+          context.labelSmall?.copyWith(
+            fontSize: 9,
+            color: AppColors.neutral,
+          );
     }
     if (numberStyle != null) {
       return numberStyle!.copyWith(fontSize: numberStyle!.fontSize ?? 9 * 0.8);
     }
 
-    return Theme.of(context)
-        .primaryRegular
-        .copyWith(fontSize: 8, color: AppColors.pink);
+    return context.labelSmall?.copyWith(
+      fontSize: 8,
+      color: AppColors.neutral,
+    );
   }
 
   @override

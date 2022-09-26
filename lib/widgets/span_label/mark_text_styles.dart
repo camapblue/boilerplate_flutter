@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppTextSpan {
   final String startTag;
   final String endTag;
-  final TextStyle style;
+  final TextStyle? style;
 
   AppTextSpan(this.startTag, this.endTag, this.style);
 

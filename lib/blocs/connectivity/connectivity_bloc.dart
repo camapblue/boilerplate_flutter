@@ -30,7 +30,7 @@ class ConnectivityBloc extends BaseBloc<ConnectivityEvent, ConnectivityState> {
         _internetCheckingHost = internetCheckingHost ?? 'google.com',
         _internetCheckingFunction =
             internetCheckingFunction ?? InternetAddress.lookup,
-        super(key, initialState: ConnectivityInitial()) {
+        super(key, initialState: const ConnectivityInitial()) {
     subscription = _connectivity.onConnectivityChanged
         .listen((ConnectivityResult result) async {
       final isConnected = await _checkConnection();

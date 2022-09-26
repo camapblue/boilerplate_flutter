@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'package:boilerplate_flutter/widgets/span_label/mark_text_styles.dart';
-import 'package:boilerplate_flutter/theme/theme.dart';
 
 extension SpanLabelTheme on ThemeData {
-  TextStyle get spanLabelDefaultStyle => primaryRegular;
-  TextStyle get spanLabelBoldStyle => primaryBold;
-  TextStyle get spanLabelItalicStyle => primaryItalic;
-  TextStyle get spanLabelBoldItalicStyle => primaryBoldItalic;
+  TextStyle? get spanLabelDefaultStyle => textTheme.displayMedium;
+  TextStyle? get spanLabelBoldStyle => textTheme.displayMedium?.copyWith(
+        fontWeight: FontWeight.bold,
+      );
+  TextStyle? get spanLabelItalicStyle => textTheme.displayMedium?.copyWith(
+        fontStyle: FontStyle.italic,
+      );
+  TextStyle? get spanLabelBoldItalicStyle => textTheme.displayMedium?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontStyle: FontStyle.italic,
+      );
 }
 
 class Tag {
@@ -35,10 +41,10 @@ class SpanLabel extends StatelessWidget {
   final TextStyle? italicStyle;
   final TextStyle? boldItalicStyle;
 
-  SpanLabel({
+  const SpanLabel({
     Key? key,
     required this.text,
-    this.color = darkColor,
+    this.color = Colors.black87,
     this.fontSize = 15.0,
     this.textAlign = TextAlign.left,
     this.currencyStyle = CurrencyStyle.style3,
@@ -46,7 +52,7 @@ class SpanLabel extends StatelessWidget {
     this.boldStyle,
     this.italicStyle,
     this.boldItalicStyle,
-  }): super(key: key);
+  }) : super(key: key);
 
   List<AppTextSpan> _allTextSpans(BuildContext context) {
     return [
@@ -66,13 +72,13 @@ class SpanLabel extends StatelessWidget {
         Tag.startBoldItalic,
         Tag.endBoldItalic,
         boldItalicStyle ??
-            _applyColorAndFontSize(Theme.of(context).spanLabelBoldItalicStyle),
+            _applyColorAndFontSize(Theme.of(context).spanLabelBoldStyle),
       ),
     ];
   }
 
-  TextStyle _applyColorAndFontSize(TextStyle textStyle) {
-    return textStyle.copyWith(color: color, fontSize: fontSize);
+  TextStyle? _applyColorAndFontSize(TextStyle? textStyle) {
+    return textStyle?.copyWith(color: color, fontSize: fontSize);
   }
 
   @override

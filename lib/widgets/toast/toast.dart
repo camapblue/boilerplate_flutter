@@ -1,13 +1,15 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 
+import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:boilerplate_flutter/theme/theme.dart';
 import 'toast_route.dart';
 
 extension ToastTheme on ThemeData {
-  TextStyle get toastMessageTextStyle =>
-      primaryTextTheme.bodyText1!.copyWith(color: darkColor);
+  TextStyle? get toastMessageTextStyle =>
+      textTheme.displayMedium?.copyWith(color: AppColors.dark);
 }
 
 typedef ToastStatusCallBack = void Function();
@@ -35,7 +37,10 @@ class Toast<T extends Object> extends StatefulWidget {
 
     _toastRoute = showToast<T>(context: context, toast: this);
 
-    return Navigator.of(context, rootNavigator: false).push(_toastRoute!);
+    // ignore: use_build_context_synchronously
+    final result = await Navigator.of(context, rootNavigator: false)
+        .push<T?>(_toastRoute!);
+    return result;
   }
 
   Future<T?> showWithNavigator(NavigatorState navigator) async {

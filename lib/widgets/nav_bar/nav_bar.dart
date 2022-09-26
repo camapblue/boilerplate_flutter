@@ -1,5 +1,5 @@
+import 'package:boilerplate_flutter/constants/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:boilerplate_flutter/constants/constants.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
   final double statusBarHeight;
@@ -10,15 +10,16 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final List<BoxShadow> boxShadow;
   final Gradient gradient;
-  
+
   const NavBar({
+    super.key,
     this.left,
     this.center,
     this.right,
     required this.statusBarHeight,
     required this.toolbarHeight,
     this.backgroundColor,
-    this.gradient = AppBarGradient,
+    this.gradient = AppConstants.AppBarGradient,
     this.boxShadow = const [],
   });
 

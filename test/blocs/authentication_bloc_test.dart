@@ -3,12 +3,14 @@ import 'package:boilerplate_flutter/services/services.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart' as test;
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:repository/repository.dart';
-import 'package:test/test.dart';
 
-class MockUserService extends Mock implements UserService {}
+import 'authentication_bloc_test.mocks.dart';
 
+@GenerateMocks([UserService])
 void main() {
   late AuthenticationBloc authenticationBloc;
   final UserService userService = MockUserService();
@@ -40,7 +42,7 @@ void main() {
       act: (AuthenticationBloc? bloc) async {
         when(
           userService.logIn(
-            email: 'email',
+            email: 'email@gmail.com',
             password: 'password',
           ),
         ).thenAnswer((_) async => User.test());
@@ -48,7 +50,6 @@ void main() {
         bloc?.add(const AuthenticationLoggedIn());
       },
       expect: () => [
-        isA<AuthenticationInitial>(),
         isA<AuthenticationLogInInProgress>(),
         isA<AuthenticationLogInSuccess>()
       ],

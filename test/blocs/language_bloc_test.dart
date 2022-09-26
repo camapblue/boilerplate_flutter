@@ -5,11 +5,13 @@ import 'package:boilerplate_flutter/services/setting_service.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart' as test;
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
 
-class MockSettingService extends Mock implements SettingService {}
+import 'language_bloc_test.mocks.dart';
 
+@GenerateMocks([SettingService])
 void main() {
   late LanguageBloc languageBloc;
   final SettingService settingService = MockSettingService();
@@ -45,7 +47,7 @@ void main() {
       build: () => languageBloc,
       act: (LanguageBloc? bloc) =>
           bloc?.add(const LanguageUpdated(Locale('en'))),
-      expect: () => [isA<LanguageInitial>(), isA<LanguageUpdateSuccess>()],
+      expect: () => [isA<LanguageUpdateSuccess>()],
     );
   });
 }

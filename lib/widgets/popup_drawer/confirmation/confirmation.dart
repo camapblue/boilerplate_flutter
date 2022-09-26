@@ -1,7 +1,7 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-
-import 'package:boilerplate_flutter/theme/theme.dart';
 
 import 'package:boilerplate_flutter/widgets/popup_drawer/popup_drawer_theme.dart';
 import 'package:common/animated/animated.dart';
@@ -23,7 +23,8 @@ class ConfirmationHeader extends StatelessWidget {
   final AppIcon? icon;
   final String? title;
 
-  ConfirmationHeader({
+  const ConfirmationHeader({
+    super.key,
     this.icon,
     this.title,
   });
@@ -35,7 +36,7 @@ class ConfirmationHeader extends StatelessWidget {
           left: _DefaultTitlePadding, right: _DefaultTitlePadding),
       height: _HeaderHeight,
       decoration: const ShapeDecoration(
-        color: blueColor,
+        color: Colors.blue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(_BorderRadius),
@@ -73,24 +74,22 @@ class ConfirmationHeader extends StatelessWidget {
 
 class ConfirmationContent extends StatelessWidget {
   final String message;
-  ConfirmationContent({required this.message});
+  const ConfirmationContent({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.only(
-            left: _DefaultMessagePaddingHorizontal,
-            right: _DefaultMessagePaddingHorizontal,
-            top: _DefaultMessagePaddingVertical,
-            bottom: _DefaultMessagePaddingVertical),
-        child: SpanLabel(
-          text: message,
-          textAlign: TextAlign.center,
-          defaultStyle: Theme.of(context).popupDrawerContentDefaultTextStyle,
-          boldStyle: Theme.of(context).popupDrawerContentBoldTextStyle,
-          italicStyle: Theme.of(context).popupDrawerContentItalicTextStyle,
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(
+          left: _DefaultMessagePaddingHorizontal,
+          right: _DefaultMessagePaddingHorizontal,
+          top: _DefaultMessagePaddingVertical,
+          bottom: _DefaultMessagePaddingVertical),
+      child: SpanLabel(
+        text: message,
+        textAlign: TextAlign.center,
+        defaultStyle: Theme.of(context).popupDrawerContentDefaultTextStyle,
+        boldStyle: Theme.of(context).popupDrawerContentBoldTextStyle,
+        italicStyle: Theme.of(context).popupDrawerContentItalicTextStyle,
       ),
     );
   }
@@ -103,7 +102,7 @@ class Confirmation extends StatelessWidget {
   final String? okTitle;
   final String? cancelTitle;
 
-  Confirmation({
+  const Confirmation({
     Key? key,
     this.icon,
     required this.title,
@@ -121,19 +120,17 @@ class Confirmation extends StatelessWidget {
         widthFactor: _DefaultWidthFactor,
         child: AnimatedBounce(
           child: AlertDialog(
-            title: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  ConfirmationHeader(
-                    icon: icon,
-                    title: title,
-                  ),
-                  ConfirmationContent(
-                    message: message,
-                  ),
-                ],
-              ),
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ConfirmationHeader(
+                  icon: icon,
+                  title: title,
+                ),
+                ConfirmationContent(
+                  message: message,
+                ),
+              ],
             ),
             titlePadding: const EdgeInsets.all(_TitlePaddingAlert),
             content: Container(
@@ -142,9 +139,7 @@ class Confirmation extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Expanded(
-                    child: Button.cancel(
-                      context: context,
-                      size: ButtonSize.medium,
+                    child: XButton.negative(
                       title: cancelTitle,
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -155,9 +150,7 @@ class Confirmation extends StatelessWidget {
                     width: 8,
                   ),
                   Expanded(
-                    child: Button.ok(
-                      context: context,
-                      size: ButtonSize.medium,
+                    child: XButton.positive(
                       title: okTitle,
                       onPressed: () {
                         Navigator.of(context).pop(true);
@@ -168,7 +161,7 @@ class Confirmation extends StatelessWidget {
               ),
             ),
             contentPadding: const EdgeInsets.all(_ContentPaddingAlert),
-            backgroundColor: blueColorLight,
+            backgroundColor: Colors.blueAccent.shade400,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(_BorderRadius))),
           ),

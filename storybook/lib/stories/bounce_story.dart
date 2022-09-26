@@ -1,8 +1,11 @@
-import 'package:common/widget.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import '../storybook.dart';
 
+// ignore: must_be_immutable
 class BounceStory extends Story {
+  BounceStory({super.key});
+
   @override
   List<WidgetMap> storyContent() {
     return [
@@ -22,7 +25,7 @@ class BounceStory extends Story {
                   padding: const EdgeInsets.all(16),
                   child: Bounce(
                     onPressed: () {
-                      print('Card Touched');
+                      debugPrint('Card Touched');
                     },
                     child: const Card(
                       child: Center(child: Text('Card here'),),

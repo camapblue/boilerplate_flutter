@@ -2,7 +2,7 @@ import 'package:boilerplate_flutter/blocs/blocs.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/modules/app/app_showing/app_showing.dart';
-import 'package:boilerplate_flutter/modules/theme/load_theme.dart';
+import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:common/common.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ import 'package:qlevar_router/qlevar_router.dart';
 import 'routes.dart';
 
 class BoilerplateFlutterApp extends StatefulWidget {
-  const BoilerplateFlutterApp();
+  const BoilerplateFlutterApp({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -106,7 +106,7 @@ class _BoilerplateFlutterAppState extends State<BoilerplateFlutterApp> {
               locale: languageState.locale,
               useInheritedMediaQuery: true,
               title: 'Boilerplate Web App',
-              theme: loadTheme(),
+              theme: DefaultTheme().build(context),
               debugShowCheckedModeBanner: false,
               restorationScopeId: 'Boilerplate Web App',
               builder: (context, child) => AppShowing(app: child!),

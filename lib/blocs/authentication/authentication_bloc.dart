@@ -36,8 +36,6 @@ class AuthenticationBloc
 
   Future<void> _onAuthenticationLoggedIn(
       AuthenticationEvent event, Emitter<AuthenticationState> emit) async {
-    emit(AuthenticationConnectSocialInProgress());
-
     try {
       emit(AuthenticationLogInInProgress());
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:boilerplate_flutter/global/global.dart';
 
 class AppImage extends StatelessWidget {
-  AppImage({
+  const AppImage({
     Key? key,
     required this.image,
     this.width,

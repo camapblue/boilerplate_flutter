@@ -1,8 +1,7 @@
-import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class InkWellButton extends StatelessWidget {
-  final void Function()? onTap;
+  final VoidCallback onTap;
   final double? width;
   final double? height;
   final EdgeInsets padding;
@@ -11,7 +10,7 @@ class InkWellButton extends StatelessWidget {
   final Color? splashColor;
   final Widget child;
 
-  InkWellButton({
+  const InkWellButton({
     Key? key,
     required this.onTap,
     this.width,
@@ -29,7 +28,7 @@ class InkWellButton extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        highlightColor: highlightColor ?? whiteColor.withOpacity(0.54),
+        highlightColor: highlightColor ?? Colors.white54,
         splashColor: splashColor ?? Colors.transparent,
         borderRadius: BorderRadius.circular(borderRadius),
         child: Container(

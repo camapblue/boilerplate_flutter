@@ -49,6 +49,7 @@ class ValidatorInput extends StatefulWidget {
   final bool enabled;
 
   const ValidatorInput({
+    super.key,
     this.title = '',
     this.placeholder = '',
     this.initialValue = '',
@@ -70,7 +71,7 @@ class ValidatorInput extends StatefulWidget {
   });
 
   @override
-  _ValidatorInputState createState() => _ValidatorInputState();
+  State<ValidatorInput> createState() => _ValidatorInputState();
 }
 
 class _ValidatorInputState extends State<ValidatorInput> {

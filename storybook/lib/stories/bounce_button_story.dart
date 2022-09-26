@@ -1,11 +1,13 @@
-import 'package:common/widget.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
-import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import '../storybook.dart';
 
+// ignore: must_be_immutable
 class BounceButtonStory extends Story {
+  BounceButtonStory({super.key});
+
   @override
   List<WidgetMap> storyContent() {
     return [
@@ -27,7 +29,7 @@ class BounceButtonStory extends Story {
                     title: 'Touch Here',
                     borderRadius: BorderRadius.circular(16),
                     onPressed: () {
-                      print('Touched');
+                      debugPrint('Touched');
                     },
                   ),
                 ),
@@ -44,7 +46,7 @@ class BounceButtonStory extends Story {
                     title: 'Touch Here',
                     borderRadius: BorderRadius.circular(16),
                     onPressed: () {
-                      print('Touched');
+                      debugPrint('Touched');
                     },
                     isLoading: true,
                   ),
@@ -60,14 +62,14 @@ class BounceButtonStory extends Story {
                   padding: const EdgeInsets.all(16),
                   child: BounceButton(
                     title: 'Touch Here',
-                    color: redColor,
+                    color: AppColors.negative,
                     borderRadius: BorderRadius.circular(16),
                     onPressed: () {
-                      print('Touched');
+                      debugPrint('Touched');
                     },
                     isLoading: true,
                     loadingText: 'Processing',
-                    loadingTextStyle: Theme.of(context).loadingTextStyle,
+                    loadingTextStyle: context.bodyMedium,
                   ),
                 ),
               ),
@@ -80,7 +82,7 @@ class BounceButtonStory extends Story {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: BounceButton(
-                    icon: AppIcon(
+                    icon: const AppIcon(
                       icon: AppIcons.bell,
                       width: 20,
                       height: 20,
@@ -90,7 +92,7 @@ class BounceButtonStory extends Story {
                     alignment: Alignment.centerLeft,
                     borderRadius: BorderRadius.circular(16),
                     onPressed: () {
-                      print('Touched');
+                      debugPrint('Touched');
                     },
                   ),
                 ),

@@ -1,11 +1,8 @@
-import 'package:boilerplate_flutter/blocs/blocs.dart';
-import 'package:boilerplate_flutter/global/provider.dart';
-import 'package:boilerplate_flutter/widgets/load_list/load_list.dart';
+import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/models/models.dart';
-import 'package:boilerplate_flutter/services/services.dart';
+import 'package:common/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:repository/model/model.dart';
 import 'package:repository/repository.dart';
 import 'package:common/extension/color_extension.dart';
 import '../storybook.dart';
@@ -14,10 +11,11 @@ class MockUserService extends LoadListService<Group<User>> {
   MockUserService();
 
   @override
-  Future<List<Group<User>>> loadItems({Map<String, dynamic> params}) async {
+  Future<List<Group<User>>> loadItems(
+      {Map<String, dynamic> params = const {}}) async {
     await Future.delayed(const Duration(seconds: 4));
 
-    final users = await TestData.getListUser();
+    final users = await TestData.getListUsers();
 
     final groups = users.groupByOccupation();
 
@@ -25,15 +23,19 @@ class MockUserService extends LoadListService<Group<User>> {
   }
 
   @override
-  Future<void> shouldRefreshItems({Map<String, dynamic> params}) async {}
+  Future<void> shouldRefreshItems(
+      {Map<String, dynamic> params = const {}}) async {}
 
   @override
-  bool shouldReloadData({Map<String, dynamic> params}) {
+  bool shouldReloadData({Map<String, dynamic> params = const {}}) {
     return true;
   }
 }
 
+// ignore: must_be_immutable
 class LoadListStory extends Story {
+  LoadListStory({super.key});
+
   @override
   List<WidgetMap> storyContent() {
     return [
@@ -58,20 +60,17 @@ class LoadListStory extends Story {
                 emptyMessage: 'Not found any user.',
                 supportFlatGroup: true,
                 loadingIndicatorColor: Colors.black54,
-                groupHeaderBuilder: (headerTitle, {extraData}) => Container(
+                groupHeaderBuilder: (headerTitle, {extraData}) => SizedBox(
                   height: 32,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16, top: 12),
                     child: Text(
                       headerTitle,
-                      style: Theme.of(context)
-                          .primaryTextTheme
-                          .headline1
-                          .copyWith(color: Colors.black54),
+                      style: context.headlineMedium,
                     ),
                   ),
                 ),
-                itemSeparatorBuilder: (index) => Divider(
+                itemSeparatorBuilder: (index) => const Divider(
                   color: Colors.transparent,
                 ),
                 groupItemPlaceholderBuilder: (item) {
@@ -85,7 +84,7 @@ class LoadListStory extends Story {
                 groupItemBuilder: (
                   item,
                 ) {
-                  final user = (item as User);
+                  final user = item as User;
 
                   return Card(
                     color: ColorExtension.randomColor(),
@@ -93,17 +92,13 @@ class LoadListStory extends Story {
                       key: Key('User_Item_${user.userId}'),
                       title: Text(
                         user.name,
-                        style: Theme.of(context)
-                            .primaryTextTheme
-                            .headline1
-                            .copyWith(color: Colors.white),
+                        style:
+                            context.labelSmall?.copyWith(color: Colors.white),
                       ),
                       subtitle: Text(
                         'Age: ${user.age}',
-                        style: Theme.of(context)
-                            .primaryTextTheme
-                            .headline1
-                            .copyWith(color: Colors.white),
+                        style:
+                            context.labelSmall?.copyWith(color: Colors.white),
                       ),
                       contentPadding: const EdgeInsets.all(8),
                     ),

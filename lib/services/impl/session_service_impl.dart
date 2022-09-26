@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:boilerplate_flutter/services/services.dart';
 import 'package:repository/model/authorization.dart';
 import 'package:repository/model/user.dart';

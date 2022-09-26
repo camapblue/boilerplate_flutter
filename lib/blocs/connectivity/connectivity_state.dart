@@ -4,16 +4,16 @@ part of 'connectivity_bloc.dart';
 abstract class ConnectivityState extends Equatable {
   final bool isConnected;
 
-  ConnectivityState(this.isConnected);
+  const ConnectivityState(this.isConnected);
 
   @override
   List<Object> get props => [isConnected];
 }
 
 class ConnectivityInitial extends ConnectivityState {
-  ConnectivityInitial() : super(true);
+  const ConnectivityInitial() : super(true);
 }
 
 class ConnectivityUpdateSuccess extends ConnectivityState {
-  ConnectivityUpdateSuccess(bool connected) : super(connected);
+  const ConnectivityUpdateSuccess(bool connected) : super(connected);
 }
