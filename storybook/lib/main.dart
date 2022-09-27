@@ -31,6 +31,7 @@ void main() {
               ButtonStory(),
               MenuBarStory(),
               TextStory(),
+              ValidatorInputStory(),
             ],
           ),
         );

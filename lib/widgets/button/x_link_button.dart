@@ -32,7 +32,7 @@ class XLinkButton extends StatelessWidget {
       child: child ??
           XText.custom(
             title ?? '',
-            style: TextStyleEnum.bodyLarge.getTextStyle(context)?.copyWith(
+            style: TextStyleEnum.bodySmall.getTextStyle(context)?.copyWith(
                   shadows: shadow ??
                       [
                         Shadow(
@@ -41,7 +41,7 @@ class XLinkButton extends StatelessWidget {
                         )
                       ],
                   color: Colors.transparent,
-                  decoration: decoration ?? TextDecoration.underline,
+                  decoration: decoration ?? TextDecoration.none,
                   decorationColor: decorationColor ?? context.primaryColor,
                   decorationThickness: decorationThickness ?? 1.0,
                   fontWeight: FontWeight.bold,

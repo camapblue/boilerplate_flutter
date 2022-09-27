@@ -4,3 +4,4 @@ export 'load_list_story.dart';
 export 'button_story.dart';
 export 'menu_bar_story.dart';
 export 'text_story.dart';
+export 'validator_input_story.dart';

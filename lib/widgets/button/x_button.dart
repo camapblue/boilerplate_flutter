@@ -22,6 +22,7 @@ class XButton extends StatelessWidget {
   final double? width;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final bool loading;
 
   const XButton({
     Key? key,
@@ -39,6 +40,7 @@ class XButton extends StatelessWidget {
     this.width,
     this.prefixIcon,
     this.suffixIcon,
+    this.loading = false,
   }) : super(key: key);
 
   const XButton.primary({
@@ -57,6 +59,7 @@ class XButton extends StatelessWidget {
     this.width,
     this.suffixIcon,
     this.prefixIcon,
+    this.loading = false,
   }) : super(key: key);
 
   const XButton.positive({
@@ -75,6 +78,7 @@ class XButton extends StatelessWidget {
     this.width,
     this.prefixIcon,
     this.suffixIcon,
+    this.loading = false,
   }) : super(key: key);
 
   const XButton.negative({
@@ -93,6 +97,7 @@ class XButton extends StatelessWidget {
     this.width,
     this.prefixIcon,
     this.suffixIcon,
+    this.loading = false,
   }) : super(key: key);
 
   @override
@@ -100,6 +105,7 @@ class XButton extends StatelessWidget {
     final primaryColor = color ?? _getColor(context);
     final xRadius = borderRadius ?? BorderRadius.circular(100.0);
     final isEnabled = onPressed != null;
+    final textColor = _getTextColor(context, primaryColor);
 
     return Material(
       color: _getBackgroundColor(context, primaryColor),
@@ -139,16 +145,29 @@ class XButton extends StatelessWidget {
                     title,
                   ).customWith(
                     context,
-                    color: _getTextColor(context, primaryColor)
-                        .withOpacity(isEnabled ? 1.0 : 0.7),
+                    color: textColor.withOpacity(isEnabled ? 1.0 : 0.7),
                   ),
-                  if (suffixIcon != null) ...[
+                  if (suffixIcon != null && !loading) ...[
                     const SizedBox(width: 8),
                     suffixIcon!,
+                  ] else if (loading) ...[
+                    const SizedBox(width: 8),
+                    _loadingIcon(textColor),
                   ],
                 ],
               )),
         ),
+      ),
+    );
+  }
+
+  Widget _loadingIcon(Color color) {
+    return SizedBox(
+      width: 16,
+      height: 16,
+      child: CircularProgressIndicator(
+        color: color,
+        strokeWidth: 2,
       ),
     );
   }
@@ -202,3 +221,4 @@ class XButton extends StatelessWidget {
     }
   }
 }
+

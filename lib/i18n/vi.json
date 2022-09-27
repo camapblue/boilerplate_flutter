@@ -1,4 +1,10 @@
 {
   "common.error": "Lỗi",
-  "common.loading": "Đang tải"
+  "common.loading": "Đang tải",
+  "common.no_internet_connection": "Không có mạng!",
+  "button.signIn": "Đăng Nhập",
+  "button.try_as_guest": "Xài Thử",
+  "dashboard.home": "Home",
+  "dashboard.options": "Chức Năng",
+  "dashboard.account": "Tài Khoản"
 }

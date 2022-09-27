@@ -1,12 +1,10 @@
 import 'package:boilerplate_flutter/constants/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';
+import 'package:flutter/material.dart';
 
-class ValidatorInput extends StatefulWidget {
+class PasswordInput extends StatefulWidget {
   final String title;
   final String placeholder;
-  final String initialValue;
-  final TextInputType keyboardType;
   final void Function(String? value)? onFieldSubmitted;
   final void Function(String? value)? onValid;
   final TextStyle? titleStyle;
@@ -16,17 +14,16 @@ class ValidatorInput extends StatefulWidget {
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
   final EdgeInsets? padding;
-  final List<InputValidatorRule> validatorRules;
+  final InputValidatorRule? passwordRule;
   final TextEditingController? textController;
   final bool showEmptySpaceForErrorMessage;
   final bool autocorrect;
   final bool enabled;
 
-  const ValidatorInput({
+  const PasswordInput({
     super.key,
     this.title = '',
     this.placeholder = '',
-    this.initialValue = '',
     this.titleStyle,
     this.hintStyle,
     this.textStyle,
@@ -34,8 +31,7 @@ class ValidatorInput extends StatefulWidget {
     this.enabledBorder,
     this.focusedBorder,
     this.padding,
-    this.keyboardType = TextInputType.text,
-    this.validatorRules = const [],
+    this.passwordRule,
     this.onValid,
     this.onFieldSubmitted,
     this.textController,
@@ -45,22 +41,29 @@ class ValidatorInput extends StatefulWidget {
   });
 
   @override
-  State<ValidatorInput> createState() => _ValidatorInputState();
+  State<PasswordInput> createState() => _PasswordInputState();
 }
 
-class _ValidatorInputState extends State<ValidatorInput> {
+class _PasswordInputState extends State<PasswordInput> {
   late TextEditingController _controller;
   var _errorMessage = '';
   var _touched = false;
+  var _isVisibility = false;
   final _focusNode = FocusNode();
+  final _validatorRules = [
+    InputValidatorRule.require(errorMessage: 'Password is required'),
+  ];
 
   @override
   void initState() {
-    _controller = widget.textController ??
-        TextEditingController(text: widget.initialValue);
+    super.initState();
+
+    _controller = widget.textController ?? TextEditingController();
     _focusNode.addListener(_onChangeFocus);
 
-    super.initState();
+    if (widget.passwordRule != null) {
+      _validatorRules.add(widget.passwordRule!);
+    }
   }
 
   @override
@@ -82,14 +85,8 @@ class _ValidatorInputState extends State<ValidatorInput> {
     setState(() {});
   }
 
-  void _onClear() {
-    _controller.clear();
-
-    _onChanged('');
-  }
-
   void _onChanged(String value, {bool submit = false}) {
-    _errorMessage = widget.validatorRules.validate(value);
+    _errorMessage = _validatorRules.validate(value);
 
     setState(() {});
 
@@ -145,22 +142,26 @@ class _ValidatorInputState extends State<ValidatorInput> {
             focusedBorder: widget.focusedBorder,
             contentPadding: widget.padding ?? const EdgeInsets.only(bottom: 6),
             isCollapsed: true,
-            suffix: _focusNode.hasFocus && _controller.text.isNotEmpty
-                ? GestureDetector(
-                    onTap: _onClear,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: AppIcon.closeCircle(),
-                    ),
-                  )
-                : const SizedBox(height: 20),
+            suffix: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isVisibility = !_isVisibility;
+                });
+              },
+              child: Icon(
+                _isVisibility ? Icons.visibility_off : Icons.visibility,
+                color: context.primaryColor,
+                size: 20,
+              ),
+            ),
           ),
           style: widget.textStyle ?? context.labelMedium,
-          keyboardType: widget.keyboardType,
+          keyboardType: TextInputType.text,
           onChanged: _onChanged,
           onFieldSubmitted: (value) => _onChanged(value, submit: true),
           autocorrect: widget.autocorrect,
           enabled: widget.enabled,
+          obscureText: !_isVisibility,
         ),
         _buildErrorMessage(),
       ],

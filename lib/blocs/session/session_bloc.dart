@@ -75,15 +75,20 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
                 >> TOKEN >> ${Repository().authorization?.accessToken}
             ''');
 
-      final loggedInUser =
-          await _sessionService.getLoggedInUser(forceToUpdate: true);
+      try {
+        final loggedInUser =
+            await _sessionService.getLoggedInUser(forceToUpdate: true);
 
-      if (loggedInUser != null) {
-        emit(
-          SessionUserLogInSuccess(
-            user: loggedInUser,
-          ),
-        );
+        if (loggedInUser != null) {
+          emit(
+            SessionUserLogInSuccess(
+              user: loggedInUser,
+            ),
+          );
+        }
+      } catch (e) {
+        log.error(e);
+        emit(SessionReadyToLogIn());
       }
     } else {
       if (await _sessionService.isFirstTimeLaunching()) {
@@ -136,7 +141,7 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
 
   Future<void> _onSessionUserSignedOut(
       SessionUserSignedOut event, Emitter<SessionState> emit) async {
-    showAppLoading(message: Strings.Common.signingOut);
+    showAppLoading(message: Strings.Common.loading);
 
     try {
       await _userService.signOut();
@@ -150,6 +155,7 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
     } catch (e) {
       hideAppLoading();
       log.error('Sign out error >> $e');
+      emit(SessionSignOutSuccess());
     }
   }
 

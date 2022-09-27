@@ -9,3 +9,4 @@ export 'messaging/messaging_bloc.dart';
 export 'deeplink/deeplink_bloc.dart';
 export 'session/session_bloc.dart';
 export 'launching/launching_bloc.dart';
+export 'badge_number/badge_number_bloc.dart';

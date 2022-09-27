@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, lines_longer_than_80_chars
 
+import 'package:boilerplate_flutter/models/models.dart';
 import 'package:flutter/foundation.dart';
 
 class Keys {
@@ -29,4 +30,7 @@ class _Blocs {
   final Key deeplinkBloc = const Key('deeplink_bloc');
   final Key sessionBloc = const Key('session_bloc');
   final Key launchingBloc = const Key('launching_bloc');
+
+  Key badgeNumberBlocKey(BadgeType type) =>
+      Key('badge_number_bloc_${type.toKey()}');
 }

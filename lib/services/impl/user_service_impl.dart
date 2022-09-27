@@ -14,6 +14,7 @@ class UserServiceImpl implements UserService {
     required String email,
     required String password,
   }) async {
+    await Future.delayed(const Duration(seconds: 3));
     final user = User(userId: '', name: '', gender: Gender.male);
 
     final authorization = Authorization(

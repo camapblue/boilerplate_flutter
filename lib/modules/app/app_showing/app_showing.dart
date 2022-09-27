@@ -76,7 +76,7 @@ class _AppShowingState extends State<AppShowing> with WidgetsBindingObserver {
                     .error(
                       title: S
                           .of(context)
-                          .translate(Strings.Common.errorPopupTitle),
+                          .translate(Strings.Common.error),
                       message: S.of(context).translate(
                             state.messageKey ?? '',
                             params: state.params,

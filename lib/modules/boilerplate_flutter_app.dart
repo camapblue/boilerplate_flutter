@@ -78,11 +78,16 @@ class _BoilerplateFlutterAppState extends State<BoilerplateFlutterApp> {
           ),
           BlocListener<SessionBloc, SessionState>(
             listenWhen: (previous, current) =>
-                current is SessionUserReadyToSetUpMessasing,
+                current is SessionUserReadyToSetUpMessasing
+                || current is SessionSignOutSuccess,
             listener: (_, state) async {
+              if (state is SessionUserReadyToSetUpMessasing) {
               await Future.delayed(const Duration(seconds: 1));
-
+              
               // start to subscribe all user's topics
+              } else if (state is SessionSignOutSuccess) {
+                AppRouting().pushReplacementNamed(Screens.logIn);
+              }
             },
           ),
         ],

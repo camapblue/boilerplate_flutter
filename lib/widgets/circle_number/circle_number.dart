@@ -12,6 +12,7 @@ class CircleNumber extends StatelessWidget {
     this.autoResize = false,
     this.numberStyle,
   }) : super(key: key);
+  
   final double height;
   final num number;
   final Color color;

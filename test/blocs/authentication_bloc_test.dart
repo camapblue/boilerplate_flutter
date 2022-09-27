@@ -47,7 +47,10 @@ void main() {
           ),
         ).thenAnswer((_) async => User.test());
 
-        bloc?.add(const AuthenticationLoggedIn());
+        bloc?.add(const AuthenticationLoggedIn(
+          email: 'email@gmail.com',
+          password: 'password',
+        ));
       },
       expect: () => [
         isA<AuthenticationLogInInProgress>(),

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'base_bloc.dart';
 import 'broadcast.dart';
 
+typedef BlocConstructor<T extends BaseBloc> = T Function();
+
 class RetryEvent {
   final Key key;
   final Object event;
@@ -30,7 +32,8 @@ class EventBus {
     _retryEvents = [];
   }
 
-  T newBlocWithConstructor<T extends BaseBloc>(Key key, Function constructor) {
+  T newBlocWithConstructor<T extends BaseBloc>(
+      Key key, BlocConstructor<T> constructor) {
     final found = _blocs.indexWhere((b) => b.key == key);
     if (found >= 0 && _blocs[found] is T) {
       return _blocs[found] as T;
@@ -123,7 +126,7 @@ class EventBus {
       }
       return false;
     });
-
+    
     _broadcasts.removeWhere((b) {
       return removedKeys.contains(b.blocKey);
     });

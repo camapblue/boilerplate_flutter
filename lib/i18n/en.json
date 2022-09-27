@@ -1,4 +1,10 @@
 {
   "common.error": "Error",
-  "common.loading": "Loading"
+  "common.loading": "Loading",
+  "common.no_internet_connection": "No internet connection!",
+  "button.signIn": "Sign In",
+  "button.try_as_guest": "Try as Guest",
+  "dashboard.tabbar.home": "Home",
+  "dashboard.tabbar.options": "Options",
+  "dashboard.tabbar.account": "Account"
 }

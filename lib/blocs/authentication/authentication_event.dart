@@ -5,5 +5,11 @@ abstract class AuthenticationEvent {
 }
 
 class AuthenticationLoggedIn extends AuthenticationEvent {
-  const AuthenticationLoggedIn();
+  final String email;
+  final String password;
+
+  const AuthenticationLoggedIn({
+    required this.email,
+    required this.password,
+  });
 }

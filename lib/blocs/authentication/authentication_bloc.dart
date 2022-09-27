@@ -20,7 +20,7 @@ class AuthenticationBloc
     required UserService userService,
   })  : _userService = userService,
         super(key, initialState: AuthenticationInitial()) {
-    on<AuthenticationEvent>(_onAuthenticationLoggedIn);
+    on<AuthenticationLoggedIn>(_onAuthenticationLoggedIn);
   }
 
   factory AuthenticationBloc.instance() {
@@ -35,12 +35,14 @@ class AuthenticationBloc
   }
 
   Future<void> _onAuthenticationLoggedIn(
-      AuthenticationEvent event, Emitter<AuthenticationState> emit) async {
+      AuthenticationLoggedIn event, Emitter<AuthenticationState> emit) async {
     try {
       emit(AuthenticationLogInInProgress());
 
-      final user =
-          _userService.logIn(email: 'email@gmail.com', password: 'password');
+      final user = await _userService.logIn(
+        email: event.email,
+        password: event.password,
+      );
 
       EventBus().broadcast(
         BroadcastEvent.justLoggedIn,
