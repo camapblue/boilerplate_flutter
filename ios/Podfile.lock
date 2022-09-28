@@ -1,41 +1,310 @@
 PODS:
+  - app_review (1.0.1):
+    - Flutter
+  - AppAuth (1.6.0):
+    - AppAuth/Core (= 1.6.0)
+    - AppAuth/ExternalUserAgent (= 1.6.0)
+  - AppAuth/Core (1.6.0)
+  - AppAuth/ExternalUserAgent (1.6.0):
+    - AppAuth/Core
+  - audio_session (0.0.1):
+    - Flutter
   - connectivity (0.0.1):
     - Flutter
     - Reachability
-  - Flutter (1.0.0)
-  - Reachability (3.2)
-  - shared_preferences (0.0.1):
+  - device_info (0.0.1):
     - Flutter
-  - url_launcher (0.0.1):
+  - Firebase/Analytics (9.5.0):
+    - Firebase/Core
+  - Firebase/Auth (9.5.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 9.5.0)
+  - Firebase/Core (9.5.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (~> 9.5.0)
+  - Firebase/CoreOnly (9.5.0):
+    - FirebaseCore (= 9.5.0)
+  - Firebase/Crashlytics (9.5.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 9.5.0)
+  - Firebase/Messaging (9.5.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 9.5.0)
+  - firebase_analytics (9.3.5):
+    - Firebase/Analytics (= 9.5.0)
+    - firebase_core
+    - Flutter
+  - firebase_auth (3.9.0):
+    - Firebase/Auth (= 9.5.0)
+    - firebase_core
+    - Flutter
+  - firebase_core (1.22.0):
+    - Firebase/CoreOnly (= 9.5.0)
+    - Flutter
+  - firebase_crashlytics (2.8.10):
+    - Firebase/Crashlytics (= 9.5.0)
+    - firebase_core
+    - Flutter
+  - firebase_messaging (13.0.2):
+    - Firebase/Messaging (= 9.5.0)
+    - firebase_core
+    - Flutter
+  - FirebaseAnalytics (9.5.0):
+    - FirebaseAnalytics/AdIdSupport (= 9.5.0)
+    - FirebaseCore (~> 9.0)
+    - FirebaseInstallations (~> 9.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/MethodSwizzler (~> 7.7)
+    - GoogleUtilities/Network (~> 7.7)
+    - "GoogleUtilities/NSData+zlib (~> 7.7)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (9.5.0):
+    - FirebaseCore (~> 9.0)
+    - FirebaseInstallations (~> 9.0)
+    - GoogleAppMeasurement (= 9.5.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/MethodSwizzler (~> 7.7)
+    - GoogleUtilities/Network (~> 7.7)
+    - "GoogleUtilities/NSData+zlib (~> 7.7)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAuth (9.5.0):
+    - FirebaseCore (~> 9.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.7)
+  - FirebaseCore (9.5.0):
+    - FirebaseCoreDiagnostics (~> 9.0)
+    - FirebaseCoreInternal (~> 9.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+  - FirebaseCoreDiagnostics (9.6.0):
+    - GoogleDataTransport (< 10.0.0, >= 9.1.4)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseCoreInternal (9.6.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.7)"
+  - FirebaseCrashlytics (9.5.0):
+    - FirebaseCore (~> 9.0)
+    - FirebaseInstallations (~> 9.0)
+    - GoogleDataTransport (< 10.0.0, >= 9.1.4)
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (~> 2.1)
+  - FirebaseInstallations (9.6.0):
+    - FirebaseCore (~> 9.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
+    - PromisesObjC (~> 2.1)
+  - FirebaseMessaging (9.5.0):
+    - FirebaseCore (~> 9.0)
+    - FirebaseInstallations (~> 9.0)
+    - GoogleDataTransport (< 10.0.0, >= 9.1.4)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Reachability (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - Flutter (1.0.0)
+  - flutter_udid (0.0.1):
+    - Flutter
+    - SAMKeychain
+  - google_sign_in_ios (0.0.1):
+    - Flutter
+    - GoogleSignIn (~> 6.2)
+  - GoogleAppMeasurement (9.5.0):
+    - GoogleAppMeasurement/AdIdSupport (= 9.5.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/MethodSwizzler (~> 7.7)
+    - GoogleUtilities/Network (~> 7.7)
+    - "GoogleUtilities/NSData+zlib (~> 7.7)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (9.5.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 9.5.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/MethodSwizzler (~> 7.7)
+    - GoogleUtilities/Network (~> 7.7)
+    - "GoogleUtilities/NSData+zlib (~> 7.7)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (9.5.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/MethodSwizzler (~> 7.7)
+    - GoogleUtilities/Network (~> 7.7)
+    - "GoogleUtilities/NSData+zlib (~> 7.7)"
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - GoogleDataTransport (9.2.0):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleSignIn (6.2.4):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (~> 1.3)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+  - GoogleUtilities/AppDelegateSwizzler (7.8.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.8.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.8.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (7.8.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (7.8.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.8.0)"
+  - GoogleUtilities/Reachability (7.8.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.8.0):
+    - GoogleUtilities/Logger
+  - GTMAppAuth (1.3.1):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
+  - GTMSessionFetcher/Core (2.1.0)
+  - just_audio (0.0.1):
+    - Flutter
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
+  - package_info (0.0.1):
+    - Flutter
+  - package_info_plus (0.4.5):
+    - Flutter
+  - path_provider_ios (0.0.1):
+    - Flutter
+  - PromisesObjC (2.1.1)
+  - Reachability (3.2)
+  - SAMKeychain (1.5.3)
+  - shared_preferences_ios (0.0.1):
+    - Flutter
+  - url_launcher_ios (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - app_review (from `.symlinks/plugins/app_review/ios`)
+  - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - device_info (from `.symlinks/plugins/device_info/ios`)
+  - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
+  - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
+  - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
-  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
-  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - flutter_udid (from `.symlinks/plugins/flutter_udid/ios`)
+  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
+  - just_audio (from `.symlinks/plugins/just_audio/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
+    - AppAuth
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreInternal
+    - FirebaseCrashlytics
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleSignIn
+    - GoogleUtilities
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - nanopb
+    - PromisesObjC
     - Reachability
+    - SAMKeychain
 
 EXTERNAL SOURCES:
+  app_review:
+    :path: ".symlinks/plugins/app_review/ios"
+  audio_session:
+    :path: ".symlinks/plugins/audio_session/ios"
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
+  firebase_analytics:
+    :path: ".symlinks/plugins/firebase_analytics/ios"
+  firebase_auth:
+    :path: ".symlinks/plugins/firebase_auth/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_crashlytics:
+    :path: ".symlinks/plugins/firebase_crashlytics/ios"
+  firebase_messaging:
+    :path: ".symlinks/plugins/firebase_messaging/ios"
   Flutter:
     :path: Flutter
-  shared_preferences:
-    :path: ".symlinks/plugins/shared_preferences/ios"
-  url_launcher:
-    :path: ".symlinks/plugins/url_launcher/ios"
+  flutter_udid:
+    :path: ".symlinks/plugins/flutter_udid/ios"
+  google_sign_in_ios:
+    :path: ".symlinks/plugins/google_sign_in_ios/ios"
+  just_audio:
+    :path: ".symlinks/plugins/just_audio/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
+  shared_preferences_ios:
+    :path: ".symlinks/plugins/shared_preferences_ios/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  connectivity: 6e94255659cc86dcbef1d452ad3e0491bb1b3e75
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  app_review: 6f51001269c59a2f4a5b5ae68b7d106401152764
+  AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
+  audio_session: 4f3e461722055d21515cf3261b64c973c062f345
+  connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
+  Firebase: 800f16f07af493d98d017446a315c27af0552f41
+  firebase_analytics: bffe8ae976f4d9ce17639d5c503e63d72946055c
+  firebase_auth: c070c7e5b66037cddb73a68ca4bf4728b063680b
+  firebase_core: 31872a49ffe0bf6f834e7044c7334e433536735a
+  firebase_crashlytics: 1d9af2a9b4c0a3d4ed3ee61c7b4d053484d1a476
+  firebase_messaging: 0950bacaf29e1f50e3f0502aa1c29a3a5814925e
+  FirebaseAnalytics: 1b60984a408320dda637306f3f733699ef8473d7
+  FirebaseAuth: 741918f1fa62ed23246a509279f91d42d79a713f
+  FirebaseCore: 25c0400b670fd1e2f2104349cd3b5dcce8d9418f
+  FirebaseCoreDiagnostics: 99a495094b10a57eeb3ae8efa1665700ad0bdaa6
+  FirebaseCoreInternal: bca76517fe1ed381e989f5e7d8abb0da8d85bed3
+  FirebaseCrashlytics: d20fa38bb8c88cb0f1c9211286bc23ab58c1b464
+  FirebaseInstallations: 0a115432c4e223c5ab20b0dbbe4cbefa793a0e8e
+  FirebaseMessaging: 732623518591384f61c287e3d8f65294beb7ffb3
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_udid: 0848809dbed4c055175747ae6a45a8b4f6771e1c
+  google_sign_in_ios: 4f85eb9f937450765c8573bb85fd8cd6a5af675c
+  GoogleAppMeasurement: 6ee231473fbd75c11221dfce489894334024eead
+  GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
+  GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
+  GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
+  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
+  GTMSessionFetcher: ffbb25ec00ebcb5201adab0a56d808f6f1902d9f
+  just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
+  package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
-  url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
+  SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
+  shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
+  url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
 
-PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.11.3

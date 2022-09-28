@@ -94,13 +94,13 @@ android {
         dev {
             flavorDimensions "default"
             resValue "string", "app_name", "Dev Example"
-            applicationIdSuffix ".dev"
+            applicationIdSuffix ""
         }
 
         qc {
             flavorDimensions "default"
             resValue "string", "app_name", "QC Example"
-            applicationIdSuffix ".dev"
+            applicationIdSuffix ""
         }
 
         //This buildType will use the "prod" environments and be signed in release

@@ -8,9 +8,6 @@ import 'package:common/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-const _topColor = Color(0xFFA4E82C);
-const _bottomColor = Color(0xFF378019);
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -67,11 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
           width: double.infinity,
           height: double.infinity,
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [_topColor, _bottomColor],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+            color: Color(0xffefefef),
           ),
           child: Stack(
             children: <Widget>[

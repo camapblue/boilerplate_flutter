@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>291220224044-3pq66dk0oomimn21p4hieh24d6ci7vaq.apps.googleusercontent.com</string>
+	<string>914774860771-1in188fgfp90gnjcv64nlb434jq0a6rf.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.291220224044-3pq66dk0oomimn21p4hieh24d6ci7vaq</string>
+	<string>com.googleusercontent.apps.914774860771-1in188fgfp90gnjcv64nlb434jq0a6rf</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>291220224044-9et552cb32dm7gisb5191sdmo4csj9sk.apps.googleusercontent.com</string>
+	<string>914774860771-d5cqtm733p53glidgbni37821t3g26gf.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDYiNlGXXxLGmV_NYGOtspkyx4dOr4qUeM</string>
+	<string>AIzaSyBVTs8uOHP92geCOF4UHZBO271Q4n3uBro</string>
 	<key>GCM_SENDER_ID</key>
-	<string>291220224044</string>
+	<string>914774860771</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.boilerplate_flutter.dev</string>
+	<string>com.example.boilerplateflutter</string>
 	<key>PROJECT_ID</key>
-	<string>boilerplate_flutter</string>
+	<string>boilerplate-flutter-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>boilerplate_flutter.appspot.com</string>
+	<string>boilerplate-flutter-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,10 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:291220224044:ios:02f1baac6ad886ca</string>
-	<key>DATABASE_URL</key>
-	<string>https://boilerplate_flutter.firebaseio.com</string>
-	<key>ADMOB_APP_ID</key>
-	<string>ca-app-pub-6975732026318437~6185276468</string>
+	<string>1:914774860771:ios:94197ca4f3e6379a0db6d6</string>
 </dict>
 </plist>

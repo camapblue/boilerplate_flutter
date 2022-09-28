@@ -1,68 +1,68 @@
 {
   "images" : [
     {
-      "size" : "20x20",
+      "filename" : "app_20@2x.png",
       "idiom" : "iphone",
-      "filename" : "icon_40x40.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "20x20"
     },
     {
-      "size" : "20x20",
+      "filename" : "app_20@3x.png",
       "idiom" : "iphone",
-      "filename" : "icon_60x60.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "20x20"
     },
     {
-      "size" : "29x29",
+      "filename" : "app_29@1x.png",
       "idiom" : "iphone",
-      "filename" : "icon_29x29.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "29x29"
     },
     {
-      "size" : "29x29",
+      "filename" : "app_29@2x.png",
       "idiom" : "iphone",
-      "filename" : "icon_58x58.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "29x29"
     },
     {
-      "size" : "29x29",
+      "filename" : "app_29@3x.png",
       "idiom" : "iphone",
-      "filename" : "icon_87x87.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "29x29"
     },
     {
-      "size" : "40x40",
+      "filename" : "app_40@2x.png",
       "idiom" : "iphone",
-      "filename" : "icon_80x80.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "40x40"
     },
     {
-      "size" : "40x40",
+      "filename" : "app_40@3x.png",
       "idiom" : "iphone",
-      "filename" : "icon_120x120.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "40x40"
     },
     {
-      "size" : "60x60",
+      "filename" : "app_60@2x.png",
       "idiom" : "iphone",
-      "filename" : "AppIcon60x60@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "60x60"
     },
     {
-      "size" : "60x60",
+      "filename" : "app_60@3x.png",
       "idiom" : "iphone",
-      "filename" : "AppIcon60x60@3x.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "60x60"
     },
     {
-      "size" : "1024x1024",
+      "filename" : "app_1024@1x.png",
       "idiom" : "ios-marketing",
-      "filename" : "icon_1024x1024.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "size" : "1024x1024"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

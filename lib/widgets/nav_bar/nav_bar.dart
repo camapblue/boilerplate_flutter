@@ -9,7 +9,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? right;
   final Color? backgroundColor;
   final List<BoxShadow> boxShadow;
-  final Gradient gradient;
+  final Gradient? gradient;
 
   const NavBar({
     super.key,
@@ -17,9 +17,9 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
     this.center,
     this.right,
     required this.statusBarHeight,
-    required this.toolbarHeight,
+    this.toolbarHeight = 44,
     this.backgroundColor,
-    this.gradient = AppConstants.AppBarGradient,
+    this.gradient,
     this.boxShadow = const [],
   });
 
