@@ -1,6 +1,6 @@
 //
 //  BBGradientView.swift
-//  BBFootball
+//  Boilerplate
 //
 //  Created by Dao Le Quang on 6/2/17.
 //  Copyright © 2017 BB Studio. All rights reserved.
