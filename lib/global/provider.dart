@@ -1,5 +1,5 @@
 import 'package:boilerplate_flutter/services/services.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:repository/repository.dart';
 
 class Provider {

@@ -10,7 +10,7 @@ import 'package:boilerplate_flutter/global/global.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:repository/repository.dart';
 
 import 'modules/boilerplate_flutter_app.dart';

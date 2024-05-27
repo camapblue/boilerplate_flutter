@@ -63,6 +63,9 @@ class _LandingScreenState extends State<LandingScreen> {
                   const Spacer(),
                   XLinkButton(
                     title: S.of(context).translate(Strings.Button.tryAsGuest),
+                    onPressed: () {
+                      AppRouting().pushReplacementNamed(Screens.dashboard);
+                    },
                   ),
                 ],
               ),
