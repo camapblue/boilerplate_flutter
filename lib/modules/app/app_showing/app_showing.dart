@@ -10,9 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppShowing extends StatefulWidget {
   const AppShowing({
-    Key? key,
+    super.key,
     required this.app,
-  }) : super(key: key);
+  });
 
   final Widget app;
 
@@ -53,6 +53,9 @@ class _AppShowingState extends State<AppShowing> with WidgetsBindingObserver {
           log.info('Widget is detached');
         }
         break;
+      case AppLifecycleState.hidden:
+        log.info('App hidden');
+        break;
     }
   }
 
@@ -73,7 +76,7 @@ class _AppShowingState extends State<AppShowing> with WidgetsBindingObserver {
             } else if (state is ShowErrorMessageSuccess) {
               if (AppRouting().context != null) {
                 PopupDrawer.of(AppRouting().context!)
-                    .error(
+                    .alert(
                       title: S
                           .of(context)
                           .translate(Strings.Common.error),

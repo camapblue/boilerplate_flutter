@@ -40,7 +40,7 @@ dependencies:
   firebase_crashlytics: ^3.5.6
   firebase_auth: ^4.19.6
   progress_indicators: ^1.0.0
-  sprintf: ^6.0.2
+  sprintf: ^7.0.0
   flutter_svg: ^2.0.9
   url_launcher: ^6.0.4
   connectivity: ^3.0.6

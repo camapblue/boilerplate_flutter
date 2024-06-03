@@ -18,7 +18,7 @@ class MenuBarStory extends Story {
     'Jewelry'
   ];
 
-  MenuBarStory({Key? key}) : super(key: key);
+  MenuBarStory({super.key});
 
   @override
   List<WidgetMap> storyContent() {
@@ -29,7 +29,7 @@ class MenuBarStory extends Story {
           var pageIndex = 0;
           var pageTitle = data[pageIndex];
           Function renderFunction = () {};
-          final menuController = MenuBarController();
+          final menuController = XMenuBarController();
 
           return Container(
             color: Colors.white70,
@@ -37,7 +37,7 @@ class MenuBarStory extends Story {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                MenuBar(
+                XMenuBar(
                   menuController: menuController,
                   backgroundColor: context.primaryColor,
                   totalItem: data.length,
@@ -48,13 +48,13 @@ class MenuBarStory extends Story {
                       data[index],
                       style: selected
                           ? context.displayMedium?.copyWith(
-                                color: Colors.black87,
-                                fontSize: 19,
-                              )
+                              color: Colors.black87,
+                              fontSize: 19,
+                            )
                           : context.displayMedium?.copyWith(
-                                color: Colors.grey,
-                                fontSize: 19,
-                              ),
+                              color: Colors.grey,
+                              fontSize: 19,
+                            ),
                     ),
                   ),
                   onItemChanged: (int itemIndex) {

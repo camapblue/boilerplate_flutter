@@ -18,6 +18,8 @@ class AppConstants {
     transform: GradientRotation(pi / 2),
   );
 
+  static const mDefaultActionSheetHeight = 480.0;
+
   static const String TermsAndConditionURL = 'https://example.com/m_terms.html';
   static const String AppSologan = '''Boilerplate is just a beginning''';
 

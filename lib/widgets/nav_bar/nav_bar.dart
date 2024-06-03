@@ -1,4 +1,3 @@
-import 'package:boilerplate_flutter/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {

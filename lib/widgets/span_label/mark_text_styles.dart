@@ -62,3 +62,4 @@ class AppTextSpan {
     return spans;
   }
 }
+

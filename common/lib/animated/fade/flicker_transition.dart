@@ -5,11 +5,11 @@ class FlickerTransition extends StatefulWidget {
   final Widget child;
   final AnimatedController controller;
 
-  FlickerTransition({
-    Key? key,
+  const FlickerTransition({
+    super.key,
     required this.child,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   State<FlickerTransition> createState() => _FlickerTransitionState();

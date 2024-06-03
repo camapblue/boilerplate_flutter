@@ -88,8 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       child: LoadingText(
                         text: S.of(context).translate(Strings.Common.loading),
                         showAfter: const Duration(milliseconds: 1500),
-                        textStyle:
-                            Theme.of(context).primaryTextTheme.bodyText1!,
+                        textStyle: context.bodySmall!,
                       ),
                     ),
                   ),

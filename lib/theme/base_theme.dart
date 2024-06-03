@@ -9,26 +9,24 @@ abstract class BaseTheme {
         isDark ? colorScheme.surface : colorScheme.primary;
     final Color onPrimarySurfaceColor =
         isDark ? colorScheme.onSurface : colorScheme.onPrimary;
+        
     return ThemeData(
       fontFamily: fontFamily,
       colorScheme: colorScheme,
       brightness: colorScheme.brightness,
       primaryColor: primarySurfaceColor,
-      canvasColor: colorScheme.background,
-      scaffoldBackgroundColor: colorScheme.background,
-      bottomAppBarColor: colorScheme.surface,
+      canvasColor: colorScheme.surface,
       cardColor: colorScheme.surface,
-      dividerColor: colorScheme.onSurface.withOpacity(0.12),
-      backgroundColor: colorScheme.background,
-      dialogBackgroundColor: colorScheme.background,
+      dividerColor: colorScheme.onSurface.withOpacity(0.22),
+      dialogBackgroundColor: colorScheme.surface,
       indicatorColor: onPrimarySurfaceColor,
-      errorColor: colorScheme.error,
       textTheme: textTheme,
       applyElevationOverlayColor: isDark,
       useMaterial3: true,
       appBarTheme: appBarTheme,
+      bottomAppBarTheme: bottomAppBarTheme,
       iconTheme: const IconThemeData(color: Color(0xFF8992A2)),
-      disabledColor: Colors.grey,
+      disabledColor: const Color(0xffdadada),
     );
   }
 
@@ -44,6 +42,9 @@ abstract class BaseTheme {
           fontWeight: FontWeight.w700,
         ),
       );
+  
+  BottomAppBarTheme get bottomAppBarTheme =>
+      BottomAppBarTheme(color: colorScheme.surface);
 
   String get fontFamily => 'NeoSansIntel';
 }

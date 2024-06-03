@@ -7,20 +7,20 @@ class AnimatedBounce extends StatelessWidget {
   final Duration duration;
   final void Function()? onEnd;
 
-  AnimatedBounce({
-    Key? key,
+  const AnimatedBounce({
+    super.key,
     required this.child,
-    this.from = 0.0,
+    this.from = 0.8,
     this.to = 1.0,
-    this.duration = const Duration(milliseconds: 250),
+    this.duration = const Duration(milliseconds: 150),
     this.onEnd,
-  }): super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
       tween: Tween<double>(begin: from, end: to),
-      curve: Curves.easeInOutBack,
+      curve: Curves.easeInOut,
       duration: duration,
       onEnd: onEnd,
       builder: (_, double value, Widget? child) {

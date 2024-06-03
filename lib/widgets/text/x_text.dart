@@ -1,4 +1,5 @@
 import 'package:boilerplate_flutter/constants/constants.dart';
+import 'package:boilerplate_flutter/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class XText extends StatelessWidget {
@@ -11,163 +12,163 @@ class XText extends StatelessWidget {
 
   const XText(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.bodyMedium,
     this.style,
     this.textAlign,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.displayLarge(
     this.text, {
-    Key? key,
+    super.key,
     this.textAlign = TextAlign.start,
     this.xStyle = TextStyleEnum.displayLarge,
     this.style,
     this.overflow,
     this.maxLines,
-  }) : super(key: key);
+  });
 
   const XText.displayMedium(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.displayMedium,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.displaySmall(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.displaySmall,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.headlineLarge(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.headlineLarge,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.headlineMedium(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.headlineMedium,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.headlineSmall(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.headlineSmall,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.titleLarge(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.titleLarge,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.titleMedium(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.titleMedium,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.titleSmall(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.titleSmall,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.bodyLarge(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.bodyLarge,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.bodyMedium(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.bodyMedium,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.bodySmall(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.bodySmall,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.labelLarge(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.labelLarge,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.labelMedium(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.labelMedium,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   const XText.labelSmall(
     this.text, {
-    Key? key,
+    super.key,
     this.xStyle = TextStyleEnum.labelSmall,
     this.style,
     this.textAlign = TextAlign.start,
     this.maxLines,
     this.overflow,
-  }) : super(key: key);
+  });
 
   factory XText.custom(
     String text, {
@@ -194,6 +195,7 @@ class XText extends StatelessWidget {
     Color? color,
     double? fontSize,
     FontStyle? fontStyle,
+    FontWeight? fontWeight,
   }) {
     final currentStyle = style ?? xStyle.getTextStyle(context);
     return XText(
@@ -201,10 +203,28 @@ class XText extends StatelessWidget {
       key: key,
       xStyle: xStyle,
       style: currentStyle?.copyWith(
-          color: color, fontSize: fontSize, fontStyle: fontStyle),
+        color: color,
+        fontSize: fontSize,
+        fontStyle: fontStyle,
+        fontWeight: fontWeight,
+      ),
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,
+    );
+  }
+
+  factory XText.diamondIcon({Color? color, double? fontSize}) {
+    var style = ThemeText.getNumberTextTheme().bodyMedium;
+    if (color != null) {
+      style = style?.copyWith(color: color);
+    }
+    if (fontSize != null) {
+      style = style?.copyWith(fontSize: fontSize);
+    }
+    return XText(
+      '@',
+      style: style,
     );
   }
 

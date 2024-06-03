@@ -16,7 +16,7 @@ dependencies:
 
   equatable: ^2.0.5
   shared_preferences: ^2.0.15
-  http: ^0.13.5
+  http: ^1.2.1
   retry: ^3.1.0
   meta: ^1.2.3
 

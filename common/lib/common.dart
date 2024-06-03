@@ -11,6 +11,7 @@ export 'extension/object_extension.dart';
 export 'extension/iterable_extension.dart';
 export 'extension/num_extension.dart';
 
+export 'animated/animated.dart';
 export 'logging/log.dart';
 export 'widgets/widgets.dart';
 

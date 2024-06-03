@@ -12,9 +12,10 @@ class XLinkButton extends StatelessWidget {
   final TextDecoration? decoration;
   final Color? decorationColor;
   final double? decorationThickness;
+  final double? fontSize;
 
   const XLinkButton({
-    Key? key,
+    super.key,
     this.onPressed,
     this.title,
     this.child,
@@ -23,7 +24,8 @@ class XLinkButton extends StatelessWidget {
     this.decoration,
     this.decorationColor,
     this.decorationThickness,
-  }) : super(key: key);
+    this.fontSize,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class XLinkButton extends StatelessWidget {
                   decorationColor: decorationColor ?? context.primaryColor,
                   decorationThickness: decorationThickness ?? 1.0,
                   fontWeight: FontWeight.bold,
+                  fontSize: fontSize,
                 ),
           ),
     );

@@ -1,16 +1,24 @@
+import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 extension AppContext on BuildContext {
+  ThemeData get theme => Theme.of(this);
+
   static ScreenSize screenSize = ScreenSize.big;
 
-  bool hasBloc<T extends Bloc>() {
-    try {
-      final _ = BlocProvider.of<T>(this);
-      return true;
-    } catch (_) {}
-    return false;
+  String translate(
+    String key, {
+    String suffix = '',
+    List<dynamic> params = const [],
+    bool checkNumberParams = false,
+  }) {
+    return S.of(this).translate(
+          key,
+          suffix: suffix,
+          params: params,
+          checkNumberParams: checkNumberParams,
+        );
   }
 
   double responsiveSized(double size) {
@@ -20,8 +28,6 @@ extension AppContext on BuildContext {
   double responsiveSizes(List<double> sizes) {
     return sizes[screenSize.index];
   }
-  
-  ThemeData get theme => Theme.of(this);
 
   /// ----------- Text style ----------- ///
 
@@ -57,35 +63,57 @@ extension AppContext on BuildContext {
 
   /// ----------- Colors ----------- ///
 
+  bool get isLightTheme => theme.colorScheme.brightness == Brightness.light;
+
+  // Primary (orange)
   Color get primaryColor => theme.colorScheme.primary;
 
+  Color get onPrimaryColor => theme.colorScheme.onPrimary;
+
+  // Secondary (cygan)
   Color get secondaryColor => theme.colorScheme.secondary;
 
+  Color get onSecondaryColor => theme.colorScheme.onSecondary;
+
+  // Tertiary (light red)
+  Color get tertiaryColor => theme.colorScheme.tertiary;
+
+  Color get onTertiaryColor => theme.colorScheme.onTertiary;
+
+  // Error
   Color get errorColor => theme.colorScheme.error;
 
+  // shimmer
   Color get shimmerBaseColor => theme.colorScheme.primary;
 
   Color get shimmerHighlightColor => theme.colorScheme.primary;
 
+  // background
+  Color get backgroundColor => theme.colorScheme.surface;
+
+  Color get onBackgroundColor => theme.colorScheme.surface;
+
+  // surface (background of card or something similar)
+  Color get surfaceColor => theme.colorScheme.surface;
+
+  Color get onSurfaceColor => theme.colorScheme.onSurface;
+
+  //
+
   Color get dividerColor => theme.dividerColor;
-
-  Color get onPrimary => theme.colorScheme.onPrimary;
-
-  Color get onSecondary => theme.colorScheme.onSecondary;
 
   Color get cardColor => theme.cardColor;
 
-  Color get unselectedWidgetColor => theme.unselectedWidgetColor;
-
-  Color get scaffoldBackgroundColor => theme.scaffoldBackgroundColor;
-
-  Color get backgroundColor => theme.backgroundColor;
-
   Color get disabledColor => theme.disabledColor;
 
-  Color get disabledBackgroundColor => theme.disabledColor.withOpacity(.2);
+  Color get borderColor => theme.disabledColor.withOpacity(.6);
 
-  Color? get textColor => theme.textTheme.labelLarge?.color;
+  Color get textColor =>
+      theme.textTheme.bodyMedium?.color ?? theme.colorScheme.onSurface;
 
   Color? get iconColor => theme.iconTheme.color;
+
+  Color get textColorDisabled => textColor.withOpacity(.3);
+
+  Color get primaryColorDark => theme.colorScheme.primaryContainer;
 }

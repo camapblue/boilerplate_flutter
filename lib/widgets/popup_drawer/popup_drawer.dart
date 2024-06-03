@@ -1,14 +1,11 @@
+import 'package:boilerplate_flutter/constants/constants.dart';
+import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 
-import 'package:boilerplate_flutter/constants/constants.dart';
-import 'package:boilerplate_flutter/widgets/app_icon/app_icon.dart';
-
+import 'package:boilerplate_flutter/widgets/widgets.dart';
 import 'base_popup_drawer.dart';
 import 'confirmation/confirmation.dart';
 import 'alert/alert.dart';
-
-export 'alert/alert.dart';
-export 'confirmation/confirmation.dart';
 
 class PopupDrawer {
   final BuildContext context;
@@ -36,67 +33,22 @@ class PopupDrawer {
     );
   }
 
-  BasePopupDrawer error({
+  BasePopupDrawer alert({
     Key? key,
-    void Function()? onYes,
     required String title,
     required String message,
+    String? okTitle,
     AppIcon? icon,
+    bool animation = true,
   }) {
     return BasePopupDrawer(
       context: context,
       key: key,
-      child: Alert.error(
-        onYes: onYes,
+      child: Alert(
         title: title,
         message: message,
-        icon: icon ??
-            const AppIcon(
-              icon: AppIcons.error,
-              color: Colors.white,
-              width: 64,
-              height: 64,
-            ),
-      ),
-    );
-  }
-
-  BasePopupDrawer warning({
-    Key? key,
-    required void Function() onYes,
-    required String title,
-    required String message,
-    AppIcon? icon,
-  }) {
-    return BasePopupDrawer(
-      context: context,
-      key: key,
-      child: Alert.warning(
-        onYes: onYes,
-        title: title,
-        message: message,
+        okTitle: okTitle,
         icon: icon,
-      ),
-    );
-  }
-
-  BasePopupDrawer announcement({
-    Key? key,
-    required void Function() onYes,
-    required String title,
-    required String message,
-    String? okButtonTitle,
-    AppIcon? icon,
-  }) {
-    return BasePopupDrawer(
-      context: context,
-      key: key,
-      child: Alert.announcement(
-        onYes: onYes,
-        title: title,
-        message: message,
-        icon: icon,
-        okButtonTitle: okButtonTitle,
       ),
     );
   }
@@ -104,11 +56,58 @@ class PopupDrawer {
   BasePopupDrawer open({
     Key? key,
     required Widget widget,
+    Color? backgroundColor,
+    bool animation = true,
   }) {
+    final dialog = AlertDialog(
+      contentPadding: const EdgeInsets.all(0),
+      backgroundColor: backgroundColor,
+      surfaceTintColor: Colors.transparent,
+      content: widget,
+    );
+
     return BasePopupDrawer(
       context: context,
       key: key,
-      child: widget,
+      child: animation
+          ? AnimatedBounce(
+              child: dialog,
+            )
+          : dialog,
+    );
+  }
+
+  BasePopupDrawer actionSheet({
+    Key? key,
+    required Widget widget,
+    double height = AppConstants.mDefaultActionSheetHeight,
+    bool animation = true,
+  }) {
+    final dialog = AlertDialog(
+      contentPadding: const EdgeInsets.only(
+        top: 16,
+        left: 16,
+        right: 16,
+      ),
+      insetPadding: const EdgeInsets.all(0),
+      alignment: Alignment.bottomCenter,
+      backgroundColor: Colors.black,
+      surfaceTintColor: Colors.transparent,
+      content: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: height,
+        child: widget,
+      ),
+    );
+
+    return BasePopupDrawer(
+      context: context,
+      key: key,
+      child: animation
+          ? AnimatedFloating(
+              child: dialog,
+            )
+          : dialog,
     );
   }
 }

@@ -23,9 +23,10 @@ class XButton extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool loading;
+  final int? maxLines;
 
   const XButton({
-    Key? key,
+    super.key,
     this.type = XButtonType.primary,
     this.style = XButtonStyle.solid,
     this.onPressed,
@@ -41,10 +42,11 @@ class XButton extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.loading = false,
-  }) : super(key: key);
+    this.maxLines,
+  });
 
   const XButton.primary({
-    Key? key,
+    super.key,
     this.type = XButtonType.primary,
     this.style = XButtonStyle.solid,
     this.onPressed,
@@ -60,18 +62,19 @@ class XButton extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.loading = false,
-  }) : super(key: key);
+    this.maxLines,
+  });
 
   const XButton.positive({
-    Key? key,
+    super.key,
     this.type = XButtonType.positive,
     this.style = XButtonStyle.solid,
     this.onPressed,
     this.title,
     this.child,
-    this.color = const Color(0xFF7ED321),
+    this.color,
     this.prefixIconColor,
-    this.solidTextColor = const Color(0xFF1C1D1E),
+    this.solidTextColor,
     this.padding,
     this.textStyle,
     this.borderRadius,
@@ -79,10 +82,11 @@ class XButton extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.loading = false,
-  }) : super(key: key);
+    this.maxLines,
+  });
 
   const XButton.negative({
-    Key? key,
+    super.key,
     this.type = XButtonType.negative,
     this.style = XButtonStyle.solid,
     this.onPressed,
@@ -98,12 +102,33 @@ class XButton extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.loading = false,
-  }) : super(key: key);
+    this.maxLines,
+  });
+
+  const XButton.outlined({
+    super.key,
+    this.style = XButtonStyle.outline,
+    this.onPressed,
+    this.title,
+    this.child,
+    this.color,
+    this.solidTextColor,
+    this.padding,
+    this.borderRadius,
+    this.width,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.loading = false,
+    this.maxLines,
+    this.type = XButtonType.positive,
+    this.prefixIconColor,
+    this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
     final primaryColor = color ?? _getColor(context);
-    final xRadius = borderRadius ?? BorderRadius.circular(100.0);
+    final xRadius = borderRadius ?? BorderRadius.circular(8);
     final isEnabled = onPressed != null;
     final textColor = _getTextColor(context, primaryColor);
 
@@ -124,13 +149,17 @@ class XButton extends StatelessWidget {
               ? BoxDecoration(
                   borderRadius: xRadius,
                   border: Border.all(
-                    color: _getBorderColor(context, primaryColor),
-                    width: 1.0,
+                    color: _getBorderColor(context),
+                    width: 2.0,
                   ),
                 )
               : BoxDecoration(
                   borderRadius: xRadius,
-                  color: context.disabledColor,
+                  color: context.onBackgroundColor,
+                  border: Border.all(
+                    color: context.borderColor,
+                    width: 1.0,
+                  ),
                 ),
           child: child ??
               Center(
@@ -141,11 +170,17 @@ class XButton extends StatelessWidget {
                     prefixIcon!,
                     const SizedBox(width: 8),
                   ],
-                  XText.labelLarge(
-                    title,
-                  ).customWith(
-                    context,
-                    color: textColor.withOpacity(isEnabled ? 1.0 : 0.7),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 2.0),
+                    child: XText.labelMedium(
+                      title,
+                      maxLines: maxLines,
+                      overflow: TextOverflow.ellipsis,
+                    ).customWith(
+                      context,
+                      color: isEnabled ? textColor : context.disabledColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   if (suffixIcon != null && !loading) ...[
                     const SizedBox(width: 8),
@@ -163,8 +198,8 @@ class XButton extends StatelessWidget {
 
   Widget _loadingIcon(Color color) {
     return SizedBox(
-      width: 16,
-      height: 16,
+      width: 14,
+      height: 14,
       child: CircularProgressIndicator(
         color: color,
         strokeWidth: 2,
@@ -185,25 +220,25 @@ class XButton extends StatelessWidget {
     }
   }
 
-  Color _getBorderColor(BuildContext context, Color primaryColor) {
+  Color _getBorderColor(BuildContext context) {
     switch (style) {
       case XButtonStyle.solid:
       case XButtonStyle.outline:
-        return primaryColor;
+        return color ?? _getColor(context);
       case XButtonStyle.text:
-        return context.cardColor;
+        return context.primaryColor;
       default:
-        return context.disabledColor;
+        return context.borderColor;
     }
   }
 
   Color _getBackgroundColor(BuildContext context, Color primaryColor) {
     switch (style) {
       case XButtonStyle.solid:
-        return _getColor(context);
+        return color ?? _getColor(context);
       case XButtonStyle.outline:
       case XButtonStyle.text:
-        return context.cardColor;
+        return Colors.transparent;
       default:
         return primaryColor;
     }
@@ -212,7 +247,7 @@ class XButton extends StatelessWidget {
   Color _getTextColor(BuildContext context, Color primaryColor) {
     switch (style) {
       case XButtonStyle.solid:
-        return solidTextColor ?? context.cardColor;
+        return solidTextColor ?? Colors.white;
       case XButtonStyle.outline:
       case XButtonStyle.text:
         return primaryColor;
@@ -221,4 +256,3 @@ class XButton extends StatelessWidget {
     }
   }
 }
-

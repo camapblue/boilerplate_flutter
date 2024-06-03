@@ -5,11 +5,11 @@ class FadeInTransition extends StatefulWidget {
   final Widget child;
   final AnimatedController controller;
 
-  FadeInTransition({
-    Key? key,
+  const FadeInTransition({
+    super.key,
     required this.child,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   State<FadeInTransition> createState() => _FadedInTransitionState();

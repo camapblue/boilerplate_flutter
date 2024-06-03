@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:boilerplate_flutter/blocs/blocs.dart';
 
 class Loading extends StatelessWidget {
-  const Loading({Key? key}) : super(key: key);
+  const Loading({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class Loading extends StatelessWidget {
                           state.loadingMessage ?? Strings.Common.loading,
                         )}...',
                     style:
-                        Theme.of(context).primaryTextTheme.bodyText1?.copyWith(
+                        context.bodyMedium?.copyWith(
                               color: AppColors.white,
                             ),
                   ),
