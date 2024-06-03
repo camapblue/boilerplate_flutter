@@ -68,10 +68,10 @@ class ButtonStory extends Story {
                 sizedBoxSpace,
                 XButton(
                   title: 'Custom - Icon',
-                  child: SizedBox(
+                  child: const SizedBox(
                     height: 32,
                     child: Row(
-                      children: const [
+                      children: [
                         Spacer(),
                         Icon(
                           Icons.arrow_back,

@@ -2,17 +2,14 @@ import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/models/models.dart';
 import 'package:common/core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'badge_number_event.dart';
 part 'badge_number_state.dart';
 
 class BadgeNumberBloc extends BaseBloc<BadgeNumberEvent, BadgeNumberState> {
-  BadgeNumberBloc(Key key)
-      : super(key,
-            closeWithBlocKey: Keys.Blocs.noneDisposeBloc,
+  BadgeNumberBloc(super.key)
+      : super(closeWithBlocKey: Keys.Blocs.noneDisposeBloc,
             initialState: const BadgeNumberInitial()) {
     on<BadgeNumberUpdated>(_onBadgeNumberUpdated);
   }

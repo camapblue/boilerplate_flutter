@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:common/core/core.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +20,7 @@ class ConnectivityBloc extends BaseBloc<ConnectivityEvent, ConnectivityState> {
   late StreamSubscription subscription;
 
   ConnectivityBloc(
-    Key key, {
+    super.key, {
     Connectivity? connectivity,
     CheckingInternet? internetCheckingFunction,
     String? internetCheckingHost,
@@ -30,7 +28,7 @@ class ConnectivityBloc extends BaseBloc<ConnectivityEvent, ConnectivityState> {
         _internetCheckingHost = internetCheckingHost ?? 'google.com',
         _internetCheckingFunction =
             internetCheckingFunction ?? InternetAddress.lookup,
-        super(key, initialState: const ConnectivityInitial()) {
+        super(initialState: const ConnectivityInitial()) {
     subscription = _connectivity.onConnectivityChanged
         .listen((ConnectivityResult result) async {
       final isConnected = await _checkConnection();

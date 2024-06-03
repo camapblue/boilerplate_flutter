@@ -15,6 +15,6 @@ class BadgeNumberInitial extends BadgeNumberState {
 
 class BadgeNumberUpdateSuccess extends BadgeNumberState {
   const BadgeNumberUpdateSuccess({
-    int badgeNumber = 0,
-  }) : super(badgeNumber: badgeNumber);
+    super.badgeNumber,
+  });
 }

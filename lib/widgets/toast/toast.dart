@@ -22,8 +22,7 @@ class Toast<T extends Object> extends StatefulWidget {
   final bool success;
   final void Function()? onFinished;
 
-  Toast(this.message, {Key? key, this.success = true, this.onFinished})
-      : super(key: key);
+  Toast(this.message, {super.key, this.success = true, this.onFinished});
 
   int duration = 4;
 
@@ -35,6 +34,7 @@ class Toast<T extends Object> extends StatefulWidget {
     }
     await Sounds.alert();
 
+    // ignore: use_build_context_synchronously
     _toastRoute = showToast<T>(context: context, toast: this);
 
     // ignore: use_build_context_synchronously
@@ -46,6 +46,7 @@ class Toast<T extends Object> extends StatefulWidget {
   Future<T?> showWithNavigator(NavigatorState navigator) async {
     await Sounds.alert();
 
+    // ignore: use_build_context_synchronously
     _toastRoute = showToast<T>(context: navigator.context, toast: this);
 
     return navigator.push(_toastRoute!);

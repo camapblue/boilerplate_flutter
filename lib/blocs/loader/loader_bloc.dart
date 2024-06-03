@@ -1,9 +1,5 @@
-
-
 import 'package:common/core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +8,8 @@ part 'loader_state.dart';
 part 'loader_event.dart';
 
 class LoaderBloc extends BaseBloc<LoaderEvent, LoaderState> {
-  LoaderBloc(Key key)
-      : super(key, initialState: LoaderInitial()) {
+  LoaderBloc(super.key)
+      : super(initialState: LoaderInitial()) {
         on<LoaderRun>(_onLoaderRun);
         on<LoaderStopped>(_onLoaderStopped);
       }

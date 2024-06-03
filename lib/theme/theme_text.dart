@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
 
 class ThemeText {
-  static String bauhausFont = 'Bauhaus';
-
   static TextStyle numberTextStyle = const TextStyle(
     fontSize: 12,
-    fontFamily: 'UbuntuMono'
-  );
-
-  static TextStyle balanceTextStyle = const TextStyle(
-    fontSize: 12,
-    fontFamily: 'FjallaOneIcons'
+    fontFamily: 'Roboto'
   );
 
   static TextTheme getNumberTextTheme({bool isLightTheme = true}) =>
       const TextTheme(
-        titleLarge: TextStyle(fontSize: 20.0, fontFamily: 'BangerIcons'),
-        titleMedium: TextStyle(fontSize: 15.0, fontFamily: 'BangerIcons'),
-        titleSmall: TextStyle(fontSize: 12.0, fontFamily: 'BangerIcons'),
-        bodyLarge: TextStyle(fontSize: 20.0, fontFamily: 'FjallaOneIcons'),
-        bodyMedium: TextStyle(fontSize: 15.0, fontFamily: 'FjallaOneIcons'),
-        bodySmall: TextStyle(fontSize: 12.0, fontFamily: 'FjallaOneIcons'),
-        labelLarge: TextStyle(fontSize: 20.0, fontFamily: 'BauhausIcons'),
-        labelMedium: TextStyle(fontSize: 15, fontFamily: 'BauhausIcons'),
-        labelSmall: TextStyle(fontSize: 12, fontFamily: 'BauhausIcons'),
+        titleLarge: TextStyle(fontSize: 20.0, fontFamily: 'Roboto'),
+        titleMedium: TextStyle(fontSize: 15.0, fontFamily: 'Roboto'),
+        titleSmall: TextStyle(fontSize: 12.0, fontFamily: 'Roboto'),
+        bodyLarge: TextStyle(fontSize: 20.0, fontFamily: 'Roboto'),
+        bodyMedium: TextStyle(fontSize: 15.0, fontFamily: 'Roboto'),
+        bodySmall: TextStyle(fontSize: 12.0, fontFamily: 'Roboto'),
+        labelLarge: TextStyle(fontSize: 20.0, fontFamily: 'Roboto'),
+        labelMedium: TextStyle(fontSize: 15, fontFamily: 'Roboto'),
+        labelSmall: TextStyle(fontSize: 12, fontFamily: 'Roboto'),
       ).apply(
         bodyColor: isLightTheme ? Colors.grey.shade600 : Colors.grey.shade400,
         displayColor:

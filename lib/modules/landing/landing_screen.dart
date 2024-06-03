@@ -1,4 +1,3 @@
-import 'package:boilerplate_flutter/constants/app_constants.dart';
 import 'package:boilerplate_flutter/constants/constants.dart';
 import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/widgets/widgets.dart';

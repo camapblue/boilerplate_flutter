@@ -18,10 +18,10 @@ class TextStory extends Story {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           color: Colors.black12,
           alignment: Alignment.center,
-          child: Center(
+          child: const Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const <Widget>[
+              children: <Widget>[
                 Spacer(),
                 XText.displayLarge('Display Large'),
                 smallBoxSpace,

@@ -3,8 +3,6 @@ import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/services/services.dart';
 import 'package:common/common.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:common/core/blocs/blocs.dart';
 
 import 'package:boilerplate_flutter/blocs/blocs.dart';
@@ -20,13 +18,12 @@ class SessionBloc extends BaseBloc<SessionEvent, SessionState> with AppLoader {
   final UserService _userService;
 
   SessionBloc(
-    Key key, {
+    super.key, {
     required SessionService sessionService,
     required UserService userService,
   })  : _sessionService = sessionService,
         _userService = userService,
         super(
-          key,
           initialState: SessionInitial(),
         ) {
     on<SessionLoaded>(_onSessionLoaded);

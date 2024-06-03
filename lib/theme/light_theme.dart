@@ -15,8 +15,6 @@ class LightTheme extends BaseTheme {
       onSecondary: Colors.white,
       tertiary: Colors.redAccent.shade200,
       onTertiary: Colors.white,
-      background: Colors.grey.shade200,
-      onBackground: Colors.grey.shade700,
       surface: Colors.white,
       onSurface: Colors.grey.shade700,
     );

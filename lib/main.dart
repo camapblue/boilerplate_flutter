@@ -34,6 +34,7 @@ Future<void> main() async {
   ]);
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  // ignore: deprecated_member_use
   AppCaching().devicePixelRatio = widgetBinding.window.devicePixelRatio;
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),

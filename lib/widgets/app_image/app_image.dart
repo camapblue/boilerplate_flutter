@@ -3,11 +3,11 @@ import 'package:boilerplate_flutter/global/global.dart';
 
 class AppImage extends StatelessWidget {
   const AppImage({
-    Key? key,
+    super.key,
     required this.image,
     this.width,
     this.height,
-  }) : super(key: key);
+  });
 
   final String image;
   final double? width;

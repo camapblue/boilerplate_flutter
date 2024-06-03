@@ -272,7 +272,7 @@ class SnapScrollPhysics extends ScrollPhysics {
   @override
   Simulation? createBallisticSimulation(
       ScrollMetrics position, double velocity) {
-    final tolerance = this.tolerance;
+    final tolerance = toleranceFor(position);
 
     //Handle scroll position when it our of portview
     if (position.outOfRange ||

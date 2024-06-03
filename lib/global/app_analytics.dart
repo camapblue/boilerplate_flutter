@@ -39,6 +39,6 @@ class AppAnalytics {
     if (screenName == null) {
       return;
     }
-    _fbAnalytics.setCurrentScreen(screenName: screenName);
+    _fbAnalytics.logScreenView(screenName: screenName);
   }
 }

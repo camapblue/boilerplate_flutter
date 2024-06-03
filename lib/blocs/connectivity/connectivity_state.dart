@@ -15,5 +15,5 @@ class ConnectivityInitial extends ConnectivityState {
 }
 
 class ConnectivityUpdateSuccess extends ConnectivityState {
-  const ConnectivityUpdateSuccess(bool connected) : super(connected);
+  const ConnectivityUpdateSuccess(super.connected);
 }

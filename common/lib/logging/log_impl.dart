@@ -11,7 +11,7 @@ class LogImpl implements Log {
     var level = Level.error;
     switch (logLevel) {
       case 'trace':
-        level = Level.verbose;
+        level = Level.trace;
         break;
       case 'debug':
         level = Level.debug;
@@ -23,7 +23,7 @@ class LogImpl implements Log {
         level = Level.warning;
         break;
       case 'none':
-        level = Level.nothing;
+        level = Level.off;
         break;
     }
     return level;
@@ -59,7 +59,7 @@ class LogImpl implements Log {
 
   @override
   void fatal(dynamic message) {
-    _logger.wtf(message);
+    _logger.f(message);
   }
 
   @override
@@ -69,7 +69,7 @@ class LogImpl implements Log {
 
   @override
   void trace(dynamic message) {
-    _logger.v(message);
+    _logger.t(message);
   }
 
   @override

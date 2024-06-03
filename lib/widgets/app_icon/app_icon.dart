@@ -4,12 +4,12 @@ import 'package:flutter_svg/svg.dart';
 
 class AppIcon extends StatelessWidget {
   const AppIcon({
-    Key? key,
+    super.key,
     required this.width,
     required this.height,
     this.color,
     required this.icon,
-  }) : super(key: key);
+  });
 
   final AppIcons icon;
   final double width;
@@ -35,6 +35,7 @@ class AppIcon extends StatelessWidget {
       icon.toAssetName(),
       width: width,
       height: height,
+      // ignore: deprecated_member_use
       color: color,
     );
   }

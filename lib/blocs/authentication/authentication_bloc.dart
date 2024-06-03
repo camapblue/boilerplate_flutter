@@ -4,8 +4,6 @@ import 'package:boilerplate_flutter/global/global.dart';
 import 'package:boilerplate_flutter/services/services.dart';
 import 'package:common/core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'authentication_state.dart';
@@ -16,10 +14,10 @@ class AuthenticationBloc
   final UserService _userService;
 
   AuthenticationBloc(
-    Key key, {
+    super.key, {
     required UserService userService,
   })  : _userService = userService,
-        super(key, initialState: AuthenticationInitial()) {
+        super(initialState: AuthenticationInitial()) {
     on<AuthenticationLoggedIn>(_onAuthenticationLoggedIn);
   }
 

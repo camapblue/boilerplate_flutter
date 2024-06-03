@@ -11,11 +11,9 @@ abstract class LanguageState extends Equatable {
 }
 
 class LanguageInitial extends LanguageState {
-  const LanguageInitial(Locale locale, List<Locale> supportedLocales)
-      : super(locale, supportedLocales);
+  const LanguageInitial(super.locale, super.supportedLocales);
 }
 
 class LanguageUpdateSuccess extends LanguageState {
-  const LanguageUpdateSuccess(Locale locale, List<Locale> supportedLocales)
-      : super(locale, supportedLocales);
+  const LanguageUpdateSuccess(super.locale, super.supportedLocales);
 }

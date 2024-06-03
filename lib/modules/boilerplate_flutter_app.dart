@@ -113,7 +113,6 @@ class _BoilerplateFlutterAppState extends State<BoilerplateFlutterApp> {
               ],
               supportedLocales: languageState.supportedLocales,
               locale: languageState.locale,
-              useInheritedMediaQuery: true,
               title: 'Boilerplate Web App',
               theme: DefaultTheme().build(context),
               debugShowCheckedModeBanner: false,

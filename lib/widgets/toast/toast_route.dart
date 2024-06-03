@@ -38,8 +38,8 @@ class ToastRoute<T> extends OverlayRoute<T> {
   ToastRoute({
     this.theme,
     required this.toast,
-    RouteSettings? settings,
-  }) : super(settings: settings) {
+    super.settings,
+  }) {
     _builder = Builder(builder: (BuildContext innerContext) {
       return Container(
         child: toast,

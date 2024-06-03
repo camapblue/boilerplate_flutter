@@ -3,7 +3,7 @@ import 'package:boilerplate_flutter/constants/constants.dart';
 
 class CircleNumber extends StatelessWidget {
   const CircleNumber({
-    Key? key,
+    super.key,
     this.color = Colors.black87,
     this.border,
     this.number = 0,
@@ -11,7 +11,7 @@ class CircleNumber extends StatelessWidget {
     this.height = 24,
     this.autoResize = false,
     this.numberStyle,
-  }) : super(key: key);
+  });
   
   final double height;
   final num number;

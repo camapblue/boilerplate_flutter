@@ -15,8 +15,6 @@ class DarkTheme extends BaseTheme {
       onSecondary: Colors.white,
       tertiary: Colors.redAccent.shade200,
       onTertiary: Colors.white,
-      background: Colors.black,
-      onBackground: Colors.grey.shade400,
       surface: Colors.grey.shade800,
       onSurface: Colors.grey.shade200,
     );

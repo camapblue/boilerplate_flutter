@@ -3,15 +3,13 @@ import 'package:boilerplate_flutter/models/models.dart';
 import 'package:common/common.dart';
 import 'package:common/core/core.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'deeplink_state.dart';
 part 'deeplink_event.dart';
 
 class DeeplinkBloc extends BaseBloc<DeeplinkEvent, DeeplinkState> {
-  DeeplinkBloc(Key key) : super(key, initialState: DeeplinkInitial()) {
+  DeeplinkBloc(super.key) : super(initialState: DeeplinkInitial()) {
     on<DeeplinkOpened>(_onDeeplinkOpened);
   }
 

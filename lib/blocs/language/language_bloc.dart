@@ -12,9 +12,8 @@ part 'language_state.dart';
 class LanguageBloc extends BaseBloc<LanguageEvent, LanguageState> {
   final SettingService settingService;
 
-  LanguageBloc(Key key, {required this.settingService})
+  LanguageBloc(super.key, {required this.settingService})
       : super(
-          key,
           initialState: LanguageInitial(
             settingService.getCurrentLocale(),
             settingService.getSupportedLocales(),
